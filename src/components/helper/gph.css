@@ -1,0 +1,14 @@
+.slides{
+    /* margin: 4vw; */
+    width: max-content;
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    gap: 2vw;
+    width: 100%;
+    height: 100%;
+
+}
+.slides-iframe{
+    height: 72vh;
+    width:100%;
+}

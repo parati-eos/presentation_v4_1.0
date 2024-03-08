@@ -1,0 +1,42 @@
+.nav {
+    background-color: #001723;
+  }
+  
+  .icon {
+    order: -1;
+    margin-right: auto;
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .navbar-logo {
+    width: 100px;
+    height: auto;
+  }
+  
+  .navbar-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 2px solid yellow;
+    border-radius: 200px;
+    color: white;
+    text-decoration: none;
+    flex-basis: 100%;
+  }
+  
+  .navbar-button:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  
+  @media (min-width: 768px) {
+    .navbar-button {
+      flex-basis: auto;
+    }
+  }

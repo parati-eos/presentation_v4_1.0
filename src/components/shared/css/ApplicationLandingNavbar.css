@@ -1,0 +1,45 @@
+/* components/shared/Navbar.css */
+nav {
+  background-color: #001723;
+  padding: 10px;
+  z-index: 1;
+  border-bottom: 1px solid #004264;
+}
+
+.ALnavbar-container {
+  height: 5vh;
+  display: flex;
+  justify-content: center; /* Use space-between to push the links and image to the edges */
+  align-items: center;
+  z-index: 1;
+}
+.ALnavbar-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50%;
+}
+.ALnavbar-details-container {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
+  gap: 20px;
+}
+.ALnavbar-details-container img {
+  height: 5vh;
+  width: 5vh;
+  border-radius: 2.5vh;
+  cursor: pointer;
+}
+.ALnavbar-details-container button {
+  width: 15vh;
+  height: 5vh;
+  border-radius: 2.5vh;
+  cursor: pointer;
+  font-size: 18px;
+  background-color: rgb(0, 0, 0,0.2);
+  color: rgb(255, 255, 255,0.8);
+  border: 2px solid #004264;
+}
