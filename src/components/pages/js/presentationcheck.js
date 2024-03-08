@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../css/presentationcheck.css";
 import "../css/HistoryOverlay.css";
 import presentationImg from "../../Asset/background.jpg";
@@ -13,26 +13,25 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { v4 as uuidv4 } from 'uuid';
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
 
 const stripePromise = loadStripe(
   "pk_live_51Nt6L4SFXGfQaQUe1TDnsP2bdInw6a942gnEtyCxsbrOjKMTjM35DvvSrIKeuJF9wgzn8zw5gtmPscP7HI2sU1dR00dpsHYtmV"
 ); // Replace with your test public key
 
-const GooglePresentation = () => {
+const GooglePresentation = ({ url }) => {
   return (
     <div className="PresentationContainer">
       <div>
-        <Googleslides  />
+        <Googleslides />
       </div>
-      {/* <div className="WatermarkOverlay">Watermark content</div> */}
     </div>
   );
 };
 
 const PresentationCheck = () => {
   const navigate = useNavigate();
-
   const [showHistory, setShowHistory] = useState(false);
   const historyTimeout = useRef(null); // Ref for the timeout
 
@@ -62,7 +61,8 @@ const PresentationCheck = () => {
     // Redirect to the 'form.js' page upon clicking "Build Presentation"
     navigate("/form");
   };
-  const applicationId = "your_application_id"; // Replace with your actual application ID
+
+  const applicationId = uuidv4(); // Dynamically generate applicationId using uuid
   const presentationUrl =
     "https://docs.google.com/presentation/d/1enbGTOYKtwHDQ5R2Z3BMYPnXq0xdiOk8DL_hjKcpfOo/edit#slide=id.SLIDES_API1193561537_0"; // Replace with your actual presentation embed URL
 
@@ -77,17 +77,20 @@ const PresentationCheck = () => {
     // Handle the presentation download after a successful payment
     const link = document.createElement("a");
     link.href = presentationUrl;
-    link.setAttribute("download", "presentation.pptx"); //Change the filename as needed
+    link.setAttribute("download", "presentation.pptx"); // Change the filename as needed
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
 
-    //Close the payment modal
+    // Close the payment modal
     setIsPaymentModalOpen(false);
   };
 
   const handleShare = () => {
-    const uniqueShareableUrl = `http://localhost:3000/share/${applicationId}/presentation?url=${encodeURIComponent(
+    const currentURL = window.location.href;
+
+    // Create a shareable link with the current URL
+    const uniqueShareableUrl = `${currentURL}/share/${applicationId}/presentation?url=${encodeURIComponent(
       presentationUrl
     )}`;
 
@@ -101,7 +104,7 @@ const PresentationCheck = () => {
         .then(() => console.log("Shared successfully"))
         .catch((error) => console.error("Share failed: ", error));
     } else {
-      alert("Sharing is not supported on this device/browser.");
+      alert("Sharing is not supported on this device/browser. Copy the link below and share it manually:\n\n" + uniqueShareableUrl);
     }
   };
 
@@ -121,29 +124,10 @@ const PresentationCheck = () => {
           >
             <div className="history-preview">
               <div className="presentation-history">
-                <img src={presentationImg}></img>
+                <img src={presentationImg} alt="Presentation 1" />
                 <p>Presentation 1</p>
               </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 2</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 3</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 4</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 5</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 6</p>
-              </div>
+              {/* Add more presentation history items as needed */}
             </div>
             <div className="see-more-container">
               <a>See More ...</a>
@@ -154,7 +138,7 @@ const PresentationCheck = () => {
       <div className="presentation-viewing-container">
         <div className="presentation-viewing-center">
           <div className="presentation-view-slides">
-            <GooglePresentation/>
+            <GooglePresentation />
           </div>
           <div className="export-bttn">
             {/* Button to initiate the share */}
