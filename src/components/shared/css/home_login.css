@@ -1,42 +1,60 @@
 .nav {
-    background-color: #001723;
-  }
-  
-  .icon {
-    order: -1;
-    margin-right: auto;
-  }
-  
-  .navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    flex-wrap: wrap;
-  }
-  
-  .navbar-logo {
-    width: 100px;
-    height: auto;
-  }
-  
-  .navbar-button {
-    margin-left: 10px;
-    padding: 10px 20px;
-    background-color: transparent;
-    border: 2px solid yellow;
-    border-radius: 200px;
-    color: white;
-    text-decoration: none;
-    flex-basis: 100%;
-  }
-  
-  .navbar-button:not(:last-child) {
-    margin-bottom: 10px;
-  }
-  
-  @media (min-width: 768px) {
-    .navbar-button {
-      flex-basis: auto;
-    }
-  }
+  background-color: #001723;
+}
+.navbar-containerhome {
+  display: flex;
+  height: 5vh;
+  margin: 0px;
+  padding: 0px;
+  justify-content: space-between;
+  align-items: center;
+}
+.icon {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-left: 20px;
+  width: 50%;
+}
+.navbar-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 20px;
+  width: 50%;
+  padding-right: 20px;
+}
+.navbar-button1 {
+  padding: 5px 5px 5px 5px;
+  width: 10vh;
+  background-color: transparent;
+  border: 2px solid #e6a500;
+  border-radius: 20px;
+  color: #e6a500;
+  text-align: center;
+  font-weight: 700;
+  text-decoration: none;
+  vertical-align:middle;
+  cursor: pointer;
+}
+.navbar-button2 {
+  padding: 5px 5px 5px 5px;
+  width: 10vh;
+  background-color: #e6a500;
+  border: 2px solid #e6a500;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  font-weight: 700;
+  text-decoration: none;
+  vertical-align:middle;
+  cursor: pointer;
+}
+.navbar-logo {
+  width: 100px;
+  height: auto;
+}
+
+
+
+

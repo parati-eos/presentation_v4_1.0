@@ -89,10 +89,13 @@ const PresentationCheck = () => {
   const handleShare = () => {
     const currentURL = window.location.href;
 
-    // Create a shareable link with the current URL
+    // Create a shareable link with the current URL and include the presentation URL
     const uniqueShareableUrl = `${currentURL}/share/${applicationId}/presentation?url=${encodeURIComponent(
       presentationUrl
     )}`;
+
+    // Use the navigate function to share the link
+    navigate(`/share/${applicationId}/presentation?url=${encodeURIComponent(presentationUrl)}`);
 
     if (navigator.share) {
       navigator
@@ -104,7 +107,10 @@ const PresentationCheck = () => {
         .then(() => console.log("Shared successfully"))
         .catch((error) => console.error("Share failed: ", error));
     } else {
-      alert("Sharing is not supported on this device/browser. Copy the link below and share it manually:\n\n" + uniqueShareableUrl);
+      alert(
+        "Sharing is not supported on this device/browser. Copy the link below and share it manually:\n\n" +
+          uniqueShareableUrl
+      );
     }
   };
 

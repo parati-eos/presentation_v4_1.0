@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./gph.css";
+
 const Googleslides = () => {
   const [slidesData, setSlidesData] = useState([]);
-  const [slidesid, setSlidesId] = useState([]);
+  const [slidesId, setSlidesId] = useState("");
 
   const fetchSlidesData = async () => {
     const userId = await localStorage.getItem("userEmail");
@@ -23,10 +24,12 @@ const Googleslides = () => {
     }
     console.log("running...");
   };
+
   useEffect(() => {
     const intervalId = setInterval(fetchSlidesData, 5000); // Poll every 5 seconds
     return () => clearInterval(intervalId);
   }, []); // Empty dependency array ensures the effect runs once when the component mounts
+
   return (
     <div className="slides">
       {slidesData.map((slide) => (
@@ -34,11 +37,12 @@ const Googleslides = () => {
           <iframe
             className="slides-iframe"
             title="Google Slides Embed"
-            src={`https://docs.google.com/presentation/d/${slidesid}/embed?rm=minimal&start=false&loop=false&slide=id.${slide.objectId}`}
+            src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slide.objectId}`}
           ></iframe>
         </div>
       ))}
     </div>
   );
 };
+
 export default Googleslides;
