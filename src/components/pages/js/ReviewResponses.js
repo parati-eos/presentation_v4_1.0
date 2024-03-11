@@ -1,18 +1,14 @@
 /*global userID, submissionId */
-
 import React, { useState, useEffect } from 'react';
-import { csvParse } from 'd3-dsv';
 import { useNavigate } from 'react-router-dom';
 import LoadingPage from '../../helper/loader';
-
 function ReviewResponses() {
     const navigate = useNavigate();
     const [userID, setUserID] = useState(localStorage.getItem('userEmail') || '');
     const storedSubmissionId = localStorage.getItem( 'submissionId');
-    const [submissionId, setSubmissionId] = useState(storedSubmissionId || '');
+    const [submissionId, setSubmissionId] = useState(12345|| '');
     const [loading, setLoading] = useState(false);
-
-
+    var SID = 0;
     const fetchDataFromGoogleSheet = async () => {
         const apiUrl = 'https://pitchdeck-server.onrender.com/submissionID';
         try {
@@ -20,11 +16,13 @@ function ReviewResponses() {
                 method: 'GET',
                 headers: {
                     'Content-Type': '/',
-                    'x-userId': userID // No need for string interpolation here
+                    'x-userId': userID 
                 },
             });
             const data = await response.json();
-            console.log(data.submissionID);
+            SID = data.submissionID;
+            console.log("SID value >>>>>>>>>>>>>>>>>>>>>>>>>")
+            console.log(SID);
             setSubmissionId(data.submissionID);
             localStorage.setItem('submissionId',data.submissionID);
         } catch (error) {
@@ -32,12 +30,22 @@ function ReviewResponses() {
         }
     };
     
-
+    const presentationBuilderURL = 'https://script.google.com/macros/s/AKfycbyxZwiKhIrfMdW4CXSh4vW4Ktz8Wp31bqEmV3ZwbcQpNHCuAz2X1DKQJ3LW4xvm1hgA/exec';
+    const handleButtonClick = () => {
+       if(submissionId&&userID){
+        const urlWithParams = `${presentationBuilderURL}?userID=${userID}&submissionID=${SID}`;
+        console.log("bhai ye dekh : ",urlWithParams)
+        window.location.href = urlWithParams;
+        setTimeout(() => {
+            navigate('/pages/presentationcheck')
+        }, 3000);
+       }
+    }
     useEffect(() => {
         const fetchData = async () => {
             try {
-                await fetchDataFromGoogleSheet();
-                await handleButtonClick();
+                await fetchDataFromGoogleSheet(); // Fetch data first
+                handleButtonClick(); // Then handle button click
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -46,29 +54,10 @@ function ReviewResponses() {
         fetchData();
     }, [userID]);
     
-    
-
-    const presentationBuilderURL = 'https://script.google.com/macros/s/AKfycbyxZwiKhIrfMdW4CXSh4vW4Ktz8Wp31bqEmV3ZwbcQpNHCuAz2X1DKQJ3LW4xvm1hgA/exec';
-    const handleButtonClick = () => {
-       if(submissionId && userID){
-        const urlWithParams = `${presentationBuilderURL}?userID=${userID}&submissionID=${submissionId}`;
-        console.log(urlWithParams)
-        window.location.href = urlWithParams;
-
-        setTimeout(() => {
-            navigate('/pages/presentationcheck')
-        }, 1000);
-       }
-    }
-
-    
-    
-
     return (
         <div>
             <LoadingPage/>
         </div>
     );
 }
-
 export default ReviewResponses;
