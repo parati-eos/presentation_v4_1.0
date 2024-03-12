@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./gph.css";
 import loadingImage from "../Asset/Loading.gif";
 
-const Googleslides = ({ userId, formId }) => {
+const Googleslides = () => {
+  var userId = localStorage.getItem("userId");
+  var formId = localStorage.getItem("submissionId");
   const [slidesData, setSlidesData] = useState([]);
   const [slidesId, setSlidesId] = useState("");
   const [loading, setLoading] = useState("true");
