@@ -30,7 +30,7 @@ function ReviewResponses() {
         }
     };
     
-    const presentationBuilderURL = 'https://script.google.com/macros/s/AKfycbx8toe1luXcHCVVZsjgbnOxhYlaGlAR8_9n5cscQFOCxReCvPjmGcLVIilWzyDvzf2A/exec';
+    const presentationBuilderURL = 'https://script.google.com/macros/s/AKfycbyrEFE6bKSiJb34TaOt6nUFw6UONPYIlxR0oRrf7eqbU4cPGD5asDODVLOYLKpJ9zd_/exec';
     const handleButtonClick = () => {
        if(submissionId&&userID){
         const urlWithParams = `${presentationBuilderURL}?userID=${userID}&submissionID=${SID}`;
