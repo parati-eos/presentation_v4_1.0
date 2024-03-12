@@ -3,10 +3,12 @@ nav {
   background-color: #001723;
   padding: 10px;
   z-index: 1;
+  font-family: poppins, sans-serif;
+  font-weight: semi-bold;
 }
 
 .navbar-container {
-  height: 5vh;
+  height: 7vh;
   display: flex;
   justify-content: center; /* Use space-between to push the links and image to the edges */
   align-items: center;
@@ -28,14 +30,17 @@ nav {
 .navbar-generateppt-container-txt {
   font-size: 90%;
   color: rgb(234, 232, 232);
-  font-weight: 700;
+  font-weight: semi-bold;
   align-items:self-start;
+  padding: 0px 5px 5px 5px;
+  display: inline;
+  font-family: poppins, sans-serif;
 }
 
 .navbar-generateppt-container-button {
   cursor: pointer;
-  height: 3vh;
-  width: 35vh;
+  height: 5.5vh;
+  width: 37vh;
   background-color: #e6a500;
   color: white;
   padding: 5px;

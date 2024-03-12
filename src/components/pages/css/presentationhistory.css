@@ -1,0 +1,9 @@
+.historypage{
+    background-color: #001B28;
+}
+.HistoryCards{
+    margin: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}

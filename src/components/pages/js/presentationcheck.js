@@ -1,31 +1,20 @@
 import React, { useState, useRef } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../css/presentationcheck.css";
 import "../css/HistoryOverlay.css";
-import presentationImg from "../../Asset/background.jpg";
-import shareIcon from "../../Asset/share.png";
-import downloadIcon from "../../Asset/download.png";
+import ShareButton from "./Share.js";
+import ExportButton from "./export.js";
 import Googleslides from "../../helper/googlepresentation-helper.js";
-import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements,
-} from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
 
-const stripePromise = loadStripe(
-  "pk_live_51Nt6L4SFXGfQaQUe1TDnsP2bdInw6a942gnEtyCxsbrOjKMTjM35DvvSrIKeuJF9wgzn8zw5gtmPscP7HI2sU1dR00dpsHYtmV"
-); // Replace with your test public key
-
+var userId = localStorage.getItem("userEmail");
+var formId = localStorage.getItem("submissionId");
 const GooglePresentation = ({ url }) => {
   return (
     <div className="PresentationContainer">
       <div>
-        <Googleslides />
+        <Googleslides  userId={userId} formId={formId}/>
       </div>
-      {/* <div className="WatermarkOverlay">Watermark content</div> */}
     </div>
   );
 };
@@ -33,22 +22,23 @@ const GooglePresentation = ({ url }) => {
 const PresentationCheck = () => {
   const navigate = useNavigate();
   const [showHistory, setShowHistory] = useState(false);
-  const historyTimeout = useRef(null); // Ref for the timeout
+  const historyTimeout = useRef(null);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [currentSlideKey, setCurrentSlideKey] = useState(0);
 
   const handleMouseEnterHistory = () => {
-    clearTimeout(historyTimeout.current); // Clear any existing timeout
+    clearTimeout(historyTimeout.current);
     setShowHistory(true);
   };
 
   const handleMouseLeaveHistory = () => {
-    // Set a timeout to hide the history div after a delay
     historyTimeout.current = setTimeout(() => {
       setShowHistory(false);
-    }, 200); // Adjust the delay as needed
+    }, 200);
   };
 
   const handleMouseEnterDiv = () => {
-    clearTimeout(historyTimeout.current); // Clear any existing timeout
+    clearTimeout(historyTimeout.current);
     console.log("Enter the div");
   };
 
@@ -58,50 +48,24 @@ const PresentationCheck = () => {
   };
 
   const handleBuildPresentation = () => {
-    // Redirect to the 'form.js' page upon clicking "Build Presentation"
+    setCurrentSlideKey((prevKey) => prevKey + 1);
     navigate("/form");
   };
-  const applicationId = "your_application_id"; // Replace with your actual application ID
+
+  const applicationId = "your_application_id";
   const presentationUrl =
-    "https://docs.google.com/presentation/d/1enbGTOYKtwHDQ5R2Z3BMYPnXq0xdiOk8DL_hjKcpfOo/edit#slide=id.SLIDES_API1193561537_0"; // Replace with your actual presentation embed URL
+    "https://docs.google.com/presentation/d/1enbGTOYKtwHDQ5R2Z3BMYPnXq0xdiOk8DL_hjKcpfOo/edit#slide=id.SLIDES_API1193561537_0";
 
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-
-  const handleDownload = async () => {
-    // Open the Stripe payment modal when the user clicks the "Download Presentation" button
+  const handleDownload = () => {
     setIsPaymentModalOpen(true);
   };
 
   const handlePaymentSuccess = () => {
-    // Handle the presentation download after a successful payment
-    const link = document.createElement("a");
-    link.href = presentationUrl;
-    link.setAttribute("download", "presentation.pptx"); //Change the filename as needed
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    //Close the payment modal
     setIsPaymentModalOpen(false);
   };
 
   const handleShare = () => {
-    const uniqueShareableUrl = `http://localhost:3000/share/${applicationId}/presentation?url=${encodeURIComponent(
-      presentationUrl
-    )}`;
-
-    if (navigator.share) {
-      navigator
-        .share({
-          title: "Share Presentation",
-          text: "Check out this presentation",
-          url: uniqueShareableUrl,
-        })
-        .then(() => console.log("Shared successfully"))
-        .catch((error) => console.error("Share failed: ", error));
-    } else {
-      alert("Sharing is not supported on this device/browser.");
-    }
+    console.log("Sharing...");
   };
 
   return (
@@ -116,108 +80,24 @@ const PresentationCheck = () => {
           <div
             className="history-preview-bar"
             onMouseEnter={handleMouseEnterDiv}
-            onMouseLeave={handleMouseLeaveDiv} // Close history on mouse leave
+            onMouseLeave={handleMouseLeaveDiv}
           >
-            <div className="history-preview">
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 1</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 2</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 3</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 4</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 5</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 6</p>
-              </div>
-            </div>
-            <div className="see-more-container">
-              <a>See More ...</a>
-            </div>
+            {/* History preview content */}
           </div>
         </div>
       )}
       <div className="presentation-viewing-container">
         <div className="presentation-viewing-center">
           <div className="presentation-view-slides">
-            <GooglePresentation />
+            <GooglePresentation key={currentSlideKey} />
           </div>
           <div className="export-bttn">
-      {/* Button to initiate the share */}
-      <button className="button-with-icon" onClick={handleShare}>
-        <span className="icon share-icon" />
-        Share
-      </button>
 
-      {/* Button to initiate the download */}
-      <button className="button-with-icon" onClick={handleDownload}>
-        <span className="icon download-icon" />
-        Export
-      </button>
-    </div>
+            <ShareButton onClick={handleShare} />
+            <ExportButton onClick={handleDownload} />
+          </div>
         </div>
-
-        <Elements stripe={stripePromise}>
-          {isPaymentModalOpen && (
-            <PaymentModal onSuccess={handlePaymentSuccess} />
-          )}
-        </Elements>
       </div>
-    </div>
-  );
-};
-
-const PaymentModal = ({ onSuccess }) => {
-  const stripe = useStripe();
-  const elements = useElements();
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!stripe || !elements) {
-      // Stripe.js has not yet loaded.
-      return;
-    }
-
-    // Handle the payment using Stripe's APIs
-    const result = await stripe.confirmCardPayment(
-      "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",
-      {
-        payment_method: {
-          card: elements.getElement(CardElement),
-        },
-      }
-    );
-
-    if (result.error) {
-      console.error(result.error);
-    } else {
-      // Payment succeeded
-      onSuccess();
-    }
-  };
-
-  return (
-    <div className="payment-modal">
-      <form onSubmit={handleSubmit}>
-        <CardElement />
-        <button type="submit" disabled={!stripe}>
-          Pay and Download
-        </button>
-      </form>
     </div>
   );
 };

@@ -26,7 +26,7 @@
 }
 .navbar-button1 {
   padding: 5px 5px 5px 5px;
-  width: 10vh;
+  width: 7vw;
   background-color: transparent;
   border: 2px solid #e6a500;
   border-radius: 20px;
@@ -39,7 +39,7 @@
 }
 .navbar-button2 {
   padding: 5px 5px 5px 5px;
-  width: 10vh;
+  width: 7vw;
   background-color: #e6a500;
   border: 2px solid #e6a500;
   border-radius: 20px;

@@ -100,14 +100,21 @@
   padding: 0px 10px 0px 10px;
   border: none;
   border-radius: 3.25vh;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 700;
+  border: 1px solid #E6A500;
   text-align: center;
 }
-.export-bttn{
-  width: 100%;
+
+.export-bttn {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px; /* Adjust the width as needed */
   display: flex;
+  flex-direction: column;
   gap: 10px;
   justify-content: center;
-  align-items: center;
+  align-items: center; /* Replace with your desired background color */
 }
