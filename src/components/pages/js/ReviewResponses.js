@@ -30,11 +30,10 @@ function ReviewResponses() {
         }
     };
     
-    const presentationBuilderURL = 'https://script.google.com/macros/s/AKfycbyrEFE6bKSiJb34TaOt6nUFw6UONPYIlxR0oRrf7eqbU4cPGD5asDODVLOYLKpJ9zd_/exec';
+    const presentationBuilderURL = 'https://script.google.com/macros/s/AKfycbz1tQDI88wLosDLzSJWRDhbjphfrUFWvQqWk0-k8q5a26RVmiz6IBIzPlnFfHonK9Ko/exec';
     const handleButtonClick = () => {
        if(submissionId&&userID){
         const urlWithParams = `${presentationBuilderURL}?userID=${userID}&submissionID=${SID}`;
-        console.log("bhai ye dekh : ",urlWithParams)
         window.location.href = urlWithParams;
         setTimeout(() => {
             navigate('/pages/presentationcheck')
