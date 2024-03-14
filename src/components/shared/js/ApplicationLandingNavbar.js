@@ -7,7 +7,7 @@ import "../css/ApplicationLandingNavbar.css";
 function Navbar({ user, historyShow, historyHide}) {
   const navigate = useNavigate();
   const handleHistoryButtonClicked = () => {
-    navigate("/History" );
+    navigate("/pages/presentationhistory" );
   }
   return (
     <nav>

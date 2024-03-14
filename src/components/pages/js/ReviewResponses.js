@@ -6,7 +6,7 @@ function ReviewResponses() {
     const navigate = useNavigate();
     const [userID, setUserID] = useState(localStorage.getItem('userEmail') || '');
     const storedSubmissionId = localStorage.getItem( 'submissionId');
-    const [submissionId, setSubmissionId] = useState(12345|| '');
+    const [submissionId, setSubmissionId] = useState(123456789|| '');
     const [loading, setLoading] = useState(false);
     var SID = 0;
     const fetchDataFromGoogleSheet = async () => {
@@ -34,6 +34,7 @@ function ReviewResponses() {
     const handleButtonClick = () => {
        if(submissionId&&userID){
         const urlWithParams = `${presentationBuilderURL}?userID=${userID}&submissionID=${SID}`;
+        console.log(urlWithParams)
         window.location.href = urlWithParams;
         setTimeout(() => {
             navigate('/pages/presentationcheck')
