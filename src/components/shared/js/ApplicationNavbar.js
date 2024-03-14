@@ -21,11 +21,16 @@ function Navbar({ userpicture, historyShow, historyHide }) {
           <img src={ParatiLogo} alt="Parati Logo" />
         </div>
         <div className="navbar-generateppt-container">
-          <div className="navbar-generateppt-container-button" onClick={handleBuildPresentation}>
+          <div
+            className="navbar-generateppt-container-button"
+            onClick={handleBuildPresentation}
+          >
             <div>
               <img src={magicWand}></img>{" "}
             </div>
-            <div className="navbar-generateppt-container-txt">Generate Presentation</div>
+            <div className="navbar-generateppt-container-txt">
+              Generate Presentation
+            </div>
           </div>
         </div>
         <div className="navbar-details-container">
