@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/ApplicationLandingNavbar.css";
 
-function Navbar({ user, historyShow, historyHide}) {
+function Navbar({ user, historyShow, historyHide }) {
   const navigate = useNavigate();
   const handleHistoryButtonClicked = () => {
     navigate("/pages/presentationhistory" );
