@@ -7,13 +7,11 @@ import ExportButton from "./export.js";
 import Googleslides from "../../helper/googlepresentation-helper.js";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
 
-var userId = localStorage.getItem("userEmail");
-var formId = localStorage.getItem("submissionId");
 const GooglePresentation = ({ url }) => {
   return (
     <div className="PresentationContainer">
       <div>
-        <Googleslides  userId={userId} formId={formId}/>
+        <Googleslides />
       </div>
     </div>
   );
@@ -52,10 +50,6 @@ const PresentationCheck = () => {
     navigate("/form");
   };
 
-  const applicationId = "your_application_id";
-  const presentationUrl =
-    "https://docs.google.com/presentation/d/1enbGTOYKtwHDQ5R2Z3BMYPnXq0xdiOk8DL_hjKcpfOo/edit#slide=id.SLIDES_API1193561537_0";
-
   const handleDownload = () => {
     setIsPaymentModalOpen(true);
   };
@@ -92,7 +86,6 @@ const PresentationCheck = () => {
             <GooglePresentation key={currentSlideKey} />
           </div>
           <div className="export-bttn">
-
             <ShareButton onClick={handleShare} />
             <ExportButton onClick={handleDownload} />
           </div>
