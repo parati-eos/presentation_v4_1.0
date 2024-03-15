@@ -68,6 +68,11 @@
   gap: 20px;
   /* z-index: -1; */
 }
+.presentation-viewing-center input{
+  background-color: transparent;
+  color: white;
+  text-decoration: none;
+}
 .presentation-view-slides{
   display: flex;
   justify-self: center;

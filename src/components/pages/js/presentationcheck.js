@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/presentationcheck.css";
 import "../css/HistoryOverlay.css";
@@ -68,6 +68,70 @@ const PresentationCheck = () => {
     console.log("Sharing...");
   };
 
+  // Company Name--------------->>
+  const [PPTName, setPPTName] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const apiUrl = `https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`;
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json', 
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setPPTName(data[3]);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    if (formId !== '') {
+      fetchData();
+    }
+  }, [formId]);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleNameChange = (e) => {
+    setPPTName(e.target.value);
+  };
+
+
+  const handleSave = async() => {
+    setIsEditing(false);
+   
+    const requestBody = {
+      userID: localStorage.getItem('userEmail'),
+      formID: localStorage.getItem('submissionId'),
+      newColumnValue: PPTName
+    };
+
+    try {
+      const response = await fetch('http://127.0.0.1:5000/updateRow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      if (response.ok) {
+        console.log('Row updated successfully');
+        alert('Row updated successfully')
+      } else {
+        console.error('Failed to update row');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+  // <<---------------Company Name
+
+
   return (
     <div className="main-container">
       <ApplicationNavbar
@@ -88,7 +152,13 @@ const PresentationCheck = () => {
       )}
       <div className="presentation-viewing-container">
         <div className="presentation-viewing-center">
+        {isEditing ? (
+              <input type="text" value={PPTName} onBlur={handleSave} onChange={handleNameChange} />
+            ) : (
+              <h2 onClick={() => setIsEditing(true)}><span>{PPTName}</span></h2>
+            )}
           <div className="presentation-view-slides">
+          
             <GooglePresentation key={currentSlideKey} />
           </div>
           <div className="export-bttn">
