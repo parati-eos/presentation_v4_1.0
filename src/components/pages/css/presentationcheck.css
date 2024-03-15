@@ -82,7 +82,9 @@
 .presentation-view-slides::-webkit-scrollbar {
   width: 12px; /* Adjust as needed */
 }
-
+.copy-message {
+  color: white;
+}
 .presentation-view-slides::-webkit-scrollbar-thumb {
   background-color: #e6a500;
   border-radius: 10px;
@@ -117,4 +119,7 @@
   gap: 10px;
   justify-content: center;
   align-items: center; /* Replace with your desired background color */
+}
+.presentation-view-slides {
+  pointer-events: none;
 }

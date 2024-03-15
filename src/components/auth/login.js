@@ -15,7 +15,7 @@ function Login() {
     localStorage.setItem("userEmail", decoded.email);
     console.log(decoded);
 
-    fetch(`https://pitchdeck-server.onrender.com/store-user`, {
+    fetch(`http://44.205.246.77:5000/store-user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

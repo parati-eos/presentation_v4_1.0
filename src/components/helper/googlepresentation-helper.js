@@ -13,7 +13,7 @@ const Googleslides = () => {
   const fetchSlidesData = async () => {
     console.log([userId, formId]);
     try {
-      const url = `https://pitchdeck-server.onrender.com/slides?userId=${userId}&formId=${formId}`;
+      const url = `http://44.205.246.77:5000/slides?userId=${userId}&formId=${formId}`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed to fetch slides data");
