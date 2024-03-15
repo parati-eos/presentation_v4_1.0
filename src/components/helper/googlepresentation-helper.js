@@ -13,7 +13,7 @@ const Googleslides = () => {
   const fetchSlidesData = async () => {
     console.log([userId, formId]);
     try {
-      const url = `http://44.205.246.77:5000/slides?userId=${userId}&formId=${formId}`;
+      const url = `http://test.parati.in:5000/slides?userId=${userId}&formId=${formId}`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed to fetch slides data");
