@@ -10,7 +10,7 @@ function ReviewResponses() {
     const [loading, setLoading] = useState(false);
     var SID = 0;
     const fetchDataFromGoogleSheet = async () => {
-        const apiUrl = 'http://44.205.246.77:5000/submissionID';
+        const apiUrl = 'http://test.parati.in:5000/submissionID';
         try {
             const response = await fetch(apiUrl, {
                 method: 'GET',

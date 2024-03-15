@@ -15,7 +15,7 @@ function Login() {
     localStorage.setItem("userEmail", decoded.email);
     console.log(decoded);
 
-    fetch(`http://44.205.246.77:5000/store-user`, {
+    fetch(`http://test.parati.in:5000/store-user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
