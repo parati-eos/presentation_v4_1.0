@@ -69,7 +69,7 @@ const PresentationCheck = () => {
   };
 
   // Company Name--------------->>
-  const [PPTName, setPPTName] = useState('');
+  const [PPTName, setPPTName] = useState('PPTName');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,7 +91,9 @@ const PresentationCheck = () => {
       }
     };
     if (formId !== '') {
-      fetchData();
+      setTimeout(() => {
+        fetchData();
+      }, 60000);
     }
   }, [formId]);
   const [isEditing, setIsEditing] = useState(false);
