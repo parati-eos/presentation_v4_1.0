@@ -10,7 +10,7 @@ function ReviewResponses() {
     const [loading, setLoading] = useState(false);
     var SID = 0;
     const fetchDataFromGoogleSheet = async () => {
-        const apiUrl = 'http://test.parati.in:5000/submissionID';
+        const apiUrl = 'https://pitchdeck-server.onrender.com/submissionID';
         try {
             const response = await fetch(apiUrl, {
                 method: 'GET',

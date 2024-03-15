@@ -15,7 +15,7 @@ function Login() {
     localStorage.setItem("userEmail", decoded.email);
     console.log(decoded);
 
-    fetch(`http://test.parati.in:5000/store-user`, {
+    fetch(`https://pitchdeck-server.onrender.com/store-user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
