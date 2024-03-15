@@ -7,12 +7,13 @@ import FormPage from './components/pages/js/form';
 import PresentationCheck from './components/pages/js/presentationcheck'
 import ReviewResponses from './components/pages/js/ReviewResponses';
 import History from './components/pages/js/presentationhistory'
+import PresentationShare from './components/pages/js/presentationshare';
 
 function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/share/:applicationId/presentation" element={<PresentationCheck />} />
+      <Route path="/share" element={<PresentationShare />} /> {/* Route for handling shared URL */}
         <Route path="/" element={<Home />} />
         <Route path="/auth/login" element={<Login />} />
         <Route path="/form" element={<FormPage />} />
