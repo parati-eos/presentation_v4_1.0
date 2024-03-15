@@ -20,10 +20,11 @@ const GooglePresentation = ({ url }) => {
 const PresentationCheck = () => {
   const navigate = useNavigate();
   const [showHistory, setShowHistory] = useState(false);
+  const [showCopyMessage, setShowCopyMessage] = useState(false); // State for showing copy message
   const historyTimeout = useRef(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [currentSlideKey, setCurrentSlideKey] = useState(0);
-
+  var formId = localStorage.getItem("submissionId");
   const handleMouseEnterHistory = () => {
     clearTimeout(historyTimeout.current);
     setShowHistory(true);
@@ -59,7 +60,19 @@ const PresentationCheck = () => {
   };
 
   const handleShare = () => {
-    console.log("Sharing...");
+    const shareUrl = `http://localhost:3000/share?submissionId=${formId}`;
+    navigator.clipboard
+      .writeText(shareUrl)
+      .then(() => {
+        console.log("URL copied to clipboard: ", shareUrl);
+        setShowCopyMessage(true); // Show copy message
+        setTimeout(() => {
+          setShowCopyMessage(false); // Hide copy message after 5 seconds
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error("Failed to copy URL to clipboard: ", error);
+      });
   };
 
   return (
