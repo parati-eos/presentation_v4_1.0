@@ -7,13 +7,11 @@ import ExportButton from "./export.js";
 import Googleslides from "../../helper/googlepresentation-helper.js";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
 
-var userId = localStorage.getItem("userEmail");
-var formId = localStorage.getItem("submissionId");
 const GooglePresentation = ({ url }) => {
   return (
     <div className="PresentationContainer">
       <div>
-        <Googleslides  userId={userId} formId={formId}/>
+        <Googleslides />
       </div>
     </div>
   );
@@ -22,10 +20,11 @@ const GooglePresentation = ({ url }) => {
 const PresentationCheck = () => {
   const navigate = useNavigate();
   const [showHistory, setShowHistory] = useState(false);
+  const [showCopyMessage, setShowCopyMessage] = useState(false); // State for showing copy message
   const historyTimeout = useRef(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [currentSlideKey, setCurrentSlideKey] = useState(0);
-
+  var formId = localStorage.getItem("submissionId");
   const handleMouseEnterHistory = () => {
     clearTimeout(historyTimeout.current);
     setShowHistory(true);
@@ -52,10 +51,6 @@ const PresentationCheck = () => {
     navigate("/form");
   };
 
-  const applicationId = "your_application_id";
-  const presentationUrl =
-    "https://docs.google.com/presentation/d/1enbGTOYKtwHDQ5R2Z3BMYPnXq0xdiOk8DL_hjKcpfOo/edit#slide=id.SLIDES_API1193561537_0";
-
   const handleDownload = () => {
     setIsPaymentModalOpen(true);
   };
@@ -65,7 +60,19 @@ const PresentationCheck = () => {
   };
 
   const handleShare = () => {
-    console.log("Sharing...");
+    const shareUrl = `http://localhost:3000/share?submissionId=${formId}`;
+    navigator.clipboard
+      .writeText(shareUrl)
+      .then(() => {
+        console.log("URL copied to clipboard: ", shareUrl);
+        setShowCopyMessage(true); // Show copy message
+        setTimeout(() => {
+          setShowCopyMessage(false); // Hide copy message after 5 seconds
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error("Failed to copy URL to clipboard: ", error);
+      });
   };
 
   // Company Name--------------->>
@@ -164,7 +171,6 @@ const PresentationCheck = () => {
             <GooglePresentation key={currentSlideKey} />
           </div>
           <div className="export-bttn">
-
             <ShareButton onClick={handleShare} />
             <ExportButton onClick={handleDownload} />
           </div>
