@@ -65,12 +65,8 @@ const HistoryCard = ({
           <h2>Date Created: <span>{Date}</span></h2>
           <h2>Form Link: <a href={link}>link</a></h2>
           <div className="card-buttons">
-            <button onClick={''} className="sharebutton">
-              <FontAwesomeIcon icon={faShareAlt}/> Share
-            </button>
-            <button onClick={''} className="exportbutton" >
-              <FontAwesomeIcon icon={faDownload}/> Export
-            </button>
+            <ShareButton/>
+            <ExportButton/>
           </div>
         </div>
       </div>

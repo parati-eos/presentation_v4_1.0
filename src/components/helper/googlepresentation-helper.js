@@ -60,7 +60,6 @@ const Googleslides = () => {
 
   return (
     <div className="slides"> 
-      <h1>hello</h1>
       {slidesData.slice(0, slidesData.length - 1).map((slide, index) => (
         <div key={slide.objectId}>
           <iframe

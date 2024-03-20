@@ -38,7 +38,6 @@
   justify-content: center;
   align-items: center;
   font-size: 3em;
-  /* color: rgba(7, 7, 7, 0.1); Adjust color and opacity */
 }
 
 .WatermarkOverlay span {
@@ -46,31 +45,48 @@
 }
 
 .presentation-viewing-container {
-  background-color: #001b28;
-  height: 92.5vh;
+  height: 88.5vh;
+  width: 94vw;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* flex-direction: row; */
-  /* z-index: -2; */
+  padding: 0 3vw;
 }
-
+.presentation-viewing-side{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 0.5vw;
+  flex-basis: 50%;
+ 
+}
+.share-export{
+  padding: 3vw 0;
+  height: 3.5vw;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vw;
+}
 .presentation-viewing-center {
-  flex-basis:80%;
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 1;
-  /* width: 100%; */
   flex-direction: column;
-  gap: 20px;
-  /* z-index: -1; */
+  width: 70vw;
 }
 .presentation-viewing-center input{
   background-color: transparent;
   color: white;
   text-decoration: none;
+  border-width: 0cap;
+  font-size: x-large;
+  text-align: center;
+  width: 10vw;
+  padding: 1vw;
 }
 .presentation-view-slides{
   display: flex;
@@ -97,33 +113,5 @@
 .presentation-view-slides::-webkit-scrollbar-track {
   background-color: transparent;
 }
-.presentation-viewing-center button {
-  cursor: pointer;
-  height: 5vh;
-  width: 15vh;
-  background-color: #e6a500;
-  color: white;
-  padding: 0px 10px 0px 10px;
-  border: none;
-  border-radius: 3.25vh;
-  font-size: 12px;
-  font-weight: 700;
-  border: 1px solid #E6A500;
-  text-align: center;
-}
 
-.export-bttn {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100px; /* Adjust the width as needed */
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-content: center;
-  align-items: center; /* Replace with your desired background color */
-}
-/* .presentation-view-slides {
-  pointer-events: none;
-} */
+

@@ -1,31 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useLocation} from "react";
 import { csvParse } from "d3-dsv";
-import ApplicationNavbar from '../../shared/js/ApplicationNavbar'
+import ApplicationNavbar from "../../shared/js/ApplicationNavbar";
 import HistoryCard from "../cards/historycard";
-import '../css/presentationhistory.css'
+import "../css/presentationhistory.css";
 
 function History() {
-
-const [userID, setUserID] = useState(localStorage.getItem('userEmail'));
-const [historyData, setHistoryData] = useState([]);
+  const [userID, setUserID] = useState(localStorage.getItem("userEmail"));
+  const [historyData, setHistoryData] = useState([]);
+  const location = useLocation();
+  const user = location.state && location.state.user;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/history', {
-          headers: {
-            'x-userid': userID
+        const response = await fetch(
+          "https://pitchdeck-server.onrender.com/history",
+          {
+            headers: {
+              "x-userid": userID,
+            },
           }
-        });
-        console.log(response)
+        );
+        console.log(response);
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log()
+        console.log();
         setHistoryData(data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -33,17 +37,16 @@ const [historyData, setHistoryData] = useState([]);
   }, [userID]);
   return (
     <div className="historypage">
-      <ApplicationNavbar
-        userpicture="https://media.licdn.com/dms/image/D4E03AQF9OIoA21TMgw/profile-displayphoto-shrink_800_800/0/1678095291696?e=2147483647&v=beta&t=Qm1QQSeBYNehm5t63Q1EhRpZbrfpiR35HPzAC78lRRs"
-    
-      />
-      
-      <h2>`   History</h2>
+      <ApplicationNavbar user={user}/>
+
+      <div className="history-component">
+      <h2>History</h2>
       <div className="HistoryCards">
-      {historyData.map((card, index) => (
-        <HistoryCard key={index} {...card} />
-      ))}
-    </div>
+        {historyData.map((card, index) => (
+          <HistoryCard key={index} {...card} />
+        ))}
+      </div>
+      </div>
     </div>
   );
 }
