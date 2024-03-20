@@ -95,10 +95,10 @@
 }
 .presentation-viewing-center button {
   cursor: pointer;
-  height: 5vh;
-  width: 15vh;
-  background-color: #e6a500;
-  color: white;
+  height: 6vh;
+  width: 20vh;
+  /* background-color: #e6a500; */
+  /* color: white; */
   padding: 0px 10px 0px 10px;
   border: none;
   border-radius: 3.25vh;
@@ -106,6 +106,14 @@
   font-weight: 700;
   border: 1px solid #E6A500;
   text-align: center;
+}
+.presentation-viewing-center .export-bttn button {
+  background-color: #E6A500;
+  color: white; /* Change text color to black or another suitable color */
+}
+.presentation-viewing-center .share-container button {
+  background-color: white;
+  color: #E6A500; /* You can change the color of the share button's text if needed */
 }
 
 .export-bttn {
@@ -120,6 +128,26 @@
   justify-content: center;
   align-items: center; /* Replace with your desired background color */
 }
-.presentation-view-slides {
+/* .presentation-view-slides {
   pointer-events: none;
+} */
+.export-bttn {
+  position: absolute;
+  left: 6.3%; /* Shift to the center horizontally */
+  top: 50%;
+  transform: translate(-50%, -50%); /* Center horizontally and vertically */
+  width: 100px; /* Adjust the width as needed */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.share-container {
+  margin-top: 10px; /* Adjust the top margin as needed */
+}
+.presentation-viewing-center .export-bttn button .icon,
+.presentation-viewing-center .share-container button .icon {
+  margin-right: 50px; /* Adjust margin as needed */
 }

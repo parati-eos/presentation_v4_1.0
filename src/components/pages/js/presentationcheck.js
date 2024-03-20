@@ -107,6 +107,7 @@ const PresentationCheck = () => {
           <div className="export-bttn">
             <div className="share-container">
               <ShareButton onClick={handleShare} />
+              
               {showCopyMessage && (
                 <div className="copy-message">URL copied, share it!</div>
               )}

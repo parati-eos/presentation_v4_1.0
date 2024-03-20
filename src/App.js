@@ -8,6 +8,7 @@ import PresentationCheck from './components/pages/js/presentationcheck'
 import ReviewResponses from './components/pages/js/ReviewResponses';
 import History from './components/pages/js/presentationhistory'
 import PresentationShare from './components/pages/js/presentationshare';
+import Native_Form from './components/pages/Native-Form/Form';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/Pages/presentationcheck" element={<PresentationCheck />} />
         <Route path="/Pages/ReviewResponses" element={<ReviewResponses />} />
         <Route path="/pages/presentationhistory" element={<History />} />
+        <Route path="/pages/Nativeform" element={<Native_Form />} />
       </Routes>
     </Router>
   );

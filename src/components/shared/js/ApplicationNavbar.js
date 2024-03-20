@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/ApplicationNavbar.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import magicWand from "../../Asset/magic-wand.png";
 
 function Navbar({ userpicture, historyShow, historyHide }) {
@@ -41,7 +43,7 @@ function Navbar({ userpicture, historyShow, historyHide }) {
             onMouseLeave={historyHide}
             onClick={handleHistoryButtonClicked}
           >
-            History
+          <FontAwesomeIcon icon={faClockRotateLeft} /> History
           </button>
           <img src={userpicture} alt="User Profile" />
         </div>

@@ -1,0 +1,58 @@
+.red-bg {
+    background-color: red;
+  }
+  
+  .form-container {
+    background-color:#001B28;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  input[type="text"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  .center {
+    text-align: center;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    top: -40%;
+    margin-left: 90px;
+    color: yellow;
+  }
+  .center h1{
+    color: yellow;
+  }
