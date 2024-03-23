@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 
 const AboutCompany = ({ formData, handleChange }) => {
@@ -8,22 +6,17 @@ const AboutCompany = ({ formData, handleChange }) => {
       <label htmlFor="companyName">What is the name of your company?</label>
       <input type="text" id="companyName" name="companyName" value={formData.companyName} onChange={handleChange} required />
       <br />
-      <label htmlFor="establishmentYear">In what year was your company established?</label>
-      <select id="establishmentYear" name="establishmentYear" value={formData.establishmentYear} onChange={handleChange} required>
-        <option value="">Select Year</option>
-        {Array.from({ length: 8 }, (_, i) => 2017 + i).map(year => (
-          <option key={year} value={year}>{year}</option>
-        ))}
-      </select>
-      <br />
-      <label htmlFor="companyOverview">Could you provide a comprehensive overview of your company?</label>
-      <textarea id="companyOverview" name="companyOverview" value={formData.companyOverview} onChange={handleChange} required />
-      <br />
       <label htmlFor="tagline">What is the company's tagline?</label>
       <input type="text" id="tagline" name="tagline" value={formData.tagline} onChange={handleChange} required />
+      <label htmlFor="logo">Please upload your logo (PDF, JPG, JPEG, PNG, WEBP)</label>
+      <input type="file" id="logo" name="logo" accept=".pdf,.jpg,.jpeg,.png,.webp" onChange={handleChange} required />
+      <label htmlFor="primaryColor">Please select your primary branding color</label>
+      <input type="color" id="primaryColor" name="primaryColor" value={formData.primaryColor} onChange={handleChange} />
+      <label htmlFor="secondaryColor">Please select your secondary branding color</label>
+      <input type="color" id="secondaryColor" name="secondaryColor" value={formData.secondaryColor} onChange={handleChange} required />
+      <br />
     </>
   );
 }
 
 export default AboutCompany;
-

@@ -1,11 +1,23 @@
-// MarketSize.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const MarketSize = ({ formData, handleChange }) => {
+const Market = ({ formData, handleChange }) => {
+  const [showOtherSector, setShowOtherSector] = useState(false);
+
+  useEffect(() => {
+    // Check if the selected sector is 'Others' to show the text box for specifying other sector
+    setShowOtherSector(formData.sector === 'Others');
+  }, [formData.sector]);
+
   return (
     <>
-      <label htmlFor="sector">Which sector do you operate in? *</label>
-      <select id="sector" name="sector" value={formData.sector} onChange={handleChange} required>
+      <label htmlFor="sector">Which sector do you operate in?</label>
+      <select
+        id="sector"
+        name="sector"
+        value={formData.sector}
+        onChange={handleChange}
+        required
+      >
         <option value="">Select Sector</option>
         <option value="Agriculture">Agriculture</option>
         <option value="Construction & Design">Construction & Design</option>
@@ -26,29 +38,76 @@ const MarketSize = ({ formData, handleChange }) => {
         <option value="Transportation">Transportation</option>
         <option value="Others">Others</option>
       </select>
-      {formData.sector === 'Others' && (
-        <div>
-          <label htmlFor="othersDescription">If Others, please specify:</label>
-          <input type="text" id="othersDescription" name="othersDescription" value={formData.othersDescription} onChange={handleChange} />
-        </div>
+
+      {showOtherSector && (
+        <>
+          <label htmlFor="otherSector">Specify other sector:</label>
+          <input
+            type="text"
+            id="otherSector"
+            name="otherSector"
+            value={formData.otherSector}
+            onChange={handleChange}
+            placeholder="If you have selected 'Others', Please specify here."
+            required
+          />
+        </>
       )}
-      <br />
-      <label htmlFor="marketDescription">Can you provide a detailed description of the current market for your products or services? *</label>
-      <textarea id="marketDescription" name="marketDescription" value={formData.marketDescription} onChange={handleChange} required />
-      <br />
-      <label htmlFor="TAM">What is your total addressable market (TAM) in million USD? *</label>
-      <input type="number" id="TAM" name="TAM" value={formData.TAM} onChange={handleChange} placeholder="Values in Million USD" required />
-      <br />
-      <label htmlFor="TAMGrowthRate">Please enter the annual growth rate for TAM (%)</label>
-      <input type="number" id="TAMGrowthRate" name="TAMGrowthRate" value={formData.TAMGrowthRate} onChange={handleChange} placeholder="%" />
-      <br />
+
+      <label htmlFor="marketDescription">Can you provide a detailed description of the current market for your products or services?</label>
+      <textarea
+        id="marketDescription"
+        name="marketDescription"
+        value={formData.marketDescription}
+        onChange={handleChange}
+        required
+      />
+
+      <label htmlFor="TAM">What is your total addressable market (TAM) in million USD?</label>
+      <input
+        type="number"
+        id="TAM"
+        name="TAM"
+        value={formData.TAM}
+        onChange={handleChange}
+      />
+
+      {formData.TAM && (
+        <>
+          <label htmlFor="TAMGrowthRate">Please enter the annual growth rate for TAM.</label>
+          <input
+            type="number"
+            id="TAMGrowthRate"
+            name="TAMGrowthRate"
+            value={formData.TAMGrowthRate}
+            onChange={handleChange}
+          />
+        </>
+      )}
+
       <label htmlFor="SAM">What is your serviceable addressable market (SAM) in million USD?</label>
-      <input type="number" id="SAM" name="SAM" value={formData.SAM} onChange={handleChange} placeholder="Values in Million USD" />
-      <br />
-      <label htmlFor="SAMGrowthRate">Please enter the annual growth rate for SAM (%)</label>
-      <input type="number" id="SAMGrowthRate" name="SAMGrowthRate" value={formData.SAMGrowthRate} onChange={handleChange} placeholder="%" />
+      <input
+        type="number"
+        id="SAM"
+        name="SAM"
+        value={formData.SAM}
+        onChange={handleChange}
+      />
+
+      {formData.SAM && (
+        <>
+          <label htmlFor="SAMGrowthRate">Please enter the annual growth rate for SAM.</label>
+          <input
+            type="number"
+            id="SAMGrowthRate"
+            name="SAMGrowthRate"
+            value={formData.SAMGrowthRate}
+            onChange={handleChange}
+          />
+        </>
+      )}
     </>
   );
-}
+};
 
-export default MarketSize;
+export default Market;
