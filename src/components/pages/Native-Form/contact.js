@@ -1,11 +1,9 @@
-import React from 'react';
+import React from "react";
 
 const Contact = ({ formData, handleChange }) => {
   return (
-    <div className="form-section">
-      <h2>Contact Information</h2>
-      <div className="form-group">
-        <label htmlFor="websiteLink">Website Link</label>
+    <>
+      <div className="textInputQuestions">
         <input
           type="text"
           id="websiteLink"
@@ -15,10 +13,8 @@ const Contact = ({ formData, handleChange }) => {
           placeholder="Enter your website link"
           required
         />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="linkedinLink">LinkedIn Page Link</label>
+        <br />
+        <br />
         <input
           type="text"
           id="linkedinLink"
@@ -28,10 +24,8 @@ const Contact = ({ formData, handleChange }) => {
           placeholder="Enter your LinkedIn page link"
           required
         />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="contactEmail">Contact Email Address</label>
+        <br />
+        <br />
         <input
           type="email"
           id="contactEmail"
@@ -41,10 +35,8 @@ const Contact = ({ formData, handleChange }) => {
           placeholder="Enter contact email address"
           required
         />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="contactPhone">Contact Phone Number</label>
+        <br />
+        <br />
         <input
           type="tel"
           id="contactPhone"
@@ -54,8 +46,9 @@ const Contact = ({ formData, handleChange }) => {
           placeholder="Enter contact phone number"
           required
         />
+        <br />
       </div>
-    </div>
+    </>
   );
 };
 

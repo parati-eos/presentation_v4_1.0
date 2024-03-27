@@ -1,21 +1,21 @@
-import React from 'react';
+import React from "react";
 
 const CompetitiveDiff = ({ formData, handleChange }) => {
   return (
-    <div>
-      <h2>Competitive Differentiation</h2>
+    <>
       <label>
-        Factors that differentiate your products/services:
-        <textarea 
-          name="competitiveDiff" 
-          value={formData.competitiveDiff} 
-          onChange={handleChange} 
-          rows={6} 
-          cols={50} 
-          placeholder="Enter your response here..."
-        />
+        What factors differentiate your products or services from those of your
+        key competitors?
       </label>
-    </div>
+      <textarea
+        style={{ height: "290px" }}
+        name="competitiveDiff"
+        value={formData.competitiveDiff}
+        onChange={handleChange}
+        placeholder="Enter your response here..."
+      />
+      <br />
+    </>
   );
 };
 

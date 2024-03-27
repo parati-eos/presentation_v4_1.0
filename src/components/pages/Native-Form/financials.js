@@ -1,16 +1,17 @@
-import React from 'react';
+import React from "react";
 
 const Financials = ({ formData, handleChange }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    handleChange({ target: { name, value: value === '' ? undefined : value } });
+    handleChange({ target: { name, value: value === "" ? undefined : value } });
   };
 
   return (
     <div className="form-section">
-      <h2>Financial Snapshot</h2>
-      <div className="form-group">
-        <label htmlFor="financialSnapshot">Financial Snapshot</label>
+      <>
+        <label htmlFor="financialSnapshot">
+          Please provide a financial snapshot of the company.*
+        </label>
         <textarea
           id="financialSnapshot"
           name="financialSnapshot"
@@ -19,11 +20,16 @@ const Financials = ({ formData, handleChange }) => {
           rows="4"
           required
         ></textarea>
-      </div>
-
-      <h2>Revenue and Cost Projections</h2>
-      <div className="form-group">
-        <label>Revenue Projections (in million USD)</label>
+      </>
+      <br />
+      <br />
+      <>
+        <label>
+          Please provide revenue/ revenue projections for the following years.
+          Leave the fields blank for the years where you do not have the
+          required information. Please enter the numbers in million (USD).
+        </label>
+        <br />
         <table>
           <thead>
             <tr>
@@ -38,8 +44,8 @@ const Financials = ({ formData, handleChange }) => {
                 <td>
                   <input
                     type="number"
-                    name={`revenueProjections${2015 + index}`}
-                    value={formData[`revenueProjections${2015 + index}`]}
+                    name={`revenueProjections${2020 + index}`}
+                    value={formData[`revenueProjections${2020 + index}`]}
                     onChange={handleInputChange}
                   />
                 </td>
@@ -47,10 +53,14 @@ const Financials = ({ formData, handleChange }) => {
             ))}
           </tbody>
         </table>
-      </div>
-
-      <div className="form-group">
-        <label>Cost Projections (in million USD)</label>
+      </>
+      <br />
+      <>
+        <label>
+          Please provide cost/ cost projections for the following years. Leave
+          the fields blank for the years where you do not have the required
+          information. Please enter the numbers in million (USD).
+        </label>
         <table>
           <thead>
             <tr>
@@ -65,8 +75,8 @@ const Financials = ({ formData, handleChange }) => {
                 <td>
                   <input
                     type="number"
-                    name={`costProjections${2015 + index}`}
-                    value={formData[`costProjections${2015 + index}`]}
+                    name={`costProjections${2020 + index}`}
+                    value={formData[`costProjections${2020 + index}`]}
                     onChange={handleInputChange}
                   />
                 </td>
@@ -74,11 +84,13 @@ const Financials = ({ formData, handleChange }) => {
             ))}
           </tbody>
         </table>
-      </div>
-
-      <h2>Funding</h2>
-      <div className="form-group">
-        <label htmlFor="plannedRaise">Planned Amount to Raise (in million USD)</label>
+      </>
+      <br />
+      <>
+        <label htmlFor="plannedRaise">
+          How much money do you plan to raise? Please enter the numbers in
+          million (USD).*
+        </label>
         <input
           type="number"
           id="plannedRaise"
@@ -87,10 +99,13 @@ const Financials = ({ formData, handleChange }) => {
           onChange={handleInputChange}
           required
         />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="useOfFunds">Breakdown of Funds Distribution (Percentage)</label>
+      </>
+      <br />
+      <br />
+      <>
+        <label htmlFor="useOfFunds">
+          Do you know the breakdown in percentages for the use of funds?
+        </label>
         <select
           id="useOfFunds"
           name="useOfFunds"
@@ -113,7 +128,7 @@ const Financials = ({ formData, handleChange }) => {
           placeholder="Percentage"
           required
         />
-      </div>
+      </>
     </div>
   );
 };

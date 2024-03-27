@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import close from "../../Asset/close.png";
 
 const Testimonials = ({ formData, handleChange }) => {
   const [testimonials, setTestimonials] = useState([
-    { name: '', company: '', designation: '', testimonial: '' },
-    { name: '', company: '', designation: '', testimonial: '' }
+    { name: "", company: "", designation: "", testimonial: "" },
+    { name: "", company: "", designation: "", testimonial: "" },
   ]);
 
   const handleTestimonialChange = (index, field, value) => {
@@ -12,15 +13,18 @@ const Testimonials = ({ formData, handleChange }) => {
     setTestimonials(updatedTestimonials);
     handleChange({
       target: {
-        name: 'testimonials',
-        value: updatedTestimonials
-      }
+        name: "testimonials",
+        value: updatedTestimonials,
+      },
     });
   };
 
   const addTestimonialRow = () => {
     if (testimonials.length < 4) {
-      setTestimonials([...testimonials, { name: '', company: '', designation: '', testimonial: '' }]);
+      setTestimonials([
+        ...testimonials,
+        { name: "", company: "", designation: "", testimonial: "" },
+      ]);
     }
   };
 
@@ -30,53 +34,75 @@ const Testimonials = ({ formData, handleChange }) => {
     setTestimonials(updatedTestimonials);
     handleChange({
       target: {
-        name: 'testimonials',
-        value: updatedTestimonials
-      }
+        name: "testimonials",
+        value: updatedTestimonials,
+      },
     });
   };
 
   return (
-    <div className="testimonials-section">
-      <h2>Testimonials</h2>
+    <>
+      <label>
+        Do you have any testimonials or success stories from these clients? List
+        at least 2 of them.{" "}
+      </label>
       {testimonials.map((testimonial, index) => (
-        <div key={index} className="testimonial-row">
-          <input
-            type="text"
-            placeholder="Name"
-            value={testimonial.name}
-            onChange={(e) => handleTestimonialChange(index, 'name', e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Company"
-            value={testimonial.company}
-            onChange={(e) => handleTestimonialChange(index, 'company', e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Designation"
-            value={testimonial.designation}
-            onChange={(e) => handleTestimonialChange(index, 'designation', e.target.value)}
-          />
-          <textarea
-            placeholder="Testimonial"
-            value={testimonial.testimonial}
-            onChange={(e) => handleTestimonialChange(index, 'testimonial', e.target.value)}
-          ></textarea>
-          {testimonials.length > 2 && (
-            <button type="button" onClick={() => removeTestimonialRow(index)}>
-              Remove
-            </button>
-          )}
-        </div>
+        <>
+          <div key={index} className="testimonial-row">
+            <input
+              type="text"
+              placeholder={`Name ${index + 1}`}
+              value={testimonial.name}
+              onChange={(e) =>
+                handleTestimonialChange(index, "name", e.target.value)
+              }
+            />
+            <input
+              type="text"
+              placeholder={`Company ${index + 1}`}
+              value={testimonial.company}
+              onChange={(e) =>
+                handleTestimonialChange(index, "company", e.target.value)
+              }
+            />
+            <input
+              type="text"
+              placeholder={`Designation ${index + 1}`}
+              value={testimonial.designation}
+              onChange={(e) =>
+                handleTestimonialChange(index, "designation", e.target.value)
+              }
+            />
+            {testimonials.length > 2 && (
+              <div
+                className="close-button"
+                type="button"
+                onClick={() => removeTestimonialRow(index)}
+              >
+                <img src={close}></img>
+              </div>
+            )}
+            <textarea
+              placeholder={`Testimonial ${index + 1}`}
+              value={testimonial.testimonial}
+              onChange={(e) =>
+                handleTestimonialChange(index, "testimonial", e.target.value)
+              }
+            ></textarea>
+            <br />
+          </div>
+        </>
       ))}
       {testimonials.length < 4 && (
-        <button type="button" onClick={addTestimonialRow}>
+        <button
+          className="add-row-button"
+          type="button"
+          onClick={addTestimonialRow}
+        >
           Add Testimonial
         </button>
       )}
-    </div>
+    </>
   );
 };
 

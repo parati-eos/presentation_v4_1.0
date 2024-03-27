@@ -1,10 +1,13 @@
-import React from 'react';
+import React from "react";
 
 const Business = ({ formData, handleChange }) => {
   return (
-    <div>
-      <label htmlFor="businessModel">What is your business model? Please describe your revenue streams:</label>
+    <>
+      <label htmlFor="businessModel">
+        What is your business model? Please describe your revenue streams.*
+      </label>
       <textarea
+        style={{ height: "310px" }}
         id="businessModel"
         name="businessModel"
         value={formData.businessModel}
@@ -13,7 +16,8 @@ const Business = ({ formData, handleChange }) => {
         cols={50}
         required
       />
-    </div>
+      <br />
+    </>
   );
 };
 
