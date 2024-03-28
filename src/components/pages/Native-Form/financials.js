@@ -35,6 +35,7 @@ const Financials = ({ formData, handleChange }) => {
             <tr>
               <th>Years</th>
               <th>Revenue Projections</th>
+              <th>Cost Projections</th>
             </tr>
           </thead>
           <tbody>
@@ -46,6 +47,14 @@ const Financials = ({ formData, handleChange }) => {
                     type="number"
                     name={`revenueProjections${2020 + index}`}
                     value={formData[`revenueProjections${2020 + index}`]}
+                    onChange={handleInputChange}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    name={`costProjections${2020 + index}`}
+                    value={formData[`costProjections${2020 + index}`]}
                     onChange={handleInputChange}
                   />
                 </td>

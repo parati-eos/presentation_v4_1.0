@@ -1,68 +1,71 @@
 import React, { useState } from "react";
-import close from "../../Asset/close.png";
 
-const Competition = ({ formData, setFormData }) => {
-  const [competitors, setCompetitors] = useState(["", "", "", ""]);
+const Competition = ({ formData, handleChange }) => {
+  const [competitors, setCompetitors] = useState([
+    "", // Initial competitor
+  ]);
 
-  const handleChange = (index, value) => {
+  const handleCompetitorChange = (index, value) => {
     const updatedCompetitors = [...competitors];
     updatedCompetitors[index] = value;
     setCompetitors(updatedCompetitors);
-    setFormData((prevState) => ({
-      ...prevState,
-      competitors: updatedCompetitors,
-    }));
+    handleChange({
+      target: {
+        name: "competitors",
+        value: updatedCompetitors,
+      },
+    });
   };
-  const removeCompetitorRow = (index) => {
-    const updatedCompetitors = [...competitors];
-    updatedCompetitors.splice(index, 1);
-    setCompetitors(updatedCompetitors);
-    setFormData((prevState) => ({
-      ...prevState,
-      competitors: updatedCompetitors,
-    }));
-  };
-  const addRow = (e) => {
-    e.preventDefault(); // Prevent form submission
+
+  const addCompetitorRow = () => {
     if (competitors.length < 6) {
-      setCompetitors((prevCompetitors) => [...prevCompetitors, ""]);
+      setCompetitors([...competitors, ""]); // Add an empty competitor
     }
   };
 
+  const removeCompetitorRow = (index) => {
+    const updatedCompetitors = [...competitors];
+    updatedCompetitors.splice(index, 1); // Remove competitor at the specified index
+    setCompetitors(updatedCompetitors);
+    handleChange({
+      target: {
+        name: "competitors",
+        value: updatedCompetitors,
+      },
+    });
+  };
+
   return (
-    <div>
-      <br />
-      <label>
-        Who would you consider to be your company's top competitors in the
-        market? List at least 4 of them.*
-      </label>
+    <>
       {competitors.map((competitor, index) => (
         <div key={index} className="textInputQuestions">
+          <br />
           <input
-            placeholder={`Competitor ${index + 1}`}
             type="text"
+            placeholder={`Competitor ${index + 1}`}
             value={competitor}
-            onChange={(e) => handleChange(index, e.target.value)}
+            onChange={(e) => handleCompetitorChange(index, e.target.value)}
           />
-          {competitors.length > 4 && (
-            <div
-              className="close-button"
-              type="button"
-              onClick={() => removeCompetitorRow(index)}
-            >
-              <img src={close}></img>
-            </div>
+          {competitors.length > 2 && (
+            <button type="button" onClick={() => removeCompetitorRow(index)}>
+              Remove
+            </button>
           )}
-          <br />
-          <br />
         </div>
       ))}
       {competitors.length < 6 && (
-        <button className="add-row-button" onClick={addRow}>
-          Add Row
-        </button>
+        <>
+          <br />
+          <button
+            type="button"
+            onClick={addCompetitorRow}
+            className="add-row-button"
+          >
+            Add Competitor
+          </button>
+        </>
       )}
-    </div>
+    </>
   );
 };
 

@@ -132,59 +132,15 @@ const Form = () => {
     const userEmail = localStorage.getItem("userEmail");
     const formResponses = [userEmail];
 
-    // Iterate over formData to construct formResponses array
-    for (const key in formData) {
-      if (Object.hasOwnProperty.call(formData, key)) {
-        // Handle testimonials and competitors separately to pass null value if they're empty
-        if (key === "testimonials" || key === "competitors") {
-          formResponses.push(
-            formData[key].length > 0
-              ? formData[key].map((item) =>
-                  Array.isArray(item) ? item : [item]
-                )
-              : [""]
-          );
-        } else if (Array.isArray(formData[key])) {
-          const files = formData[key];
-          const fileNames = files.map((file) => file.name);
-          formResponses.push(fileNames); // Pushing file names array
-        } else {
-          formResponses.push(formData[key]);
-        }
-      }
-    }
-
-    // Add default values for mobileScreenshots and webScreenshots if they are empty arrays
-    if (formResponses[22].length === 0) {
-      formResponses[22] = [""];
-    }
-    if (formResponses[23].length === 0) {
-      formResponses[23] = [""];
-    }
-
-    // Set default values for indices 29, 30, and 32 if they are null
-    if (formResponses[30] === null) {
-      formResponses[30] = [""];
-    }
-    if (formResponses[31] === null) {
-      formResponses[31] = [""];
-    }
-    if (formResponses[32] === null) {
-      formResponses[32] = "";
-    }
-    if (formResponses[33] === null || formResponses[32].length === 0) {
-      formResponses[33] = [""];
-    }
-
     const payload = {
       formId: formId,
-      formResponses: formResponses,
+      formResponses: formData,
     };
     console.log("API Payload:", payload); // Log the payload before sending
 
     try {
       const response = await fetch(
-        "https://pitchdeck-server.onrender.com/storeresponse",
+        "https://pitchdeck-server.onrender.com/submission",
         {
           method: "POST",
           headers: {
