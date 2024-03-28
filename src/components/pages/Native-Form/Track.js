@@ -1,6 +1,11 @@
-import React from "react";
+import { React, useState } from "react";
 
 const Track = ({ formData, handleChange }) => {
+  const [phaseRows, setPhaseRows] = useState([
+    { year1: "", year2: "", TR: "" },
+    { year1: "", year2: "", TR: "" },
+    { year1: "", year2: "", TR: "" },
+  ]);
   // Function to generate an array of years for the dropdown options
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
@@ -10,131 +15,67 @@ const Track = ({ formData, handleChange }) => {
     }
     return years;
   };
-
+  const handlePhaseRowsChange = (index, field, value) => {
+    const updatedPhaseRows = [...phaseRows];
+    updatedPhaseRows[index][field] = value;
+    setPhaseRows(updatedPhaseRows);
+    handleChange({
+      target: {
+        name: "trackRecord",
+        value: updatedPhaseRows,
+      },
+    });
+  };
   return (
     <div>
-      <div>
-        <label htmlFor="phase1">Phase 1:</label>
+      {phaseRows.map((row, index) => (
         <div>
-          <label htmlFor="phase1UpperBound">From</label>
-          <select
-            id="phase1UpperBound"
-            name="phase1UpperBound"
-            value={formData.phase1UpperBound}
-            onChange={handleChange}
-          >
-            {generateYears().map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="phase1LowerBound">To</label>
-          <select
-            id="phase1LowerBound"
-            name="phase1LowerBound"
-            value={formData.phase1LowerBound}
-            onChange={handleChange}
-          >
-            {generateYears().map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
+          <label htmlFor="phase1">{`Phase ${index + 1}`}</label>
+          <div>
+            <label htmlFor="phase1UpperBound">From</label>
+            <select
+              id="year1"
+              name="year1"
+              value={row.year1}
+              onChange={(e) =>
+                handlePhaseRowsChange(index, "year1", e.target.value)
+              }
+            >
+              {generateYears().map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="phase1LowerBound">To</label>
+            <select
+              id="year2"
+              name="year2"
+              value={row.year2}
+              onChange={(e) =>
+                handlePhaseRowsChange(index, "year2", e.target.value)
+              }
+            >
+              {generateYears().map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="phase1Timeline">Track Record</label>
+            <textarea
+              id="TR"
+              name="TR"
+              value={row.TR}
+              onChange={(e) =>
+                handlePhaseRowsChange(index, "TR", e.target.value)
+              }
+            />
+          </div>
         </div>
-        <div>
-          <label htmlFor="phase1Timeline">Track Record</label>
-          <textarea
-            id="phase1Timeline"
-            name="phase1Timeline"
-            value={formData.phase1Timeline}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="phase2">Phase 2:</label>
-        <div>
-          <label htmlFor="phase2UpperBound">From</label>
-          <select
-            id="phase2UpperBound"
-            name="phase2UpperBound"
-            value={formData.phase2UpperBound}
-            onChange={handleChange}
-          >
-            {generateYears().map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="phase2LowerBound">To</label>
-          <select
-            id="phase2LowerBound"
-            name="phase2LowerBound"
-            value={formData.phase2LowerBound}
-            onChange={handleChange}
-          >
-            {generateYears().map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="phase2Timeline">Track Record</label>
-          <textarea
-            id="phase2Timeline"
-            name="phase2Timeline"
-            value={formData.phase2Timeline}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="phase3">Phase 3:</label>
-        <div>
-          <label htmlFor="phase3UpperBound">From</label>
-          <select
-            id="phase3UpperBound"
-            name="phase3UpperBound"
-            value={formData.phase3UpperBound}
-            onChange={handleChange}
-          >
-            {generateYears().map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-          <label htmlFor="phase3LowerBound">To</label>
-          <select
-            id="phase3LowerBound"
-            name="phase3LowerBound"
-            value={formData.phase3LowerBound}
-            onChange={handleChange}
-          >
-            {generateYears().map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="phase3Timeline">Track Record</label>
-          <textarea
-            id="phase3Timeline"
-            name="phase3Timeline"
-            value={formData.phase3Timeline}
-            onChange={handleChange}
-          />
-        </div>
-      </div>
+      ))}
     </div>
   );
 };

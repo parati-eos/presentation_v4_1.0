@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import close from "../../Asset/close.png";
 
 const Competition = ({ formData, handleChange }) => {
   const [competitors, setCompetitors] = useState([
+    "",
     "", // Initial competitor
   ]);
 
@@ -38,19 +40,28 @@ const Competition = ({ formData, handleChange }) => {
   return (
     <>
       {competitors.map((competitor, index) => (
-        <div key={index} className="textInputQuestions">
+        <div key={index} className="competitor-row">
           <br />
-          <input
-            type="text"
-            placeholder={`Competitor ${index + 1}`}
-            value={competitor}
-            onChange={(e) => handleCompetitorChange(index, e.target.value)}
-          />
+          <br />
+          <>
+          <div className="competitor">
+            <input
+              type="text"
+              placeholder={`Competitor ${index + 1}`}
+              value={competitor}
+              onChange={(e) => handleCompetitorChange(index, e.target.value)}
+            />
+          </div>
           {competitors.length > 2 && (
-            <button type="button" onClick={() => removeCompetitorRow(index)}>
-              Remove
-            </button>
+            <div
+              className="close-button-competition"
+              type="button"
+              onClick={() => removeCompetitorRow(index)}
+            >
+              <img src={close}></img>
+            </div>
           )}
+          </>
         </div>
       ))}
       {competitors.length < 6 && (

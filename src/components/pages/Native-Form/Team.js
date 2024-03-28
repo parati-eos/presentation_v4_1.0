@@ -28,6 +28,12 @@ const Team = ({ formData, handleChange }) => {
     const updatedTeamMembers = [...teamMembers];
     updatedTeamMembers[index][field] = value;
     setTeamMembers(updatedTeamMembers);
+    handleChange({
+      target: {
+        name: "teamMembers",
+        value: updatedTeamMembers,
+      },
+    });
   };
 
   return (

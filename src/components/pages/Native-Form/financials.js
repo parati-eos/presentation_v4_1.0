@@ -1,14 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Financials = ({ formData, handleChange }) => {
-  const handleInputChange = (e) => {
+  const [revenueRows, setRevenueRows] = useState([
+    { year: "", revenue: "", cost: "" },
+  ]);
+
+  const [useOfFunds, setUseOfFunds] = useState([{ use: "", percentage: "" }]);
+  const currentYear = new Date().getFullYear();
+  const years = Array.from(
+    { length: 10 },
+    (_, index) => currentYear - 5 + index
+  );
+
+  const handleRevenueInputChange = (e, index) => {
     const { name, value } = e.target;
-    handleChange({ target: { name, value: value === "" ? undefined : value } });
+    const newRows = [...revenueRows];
+    newRows[index][name] = value;
+    setRevenueRows(newRows);
+  };
+
+  const handleUseOfFundsChange = (e, index) => {
+    const { name, value } = e.target;
+    const newUses = [...useOfFunds];
+    newUses[index][name] = value;
+    setUseOfFunds(newUses);
+  };
+
+  const handleRevenueCostChange = (index, field, value) => {
+    const updatedRevenueCost = [...revenueRows];
+    updatedRevenueCost[index][field] = value;
+    setRevenueRows(updatedRevenueCost);
+    handleChange({
+      target: {
+        name: "revenueCost",
+        value: updatedRevenueCost,
+      },
+    });
+  };
+  const handleuseOfFundsChange = (index, field, value) => {
+    const updateduseOfFunds = [...useOfFunds];
+    updateduseOfFunds[index][field] = value;
+    setUseOfFunds(updateduseOfFunds);
+    handleChange({
+      target: {
+        name: "useOfFunds",
+        value: updateduseOfFunds,
+      },
+    });
+  };
+
+  const addRevenueRow = () => {
+    if (revenueRows.length < 11) {
+      setRevenueRows([...revenueRows, { year: "", revenue: "", cost: "" }]);
+    }
+  };
+  const addUseOfFundsRow = () => {
+    if (useOfFunds.length < 5) {
+      setUseOfFunds([...useOfFunds, { use: "", percentage: "" }]);
+    }
+  };
+
+  const removeRevenueRow = (index) => {
+    if (revenueRows.length > 1) {
+      const newRows = [...revenueRows];
+      newRows.splice(index, 1);
+      setRevenueRows(newRows);
+    }
+  };
+
+  const removeUseOfFundsRow = (index) => {
+    if (useOfFunds.length > 1) {
+      const newUses = [...useOfFunds];
+      newUses.splice(index, 1);
+      setUseOfFunds(newUses);
+    }
   };
 
   return (
     <div className="form-section">
-      <>
+      <div className="textInputQuestions">
         <label htmlFor="financialSnapshot">
           Please provide a financial snapshot of the company.*
         </label>
@@ -16,16 +86,16 @@ const Financials = ({ formData, handleChange }) => {
           id="financialSnapshot"
           name="financialSnapshot"
           value={formData.financialSnapshot}
-          onChange={handleInputChange}
+          onChange={handleChange}
           rows="4"
           required
         ></textarea>
-      </>
+      </div>
       <br />
       <br />
-      <>
+      <div className="textInputQuestions">
         <label>
-          Please provide revenue/ revenue projections for the following years.
+          Please provide revenue/revenue projections for the following years.
           Leave the fields blank for the years where you do not have the
           required information. Please enter the numbers in million (USD).
         </label>
@@ -39,63 +109,62 @@ const Financials = ({ formData, handleChange }) => {
             </tr>
           </thead>
           <tbody>
-            {[...Array(14)].map((_, index) => (
+            {revenueRows.map((row, index) => (
               <tr key={index}>
-                <td>{2015 + index}</td>
+                <td>
+                  <select
+                    name="year"
+                    value={row.year}
+                    onChange={(e) =>
+                      handleRevenueCostChange(index, "year", e.target.value)
+                    }
+                    required
+                  >
+                    <option value="">Select a Year</option>
+                    {years.map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
+                </td>
                 <td>
                   <input
                     type="number"
-                    name={`revenueProjections${2020 + index}`}
-                    value={formData[`revenueProjections${2020 + index}`]}
-                    onChange={handleInputChange}
+                    name="revenue"
+                    value={row.revenue}
+                    onChange={(e) =>
+                      handleRevenueCostChange(index, "revenue", e.target.value)
+                    }
                   />
                 </td>
                 <td>
                   <input
                     type="number"
-                    name={`costProjections${2020 + index}`}
-                    value={formData[`costProjections${2020 + index}`]}
-                    onChange={handleInputChange}
+                    name="cost"
+                    value={row.cost}
+                    onChange={(e) =>
+                      handleRevenueCostChange(index, "cost", e.target.value)
+                    }
                   />
+                </td>
+                <td>
+                  {index === revenueRows.length - 1 ? (
+                    <button onClick={addRevenueRow}>Add Row</button>
+                  ) : (
+                    <button onClick={() => removeRevenueRow(index)}>
+                      Remove
+                    </button>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </>
+      </div>
       <br />
-      <>
-        <label>
-          Please provide cost/ cost projections for the following years. Leave
-          the fields blank for the years where you do not have the required
-          information. Please enter the numbers in million (USD).
-        </label>
-        <table>
-          <thead>
-            <tr>
-              <th>Years</th>
-              <th>Cost Projections</th>
-            </tr>
-          </thead>
-          <tbody>
-            {[...Array(14)].map((_, index) => (
-              <tr key={index}>
-                <td>{2015 + index}</td>
-                <td>
-                  <input
-                    type="number"
-                    name={`costProjections${2020 + index}`}
-                    value={formData[`costProjections${2020 + index}`]}
-                    onChange={handleInputChange}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </>
       <br />
-      <>
+      <div className="textInputQuestions">
         <label htmlFor="plannedRaise">
           How much money do you plan to raise? Please enter the numbers in
           million (USD).*
@@ -105,39 +174,76 @@ const Financials = ({ formData, handleChange }) => {
           id="plannedRaise"
           name="plannedRaise"
           value={formData.plannedRaise}
-          onChange={handleInputChange}
+          onChange={handleChange}
           required
         />
-      </>
+      </div>
       <br />
       <br />
-      <>
-        <label htmlFor="useOfFunds">
-          Do you know the breakdown in percentages for the use of funds?
-        </label>
-        <select
-          id="useOfFunds"
-          name="useOfFunds"
-          value={formData.useOfFunds}
-          onChange={handleInputChange}
-          required
-        >
-          <option value="">Select an Option</option>
-          <option value="Development">Development</option>
-          <option value="Marketing">Marketing</option>
-          <option value="Expansion">Expansion</option>
-          <option value="Operations">Operations</option>
-          <option value="Other">Other</option>
-        </select>
-        <input
-          type="number"
-          name="percentage"
-          value={formData.percentage}
-          onChange={handleInputChange}
-          placeholder="Percentage"
-          required
-        />
-      </>
+      <div className="textInputQuestions">
+        <label>Breakdown in percentages for the use of funds:</label>
+        <br />
+        <table>
+          <thead>
+            <tr>
+              <th>Use</th>
+              <th>Percentage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {useOfFunds.map((use, index) => (
+              <tr key={index}>
+                <td>
+                  <select
+                    name="use"
+                    value={use.use}
+                    onChange={(e) =>
+                      handleuseOfFundsChange(index, "use", e.target.value)
+                    }
+                    required
+                  >
+                    <option value="">Select a Use</option>
+                    <option value="Product and Development">
+                      Product and Development
+                    </option>
+                    <option value="Marketing and Sales">
+                      Marketing and Sales
+                    </option>
+                    <option value="Capex">Capex</option>
+                    <option value="Business Operation">
+                      Business Operation
+                    </option>
+                    <option value="Team Salaries">Team Salaries</option>
+                  </select>
+                </td>
+                <td>
+                  <input
+                    type="number"
+                    name="percentage"
+                    value={use.percentage}
+                    onChange={(e) =>
+                      handleuseOfFundsChange(
+                        index,
+                        "percentage",
+                        e.target.value
+                      )
+                    }
+                  />
+                </td>
+                <td>
+                  {index === useOfFunds.length - 1 ? (
+                    <button onClick={addUseOfFundsRow}>Add Row</button>
+                  ) : (
+                    <button onClick={() => removeUseOfFundsRow(index)}>
+                      Remove
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

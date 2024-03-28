@@ -18,7 +18,6 @@ import Team from "./Team"; // Import the Team component
 import Navbar from "../../shared/js/LoginNavbar";
 import Contact from "./contact"; // Import the Contact component
 import Financials from "./financials"; // Import the Financials component
-import ProgressBar from "./Progressbar";
 
 const Form = () => {
   const [section, setSection] = useState(1);
@@ -50,7 +49,7 @@ const Form = () => {
     keyStakeholders: "",
     customerPersona: "",
     goToMarketStrategy: "",
-    trackRecord: "",
+    trackRecord: [],
     caseStudies: "",
     testimonials: [],
     competitors: [],
@@ -63,8 +62,9 @@ const Form = () => {
     contactPhone: "",
     // Add financial information fields
     financialSnapshot: "",
+    revenueCost: [],
     plannedRaise: "",
-    useOfFunds: "",
+    useOfFunds: [],
     percentage: "",
   });
   const [progress, setProgress] = useState(0);
@@ -112,6 +112,8 @@ const Form = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log([name, value]);
+    console.log(e.target);
     setFormData((prevState) => ({
       ...prevState,
       [name]: value === "" ? undefined : value,
@@ -345,7 +347,11 @@ const Form = () => {
                 <GTM formData={formData} handleChange={handleChange} />
               )}
               {section === 10 && (
-                <Track formData={formData} handleChange={handleChange} />
+                <Track
+                  formData={formData}
+                  handleChange={handleChange}
+                  setFormData={setFormData} // Pass setFormData here
+                />
               )}
               {section === 11 && (
                 <Case formData={formData} handleChange={handleChange} />

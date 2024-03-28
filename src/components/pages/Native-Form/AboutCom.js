@@ -1,7 +1,38 @@
-import React from "react";
-import ColorPicker from "./ColorPicker"; // Assuming ColorPicker component is in ColorPicker.js
+import React, { useState } from "react";
+import ColorPicker from "./ColorPicker";
+import uploadFileToS3 from "./uploadFileToS3"; // Import the function for uploading files to S3
 
-const AboutCompany = ({ formData, handleChange }) => {
+const AboutCompany = ({ formData, handleChange, handleNext }) => {
+  const [logoUrl, setLogoUrl] = useState(null); // State to store the URL of the uploaded logo
+
+  const handleLogoChange = async (e) => {
+    const file = e.target.files[0];
+    try {
+      const logoUrl = await uploadFileToS3(file); // Upload the logo file to S3
+      setLogoUrl(logoUrl); // Set the URL of the uploaded logo
+      handleChange({ target: { name: "logo", value: logoUrl } }); // Update form data with the logo URL
+    } catch (error) {
+      console.error("Error uploading logo:", error);
+    }
+  };
+
+  const handlePrimaryColorChange = (color) => {
+    handleChange({ target: { name: "primaryColor", value: color } });
+  };
+
+  const handleSecondaryColorChange = (color) => {
+    handleChange({ target: { name: "secondaryColor", value: color } });
+  };
+
+  const handleContinue = () => {
+    if (logoUrl) {
+      // Proceed to the next section only if the logo is uploaded
+      handleNext(formData);
+    } else {
+      alert("Please upload the logo before continuing.");
+    }
+  };
+
   return (
     <>
       <div className="textInputQuestions">
@@ -25,21 +56,18 @@ const AboutCompany = ({ formData, handleChange }) => {
           name="tagline"
           value={formData.tagline}
           onChange={handleChange}
-          required
         />
       </div>
       <br />
       <br />
       <div className="textInputQuestions">
-        <label htmlFor="logo">
-          Please upload your logo (PDF, JPG, JPEG, PNG, WEBP)*
-        </label>
+        <label htmlFor="logo">Please upload your logo (PDF, JPG, JPEG, PNG, WEBP)*</label>
         <input
           type="file"
           id="logo"
           name="logo"
           accept=".pdf,.jpg,.jpeg,.png,.webp"
-          onChange={handleChange}
+          onChange={handleLogoChange}
           required
         />
       </div>
@@ -52,22 +80,16 @@ const AboutCompany = ({ formData, handleChange }) => {
             id="primaryColor"
             name="primaryColor"
             color={formData.primaryColor}
-            handleChange={(color) =>
-              handleChange({ target: { name: "primaryColor", value: color } })
-            }
+            handleChange={handlePrimaryColorChange}
           />
         </div>
         <div className="secondary-color">
-          <label htmlFor="secondaryColor">
-            Select secondary branding color*
-          </label>
+          <label htmlFor="secondaryColor">Select secondary branding color*</label>
           <ColorPicker
             id="secondaryColor"
             name="secondaryColor"
             color={formData.secondaryColor}
-            handleChange={(color) =>
-              handleChange({ target: { name: "secondaryColor", value: color } })
-            }
+            handleChange={handleSecondaryColorChange}
           />
         </div>
       </div>
