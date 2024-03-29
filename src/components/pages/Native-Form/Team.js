@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import close from "../../Asset/close.png";
+import uploadFileToS3 from "./uploadFileToS3";
 
 const Team = ({ formData, handleChange }) => {
   const [teamMembers, setTeamMembers] = useState([
@@ -24,9 +25,20 @@ const Team = ({ formData, handleChange }) => {
     }
   };
 
-  const handleTeamMemberChange = (index, field, value) => {
+  const handleTeamMemberChange = async (index, field, value) => {
     const updatedTeamMembers = [...teamMembers];
     updatedTeamMembers[index][field] = value;
+
+    if (field === "photo") {
+      try {
+        const imageUrl = await uploadFileToS3(value); // Upload image to S3 and get the URL
+        updatedTeamMembers[index]["photoUrl"] = imageUrl; // Store the URL in the team member object
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        // Handle error, maybe show a message to the user
+      }
+    }
+
     setTeamMembers(updatedTeamMembers);
     handleChange({
       target: {

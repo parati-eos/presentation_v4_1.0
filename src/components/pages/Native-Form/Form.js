@@ -104,6 +104,14 @@ const Form = () => {
       console.error("Error:", error);
     }
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleHiddenButtonClick(); // Call the function after 3 seconds
+      setShowHiddenButton(false); // Optionally set showHiddenButton to true if you want to display the button
+    }, 3000);
+
+    return () => clearTimeout(timer); // Cleanup timer
+  }, []);
 
   const generateFormId = () => {
     // Generate a random unique ID using timestamp and random numbers
@@ -395,6 +403,7 @@ const Form = () => {
               </div>
             </div>
           </form>
+          {showHiddenButton && <button onClick={handleHiddenButtonClick}>Hidden Button</button>}
         </div>
       </div>
     </div>
