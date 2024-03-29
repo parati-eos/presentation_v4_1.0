@@ -21,7 +21,11 @@ import Financials from "./financials"; // Import the Financials component
 
 const Form = () => {
   const [section, setSection] = useState(1);
+  const userEmail = localStorage.getItem("userEmail");
+  const [generatedPresentationID, setgeneratedPresentationID] = useState(null);
+  const [showHiddenButton, setShowHiddenButton] = useState(false); // State to control button visibility
   const [formData, setFormData] = useState({
+    userId: userEmail,
     companyName: "",
     tagline: "",
     logo: null,
@@ -70,18 +74,6 @@ const Form = () => {
   const [progress, setProgress] = useState(0);
 
   const [formId, setFormId] = useState("");
-
-  useEffect(() => {
-    // Generate a unique form ID when the component mounts for the first time
-    const newFormId = generateFormId();
-    setFormId(newFormId);
-    console.log("Form ID:", newFormId);
-    // Fetch user email from local storage
-    const userEmail = localStorage.getItem("userEmail");
-    console.log("User Email:", userEmail);
-  }, []); // Empty dependency array to run this effect only once
-  const [showHiddenButton, setShowHiddenButton] = useState(false); // State to control button visibility
-
   const handleHiddenButtonClick = async () => {
     try {
       const response = await fetch(
@@ -96,10 +88,10 @@ const Form = () => {
 
       const responseData = await response.text();
       console.log("API Response:", responseData); // Log the entire response
-
+      await setgeneratedPresentationID(responseData);
       // Attempt to parse response data as JSON
       const data = JSON.parse(responseData);
-      console.log(data);
+      console.log(data + "is here !");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -118,6 +110,16 @@ const Form = () => {
     return "Parati-" + Date.now();
   };
 
+  useEffect(() => {
+    // Generate a unique form ID when the component mounts for the first time
+    const newFormId = generateFormId();
+    setFormId(newFormId);
+    console.log("Form ID:", newFormId);
+    // Fetch user email from local storage
+    const userEmail = localStorage.getItem("userEmail");
+    console.log("User Email:", userEmail);
+  }, []); // Empty dependency array to run this effect only once
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     console.log([name, value]);
@@ -132,7 +134,6 @@ const Form = () => {
     e.preventDefault();
     // Validation logic to check if all mandatory fields are filled
     // Add your validation logic here
-
     // Log the form data along with form ID and user email
     console.log("Form ID:", formId);
     console.log("User Email:", localStorage.getItem("userEmail"));
@@ -141,10 +142,30 @@ const Form = () => {
     // Construct payload
     const userEmail = localStorage.getItem("userEmail");
     const formResponses = [userEmail];
-
+    const sectionNames = [
+      "about",
+      "companyDetails",
+      "problemDescription",
+      "solutionDescription",
+      "market",
+      "product",
+      "productScreen",
+      "businessModel",
+      "goToMarket",
+      "trackRecord",
+      "caseStudies",
+      "testimonials",
+      "competitors",
+      "competitiveDiff",
+      "teamMembers",
+      "financialInfo",
+      "contactInfo",
+    ];
     const payload = {
       formId: formId,
       formResponses: formData,
+      generatedPresentationId: generatedPresentationID,
+      section: sectionNames[section - 1],
     };
     console.log("API Payload:", payload); // Log the payload before sending
 
@@ -403,7 +424,9 @@ const Form = () => {
               </div>
             </div>
           </form>
-          {showHiddenButton && <button onClick={handleHiddenButtonClick}>Hidden Button</button>}
+          {showHiddenButton && (
+            <button onClick={handleHiddenButtonClick}>Hidden Button</button>
+          )}
         </div>
       </div>
     </div>
