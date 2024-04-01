@@ -1,0 +1,83 @@
+import React, { useState } from "react";
+import close from "../../Asset/close.png";
+
+const Competition = ({ formData, handleChange }) => {
+  const [competitors, setCompetitors] = useState([
+    "",
+    "", // Initial competitor
+  ]);
+
+  const handleCompetitorChange = (index, value) => {
+    const updatedCompetitors = [...competitors];
+    updatedCompetitors[index] = value;
+    setCompetitors(updatedCompetitors);
+    handleChange({
+      target: {
+        name: "competitors",
+        value: updatedCompetitors,
+      },
+    });
+  };
+
+  const addCompetitorRow = () => {
+    if (competitors.length < 6) {
+      setCompetitors([...competitors, ""]); // Add an empty competitor
+    }
+  };
+
+  const removeCompetitorRow = (index) => {
+    const updatedCompetitors = [...competitors];
+    updatedCompetitors.splice(index, 1); // Remove competitor at the specified index
+    setCompetitors(updatedCompetitors);
+    handleChange({
+      target: {
+        name: "competitors",
+        value: updatedCompetitors,
+      },
+    });
+  };
+
+  return (
+    <>
+      {competitors.map((competitor, index) => (
+        <div key={index} className="competitor-row">
+          <br />
+          <br />
+          <>
+          <div className="competitor">
+            <input
+              type="text"
+              placeholder={`Competitor ${index + 1}`}
+              value={competitor}
+              onChange={(e) => handleCompetitorChange(index, e.target.value)}
+            />
+          </div>
+          {competitors.length > 2 && (
+            <div
+              className="close-button-competition"
+              type="button"
+              onClick={() => removeCompetitorRow(index)}
+            >
+              <img src={close}></img>
+            </div>
+          )}
+          </>
+        </div>
+      ))}
+      {competitors.length < 6 && (
+        <>
+          <br />
+          <button
+            type="button"
+            onClick={addCompetitorRow}
+            className="add-row-button"
+          >
+            Add Competitor
+          </button>
+        </>
+      )}
+    </>
+  );
+};
+
+export default Competition;
