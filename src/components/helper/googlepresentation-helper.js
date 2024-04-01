@@ -8,7 +8,7 @@ const Googleslides = () => {
   const [slidesData, setSlidesData] = useState([]);
   const [slidesId, setSlidesId] = useState("");
   const [loading, setLoading] = useState("true");
-  
+
   console.log([userId, formId]);
   const fetchSlidesData = async () => {
     console.log([userId, formId]);
@@ -19,10 +19,15 @@ const Googleslides = () => {
         throw new Error("Failed to fetch slides data");
       }
       const data = await response.json();
-      if (data.data.length > slidesData.length) {
-        if (loading == "true" && data.data.length == 2) {
-          setLoading("false");
-        }
+      if (data.data.length >= 2) {
+        setLoading("false");
+      }
+
+      // Only update the state if the new data is different from the old data
+      if (JSON.stringify(data.data) !== JSON.stringify(slidesData)) {
+        // Save the fetched data to localStorage
+        localStorage.setItem("slidesData", JSON.stringify(data.data));
+        localStorage.setItem("slidesId", data.id);
         setSlidesData(data.data);
         setSlidesId(data.id);
       }
@@ -31,10 +36,19 @@ const Googleslides = () => {
     }
   };
 
+  // In your useEffect, load the data from localStorage before starting the interval
   useEffect(() => {
-    const intervalId = setInterval(fetchSlidesData, 5000); // Poll every 5 seconds
+    const savedSlidesData = JSON.parse(localStorage.getItem("slidesData"));
+    const savedSlidesId = localStorage.getItem("slidesId");
+    if (savedSlidesData && savedSlidesId) {
+      setSlidesData(savedSlidesData);
+      setSlidesId(savedSlidesId);
+      setLoading("false");
+    }
+
+    const intervalId = setInterval(fetchSlidesData, 1000); // Poll every 5 seconds
     return () => clearInterval(intervalId);
-  }, [userId, formId, slidesData.length]); // Add slidesData.length to the dependency array
+  }, [userId, formId]); // Removed slidesData.length from the dependency array
 
   if (loading == "true") {
     return (
@@ -45,7 +59,7 @@ const Googleslides = () => {
   }
 
   return (
-    <div className="slides">
+    <div className="slides"> 
       {slidesData.slice(0, slidesData.length - 1).map((slide, index) => (
         <div key={slide.objectId}>
           <iframe
@@ -61,12 +75,3 @@ const Googleslides = () => {
 };
 
 export default Googleslides;
-
-
-
-
-
-
-
-
-
