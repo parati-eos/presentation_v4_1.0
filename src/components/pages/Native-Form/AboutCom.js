@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ColorPicker from "./ColorPicker";
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function for uploading files to S3
 
 const AboutCompany = ({ formData, handleChange, handleNext }) => {
-  const [logoUrl, setLogoUrl] = useState(null); // State to store the URL of the uploaded logo
+  const [logoUrl, setLogoUrl] = useState(formData.logo || null); // Initialize with formData.logo if available
+  const [fileInputKey, setFileInputKey] = useState(0); // Key to reset file input
+
+  useEffect(() => {
+    // Update logoUrl if formData.logo changes
+    setLogoUrl(formData.logo || null);
+  }, [formData.logo]);
 
   const handleLogoChange = async (e) => {
     const file = e.target.files[0];
@@ -14,6 +20,12 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
     } catch (error) {
       console.error("Error uploading logo:", error);
     }
+  };
+
+  const handleRemoveLogo = () => {
+    setLogoUrl(null);
+    handleChange({ target: { name: "logo", value: null } });
+    setFileInputKey((prevKey) => prevKey + 1); // Reset file input
   };
 
   const handlePrimaryColorChange = (color) => {
@@ -62,14 +74,22 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
       <br />
       <div className="textInputQuestions">
         <label htmlFor="logo">Please upload your logo (PDF, JPG, JPEG, PNG, WEBP)*</label>
-        <input
-          type="file"
-          id="logo"
-          name="logo"
-          accept=".pdf,.jpg,.jpeg,.png,.webp"
-          onChange={handleLogoChange}
-          required
-        />
+        {logoUrl ? (
+          <div>
+            <p>Selected file: {logoUrl}</p>
+            <button onClick={handleRemoveLogo}>Remove</button>
+          </div>
+        ) : (
+          <input
+            key={fileInputKey}
+            type="file"
+            id="logo"
+            name="logo"
+            accept=".pdf,.jpg,.jpeg,.png,.webp"
+            onChange={handleLogoChange}
+            required
+          />
+        )}
       </div>
       <br />
       <br />
