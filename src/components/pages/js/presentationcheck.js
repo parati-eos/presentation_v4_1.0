@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/presentationcheck.css";
 import "../css/HistoryOverlay.css";
@@ -182,6 +182,9 @@ const PresentationCheck = () => {
             <GooglePresentation key={currentSlideKey} />
           </div>
         </div>
+
+        <div className="presentation-viewing-side"></div>
+
       </div>
     </div>
   );

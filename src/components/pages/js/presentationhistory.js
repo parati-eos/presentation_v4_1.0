@@ -1,5 +1,4 @@
-import React, { useState, useEffect ,useLocation} from "react";
-import { csvParse } from "d3-dsv";
+import React, { useState, useEffect} from "react";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar";
 import HistoryCard from "../cards/historycard";
 import "../css/presentationhistory.css";
@@ -7,8 +6,7 @@ import "../css/presentationhistory.css";
 function History() {
   const [userID, setUserID] = useState(localStorage.getItem("userEmail"));
   const [historyData, setHistoryData] = useState([]);
-  const location = useLocation();
-  const user = location.state && location.state.user;
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +35,7 @@ function History() {
   }, [userID]);
   return (
     <div className="historypage">
-      <ApplicationNavbar user={user}/>
+      <ApplicationNavbar/>
 
       <div className="history-component">
       <h2>History</h2>

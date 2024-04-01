@@ -55,7 +55,7 @@
 }
 
 .card-buttons {
-  background-color: #fff;
+  /* background-color: #fff; */
   display: flex;
   gap: 1vw;
   justify-content: center;
