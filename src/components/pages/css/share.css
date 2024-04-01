@@ -1,3 +1,4 @@
+
 button {
     width: 100%;
     height: 100%;
@@ -22,5 +23,10 @@ button {
   }
   
  
+
+
   
+  .button-with-icon .download-icon {
+    margin-right: 9px; /* Add margin to create space between icon and text */
+  }
   

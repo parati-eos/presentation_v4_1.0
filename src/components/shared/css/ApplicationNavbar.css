@@ -73,6 +73,7 @@ nav {
   border-radius: 2.5vh;
   cursor: pointer;
 }
+
 .navbar-details-container button {
   width: 25%;
   height: 100%;
@@ -86,4 +87,5 @@ nav {
   background-color: #004264  ;
   color: rgb(255, 255, 255, 0.8);
   border: 0.2vw solid #004264;
+
 }

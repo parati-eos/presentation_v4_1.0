@@ -2,6 +2,8 @@ import React, { useState,useLocation} from "react";
 import { useNavigate } from "react-router-dom";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/ApplicationNavbar.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import magicWand from "../../Asset/magic-wand.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
   import { faHistory,faMagicWandSparkles,faWandSparkles} from '@fortawesome/free-solid-svg-icons';
@@ -41,6 +43,7 @@ function Navbar({user, historyShow, historyHide }) {
             onClick={handleHistoryButtonClicked}
           >
            <FontAwesomeIcon icon={faHistory}/> History
+
           </button>
           
           <img src={user.picture} alt="User Profile" />
