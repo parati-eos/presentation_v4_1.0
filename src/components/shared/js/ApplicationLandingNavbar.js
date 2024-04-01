@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/ApplicationNavbar.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-  import { faHistory} from '@fortawesome/free-solid-svg-icons';
+  import { faHistory, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 
-function Navbar({ user, historyShow, historyHide }) {
+function Navbar({historyShow, historyHide }) {
 
   const navigate = useNavigate();
   const handleHistoryButtonClicked = () => {
@@ -38,7 +38,7 @@ function Navbar({ user, historyShow, historyHide }) {
            <FontAwesomeIcon icon={faHistory}/> History
           </button>
           
-          <img src={user.picture} alt="User Profile" />
+          <FontAwesomeIcon icon={faUserCircle} className="user"/>
         </div>
       </div>
     </nav>

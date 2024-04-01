@@ -181,17 +181,8 @@ const PresentationCheck = () => {
           <div className="presentation-view-slides">
             <GooglePresentation key={currentSlideKey} />
           </div>
-          <div className="export-bttn">
-            <div className="share-container">
-              <ShareButton onClick={handleShare} />
-              
-              {showCopyMessage && (
-                <div className="copy-message">URL copied, share it!</div>
-              )}
-            </div>
-            <ExportButton onClick={handleDownload} />
-          </div>
         </div>
+        <div className="presentation-viewing-side"></div>
       </div>
     </div>
   );
