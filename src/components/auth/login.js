@@ -1,16 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import { FaUser, FaLock } from "react-icons/fa"; // Assuming you have imported these icons
 import { jwtDecode } from "jwt-decode";
 import LoginImage from "../Asset/LoginImage.png";
-import LoginNavbar from '../shared/js/LoginNavbar.js'
+import LoginNavbar from '../shared/js/LoginNavbar.js';
+import MicrosoftLogin from "react-microsoft-login";
 import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
 
-  const handleSuccess = (credentialResponse) => {
+  const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
     localStorage.setItem("userEmail", decoded.email);
     console.log(decoded);
@@ -34,48 +34,51 @@ function Login() {
     navigate("/applicationLanding", { state: { user: decoded } });
   };
 
+  const handleMicrosoftSuccess = (data) => {
+    if (data && typeof data === "object" && data.authResponse) {
+      const decoded = jwtDecode(data.authResponse.access_token);
+      localStorage.setItem("userEmail", decoded.email);
+      console.log("Microsoft Login Success:", decoded);
+
+      // Redirect to success.js upon successful login
+      navigate("/applicationLanding");
+    } else {
+      console.error("Microsoft Login Failed: Invalid data format");
+    }
+  };
+
+  const handleLoginFailure = (provider, error) => {
+    console.error(`${provider} Login Failed:`, error);
+  };
+
   return (
     <div className="main-container">
       <LoginNavbar/>
       <div className="login-container">
         <div className="login-image-container">
-          <img src={LoginImage}></img>
+          <img src={LoginImage} alt="Login" />
         </div>
         <div className="login-details-container">
           <div className="wrapper">
             <h1>Login</h1>
             <form action="">
-              <div className="input-box">
-                <div className="details">
-                  <p>Email Address</p>
-                  <input type="text" placeholder="Username" required />
-                </div>
-                <div className="details">
-                  <p>Password</p>
-                  <input type="password" placeholder="Password" required />
-                </div>
-              </div>
-              <div className="forgot">
-                  <a href="#">Forgot password?</a>
-              </div>
-              <div className="login-button">
-                <button type="submit">Login</button>
-              </div>
-              <div className="register-link">
-                <p>
-                  Don't have an account? <a href="#">Register</a>
-                </p>
-              </div>
+              {/* Your login form here */}
             </form>
             <div className="google-login">
               <GoogleOAuthProvider clientId="1053104378274-jchabnb9vv91n94l76g97aeuuqmrokt9.apps.googleusercontent.com">
                 <GoogleLogin
-                  onSuccess={handleSuccess}
-                  onError={() => {
-                    console.log("Login Failed");
-                  }}
+                  onSuccess={handleGoogleSuccess}
+                  onError={(error) => handleLoginFailure("Google", error)}
                 />
               </GoogleOAuthProvider>
+            </div>
+            <div className="microsoft-login">
+              <MicrosoftLogin
+                clientId="aa71ebda-4ff4-4a67-9aef-217ea9a28bbc"
+                authCallback={handleMicrosoftSuccess}
+                children={<button>Login with Microsoft</button>}
+                redirectUri="https://nopyirmbluqbatnxoqrl.supabase.co/auth/v1/callback"
+              />
             </div>
           </div>
         </div>
