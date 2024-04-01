@@ -182,7 +182,9 @@ const PresentationCheck = () => {
             <GooglePresentation key={currentSlideKey} />
           </div>
         </div>
+
         <div className="presentation-viewing-side"></div>
+
       </div>
     </div>
   );

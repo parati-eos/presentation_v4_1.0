@@ -1,11 +1,14 @@
+
 import React, { useState, useRef, useEffect} from "react";
 import { useNavigate , useLocation } from "react-router-dom";
+
 import "../css/presentationcheck.css";
 import "../css/HistoryOverlay.css";
 import ShareButton from "./Share.js";
 import ExportButton from "./export.js";
 import Googleslides from "../../helper/googlepresentation-helper.js";
 import ApplicationLandingNavbar from "../../shared/js/LoginNavbar.js"
+
 
 const GooglePresentation = ({ url }) => {
   return (
@@ -25,6 +28,7 @@ const PresentationCheck = () => {
   const formId = searchParams.get("submissionId");
 
   // Company Name--------------->>
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +58,9 @@ const PresentationCheck = () => {
         <div className="presentation-viewing-center">
           
           <div className="presentation-view-slides">
+
             <GooglePresentation key={currentSlideKey} />
+
           </div>
         </div>
         <div className="presentation-viewing-side"></div>
@@ -64,30 +70,6 @@ const PresentationCheck = () => {
 };
 
 export default PresentationCheck;
-
-
-
-
-
-
-
-
-// useEffect(() => {
-//   const fetchSlides = async () => {
-//     try {
-//       const searchParams = new URLSearchParams(location.search);
-//       const formId = searchParams.get("submissionId");
-
-//       const response = await fetch(`https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`);
-//       if (!response.ok) {
-//         throw new Error("Failed to fetch slides");
-//       }
-//       const data = await response.json();
-//       setSlides(data);
-//     } catch (error) {
-//       console.error("Error fetching slides:", error);
-//     }
-//   };
 
 
 
