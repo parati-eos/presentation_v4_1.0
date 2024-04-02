@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./gph.css";
 import loadingImage from "../Asset/Loading.gif";
 
-const Googleslides = () => {
+const GoogleslidesShare = () => {
   var userId = localStorage.getItem("userEmail");
   var formId = localStorage.getItem("submissionId");
   const [slidesData, setSlidesData] = useState([]);
@@ -74,4 +74,4 @@ const Googleslides = () => {
   );
 };
 
-export default Googleslides;
+export default GoogleslidesShare;

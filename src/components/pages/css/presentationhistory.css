@@ -1,5 +1,9 @@
 .historypage{
     background-color: #001B28;
+    
+}
+.history-component{
+    padding: 0 3vw;
 }
 .HistoryCards{
     margin: 10px;
