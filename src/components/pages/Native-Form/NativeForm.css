@@ -308,3 +308,7 @@ tr {
   background-color: transparent;
   border: none;
 }
+.form-next-button-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

@@ -5,7 +5,7 @@ const CompetitiveDiff = ({ formData, handleChange }) => {
     <>
       <label>
         What factors differentiate your products or services from those of your
-        key competitors?
+        key competitors?*
       </label>
       <textarea
         style={{ height: "290px" }}
@@ -13,6 +13,7 @@ const CompetitiveDiff = ({ formData, handleChange }) => {
         value={formData.competitiveDiff}
         onChange={handleChange}
         placeholder="Enter your response here..."
+        required
       />
       <br />
     </>
