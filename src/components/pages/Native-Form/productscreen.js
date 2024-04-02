@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function to upload files to S3
 
+
 const MAX_IMAGES = 3; // Maximum number of images allowed to upload
 
 const ProductScreen = ({ formData, handleChange }) => {
@@ -22,12 +23,13 @@ const ProductScreen = ({ formData, handleChange }) => {
 
   const handleFileChange = async (e) => {
     const files = e.target.files;
-    const uploadedImagesCopy = { ...uploadedImages };
 
+    const uploadedImagesCopy = { ...uploadedImages };
     try {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
+
 
         if (selectedOption === "both") {
           if (uploadedImagesCopy["mobile"].length < MAX_IMAGES) {
@@ -57,6 +59,7 @@ const ProductScreen = ({ formData, handleChange }) => {
     }
   };
 
+
   const handleRemoveImage = (type, index) => {
     const uploadedImagesCopy = { ...uploadedImages };
     uploadedImagesCopy[type].splice(index, 1);
@@ -77,7 +80,9 @@ const ProductScreen = ({ formData, handleChange }) => {
       <select
         id="appType"
         name="appType"
+
         value={selectedOption}
+
         onChange={handleAppTypeChange}
       >
         <option value="">None</option>
@@ -86,6 +91,7 @@ const ProductScreen = ({ formData, handleChange }) => {
         <option value="both">Both</option>
       </select>
       <br />
+
       {(selectedOption === "mobile" || selectedOption === "both") && (
         <div className="textInputQuestions">
           <label htmlFor="mobileScreenshots">
@@ -115,12 +121,14 @@ const ProductScreen = ({ formData, handleChange }) => {
         <div className="textInputQuestions">
           <label htmlFor="webScreenshots">
             Please upload up to 3 Web App UI screenshots here -
+
           </label>
           <input
             type="file"
             id="webScreenshots"
             name="webScreenshots"
             multiple
+
             onChange={handleFileChange}
             accept="image/*"
           />
@@ -136,6 +144,7 @@ const ProductScreen = ({ formData, handleChange }) => {
           <br />
         </div>
       )}
+
     </>
   );
 };
