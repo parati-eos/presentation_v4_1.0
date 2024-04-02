@@ -12,6 +12,7 @@ const GTM = ({ formData, handleChange }) => {
         name="keyStakeholders"
         value={formData.keyStakeholders}
         onChange={handleChange}
+        required
       ></textarea>
       <br />
       <label htmlFor="customerPersona">
@@ -35,6 +36,7 @@ const GTM = ({ formData, handleChange }) => {
         name="goToMarketStrategy"
         value={formData.goToMarketStrategy}
         onChange={handleChange}
+        required
       ></textarea>
       <br />
     </>

@@ -72,7 +72,7 @@ const Form = () => {
     percentage: "",
   });
   const [progress, setProgress] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [formId, setFormId] = useState("");
   const handleHiddenButtonClick = async () => {
     try {
@@ -132,6 +132,7 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     // Validation logic to check if all mandatory fields are filled
     // Add your validation logic here
     // Log the form data along with form ID and user email
@@ -195,6 +196,7 @@ const Form = () => {
     // message
     if (section < 17) {
       setSection((prevSection) => prevSection + 1);
+      setIsLoading(false); 
     } else {
       alert("Form submitted successfully!");
       // Reset form data or navigate to another page
@@ -380,6 +382,7 @@ const Form = () => {
                   formData={formData}
                   handleChange={handleChange}
                   setFormData={setFormData} // Pass setFormData here
+                  isLoading={isLoading} 
                 />
               )}
               {section === 11 && (
@@ -417,8 +420,12 @@ const Form = () => {
                   </button>
                 )}
               </div>
-              <div className="form-next-button">
-                <button type="submit">
+              <div
+                className={`form-next-button ${
+                  isLoading ? "form-next-button-disabled" : ""
+                }`}
+              >
+                <button type="submit" disabled={isLoading}>
                   {section !== 17 ? "Next" : "Submit"}
                 </button>
               </div>
