@@ -60,7 +60,7 @@ const PresentationCheck = () => {
   };
 
   const handleShare = () => {
-    const shareUrl = `http://localhost:3000/share?submissionId=${formId}`;
+    const shareUrl = `https://pitchdeck-server.onrender.com/share?submissionId=${formId}`;
     navigator.clipboard
       .writeText(shareUrl)
       .then(() => {
@@ -98,9 +98,7 @@ const PresentationCheck = () => {
       }
     };
     if (formId !== "") {
-      setTimeout(() => {
         fetchData();
-      }, 60000);
     }
   }, [formId]);
   const [isEditing, setIsEditing] = useState(false);
@@ -119,7 +117,7 @@ const PresentationCheck = () => {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:5000/updateRow", {
+      const response = await fetch("https://pitchdeck-server.onrender.com/updateRow", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -9,6 +9,8 @@ button {
     text-align: center;
     min-width: 100px;
     min-height: 40px;
+    transition-duration: 0.4s;
+    cursor: pointer;
   }
   
   .sharebutton {
@@ -21,11 +23,21 @@ button {
     background: #e6a500;
     border: 0.1vw solid white;
   }
-  
- 
 
+  .sharebutton:hover{
+    background: #e6a500;
+    color: white;
+  }
 
-  
+  .exportbutton:hover{
+    color: #e6a500;
+    background: white;
+  }
+
+  button:active{
+    transform: translateY(2px);
+  }
+
   .button-with-icon .download-icon {
     margin-right: 9px; /* Add margin to create space between icon and text */
   }
