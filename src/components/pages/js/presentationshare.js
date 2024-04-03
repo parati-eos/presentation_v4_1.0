@@ -2,19 +2,17 @@
 import React, { useState, useRef, useEffect} from "react";
 import { useNavigate , useLocation } from "react-router-dom";
 
-import "../css/presentationcheck.css";
+import "../css/presentationshare.css";
 import "../css/HistoryOverlay.css";
-import ShareButton from "./Share.js";
-import ExportButton from "./export.js";
-import Googleslides from "../../helper/googlepresentation-helper.js";
-import ApplicationLandingNavbar from "../../shared/js/LoginNavbar.js"
+import GoogleslidesShare from "../../helper/googlepresentationShare-helper.js";
 
+import ParatiLogo from "../../Asset/parati-logo.png";
 
 const GooglePresentation = ({ url }) => {
   return (
     <div className="PresentationContainer">
       <div>
-        <Googleslides />
+        <GoogleslidesShare />
       </div>
     </div>
   );
@@ -54,13 +52,17 @@ const PresentationCheck = () => {
     <div className="main-container">
       <div className="presentation-viewing-container">
       <div className="presentation-viewing-side">
+      <div className="logo-icon">
+            <img
+              src={ParatiLogo}
+              alt="Parati Logo"
+              className="branding-logo"
+            ></img>
+        </div>
         </div>
         <div className="presentation-viewing-center">
-          
           <div className="presentation-view-slides">
-
             <GooglePresentation key={currentSlideKey} />
-
           </div>
         </div>
         <div className="presentation-viewing-side"></div>

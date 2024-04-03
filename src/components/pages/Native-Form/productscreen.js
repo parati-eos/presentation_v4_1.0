@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function to upload files to S3
 
 
 const MAX_IMAGES = 3; // Maximum number of images allowed to upload
 
 const ProductScreen = ({ formData, handleChange }) => {
-  const [selectedOption, setSelectedOption] = useState(""); // State to store selected option
+  const [selectedOption, setSelectedOption] = useState(formData.appType || ""); // State to store selected option
   const [uploadedImages, setUploadedImages] = useState({
-    web: [],
-    mobile: [],
+    web: formData.webScreenshots || [],
+    mobile: formData.mobileScreenshots || [],
   }); // State to store uploaded image URLs for web and mobile
+
+  useEffect(() => {
+    // Store selected option in form data when someone navigates back
+    handleChange({ target: { name: "appType", value: selectedOption } });
+  }, [selectedOption, handleChange]);
 
   const handleAppTypeChange = (e) => {
     const selectedValue = e.target.value;

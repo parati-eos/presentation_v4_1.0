@@ -18,14 +18,6 @@ function Navbar({historyShow, historyHide }) {
           <img src={ParatiLogo} alt="Parati Logo" />
         </div>
         <div className="navbar-generateppt-container">
-          {/* <button
-            onClick={handleBuildPresentation}
-          >
-            <div className="button-inner">
-            <img src={magicWand}></img>
-            <span>Generate Pitch Deck</span>
-            </div>
-          </button> */}
         </div>
         <div className="navbar-details-container">
           {/* Apply hover event handlers */}

@@ -65,6 +65,7 @@ const Team = ({ formData, handleChange }) => {
             onChange={(e) =>
               handleTeamMemberChange(index, "name", e.target.value)
             }
+            required
           />
           <input
             type="text"
@@ -73,6 +74,7 @@ const Team = ({ formData, handleChange }) => {
             onChange={(e) =>
               handleTeamMemberChange(index, "title", e.target.value)
             }
+            required
           />
           <input
             type="text"
@@ -97,6 +99,7 @@ const Team = ({ formData, handleChange }) => {
             onChange={(e) =>
               handleTeamMemberChange(index, "experience", e.target.value)
             }
+            required
           />
           <div className="file-close-container">
             <div>

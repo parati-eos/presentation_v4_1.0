@@ -45,6 +45,15 @@ nav {
   color: rgb(255, 255, 255, 1);
   border: 0.2vw solid #e6a500;
 }
+.navbar-generateppt-container button:hover{
+  color: #e6a500 ;
+  background-color: rgb(255, 255, 255, 1);
+}
+.navbar-generateppt-container button:hover img{
+  background-color: #e6a500;
+  border-radius: 50%;
+}
+
 .button-inner{
   display: flex;
   justify-content: center;
@@ -88,6 +97,11 @@ nav {
   color: rgb(255, 255, 255, 0.8);
   border: 0.2vw solid #004264;
 
+}
+
+.navbar-details-container button:hover{
+  color: #004264  ;
+  background-color: rgb(255, 255, 255, 0.8);
 }
 
 .user{
