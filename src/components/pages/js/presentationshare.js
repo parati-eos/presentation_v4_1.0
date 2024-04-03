@@ -4,10 +4,6 @@ import { useNavigate , useLocation } from "react-router-dom";
 
 import "../css/presentationshare.css";
 import "../css/HistoryOverlay.css";
-import ShareButton from "./Share.js";
-import ExportButton from "./export.js";
-import Googleslides from "../../helper/googlepresentation-helper.js";
-import ApplicationLandingNavbar from "../../shared/js/LoginNavbar.js"
 import GoogleslidesShare from "../../helper/googlepresentationShare-helper.js";
 
 import ParatiLogo from "../../Asset/parati-logo.png";

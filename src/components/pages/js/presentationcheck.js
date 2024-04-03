@@ -60,7 +60,7 @@ const PresentationCheck = () => {
   };
 
   const handleShare = () => {
-    const shareUrl = `https://pitchdeck-server.onrender.com/share?submissionId=${formId}`;
+    const shareUrl = `https://presentation-final-fd.vercel.app/share?submissionId=${formId}`;
     navigator.clipboard
       .writeText(shareUrl)
       .then(() => {
