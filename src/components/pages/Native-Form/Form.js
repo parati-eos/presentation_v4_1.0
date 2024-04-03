@@ -77,7 +77,7 @@ const Form = () => {
   const handleHiddenButtonClick = async () => {
     try {
       const response = await fetch(
-        `https://script.google.com/macros/s/AKfycbwHxRZ-BojygDnHhho3JOXn6Pxj63YZhl6yCMopGyVgVGlIvi6_vWoaCSlbk9eESunk/exec?userID=${localStorage.getItem(
+        `https://script.google.com/macros/s/AKfycbz0zbbuFDgq0U0REwSt-eQmdT9ujOWLK38lUJP3YZjpgjVNw4l2Oe0hu8I2tMeeiQ0d/exec?userID=${localStorage.getItem(
           "userEmail"
         )}&submissionID=${formId}`
       );
