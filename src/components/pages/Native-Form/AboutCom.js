@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ColorPicker from "./ColorPicker";
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function for uploading files to S3
+import "./About.css";
 
 const AboutCompany = ({ formData, handleChange, handleNext }) => {
   const [logoUrl, setLogoUrl] = useState(formData.logo || null); // Initialize with formData.logo if available
   const [fileInputKey, setFileInputKey] = useState(0); // Key to reset file input
+  const [primaryColor, setPrimaryColor] = useState(formData.primaryColor || "#000000"); // Default primary color
+  const [secondaryColor, setSecondaryColor] = useState(formData.secondaryColor || "#000000"); // Default secondary color
 
   useEffect(() => {
     // Update logoUrl if formData.logo changes
@@ -29,12 +32,17 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
   };
 
   const handlePrimaryColorChange = (color) => {
-    handleChange({ target: { name: "primaryColor", value: color } });
+    const newColor = color || "#000000"; // Set default color if color is not selected
+    setPrimaryColor(newColor); // Update primary color state
+    handleChange({ target: { name: "primaryColor", value: newColor } }); // Update form data with the primary color
   };
-
+  
   const handleSecondaryColorChange = (color) => {
-    handleChange({ target: { name: "secondaryColor", value: color } });
+    const newColor = color || "#000000"; // Set default color if color is not selected
+    setSecondaryColor(newColor); // Update secondary color state
+    handleChange({ target: { name: "secondaryColor", value: newColor } }); // Update form data with the secondary color
   };
+  
 
   const handleContinue = () => {
     if (logoUrl) {
@@ -75,9 +83,13 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
       <div className="textInputQuestions">
         <label htmlFor="logo">Please upload your logo (PDF, JPG, JPEG, PNG, WEBP)*</label>
         {logoUrl ? (
-          <div>
-            <p>Selected file: {logoUrl}</p>
-            <button onClick={handleRemoveLogo}>Remove</button>
+          <div className="text-input-logo">
+            <div className="text-input-logo-filename">
+              <div>
+              {logoUrl.split('/').pop()}</div>
+              </div>
+           <div className="text-input-logo-remove">
+            <button className="remove-button" onClick={handleRemoveLogo}>Remove</button></div>
           </div>
         ) : (
           <input
@@ -99,7 +111,7 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
           <ColorPicker
             id="primaryColor"
             name="primaryColor"
-            color={formData.primaryColor}
+            color={primaryColor}
             handleChange={handlePrimaryColorChange}
             required
           />
@@ -109,9 +121,10 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
           <ColorPicker
             id="secondaryColor"
             name="secondaryColor"
-            color={formData.secondaryColor}
+            color={secondaryColor}
             handleChange={handleSecondaryColorChange}
             required
+      
           />
         </div>
       </div>
