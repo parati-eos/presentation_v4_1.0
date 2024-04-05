@@ -3,7 +3,7 @@ import close from "../../Asset/close.png";
 
 const Competition = ({ formData, handleChange }) => {
   const minCompetitorFields = 4; // Minimum number of competitor fields to display by default
-  const initialCompetitors = Array.from({ length: minCompetitorFields }, () => "");
+  const initialCompetitors = formData.competitors || Array.from({ length: minCompetitorFields }, () => "");
 
   const [competitors, setCompetitors] = useState(initialCompetitors);
 
@@ -39,6 +39,9 @@ const Competition = ({ formData, handleChange }) => {
 
   return (
     <>
+      <label htmlFor="competitors">
+        Who would you consider to be your company's top competitors in the market? List at least 4 of them
+      </label>
       {competitors.map((competitor, index) => (
         <div key={index} className="competitor-row">
           <br />

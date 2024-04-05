@@ -81,7 +81,7 @@ const Market = ({ formData, handleChange }) => {
       <br />
       <div className="textInputQuestions">
         <label htmlFor="TAM">
-          What is your total addressable market (TAM) in million USD?*
+          What is your total addressable market (TAM) in million USD?
         </label>
         <input
           type="number"
@@ -111,7 +111,7 @@ const Market = ({ formData, handleChange }) => {
       <br />
       <div className="textInputQuestions">
         <label htmlFor="SAM">
-          What is your serviceable addressable market (SAM) in million USD?*
+          What is your serviceable addressable market (SAM) in million USD?
         </label>
         <input
           type="number"

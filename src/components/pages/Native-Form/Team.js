@@ -3,10 +3,12 @@ import close from "../../Asset/close.png";
 import uploadFileToS3 from "./uploadFileToS3";
 
 const Team = ({ formData, handleChange }) => {
-  const [teamMembers, setTeamMembers] = useState([
+  const initialTeamMembers = formData.teamMembers || [
     { name: "", title: "", experience: "", linkedin: "", photo: null },
     { name: "", title: "", experience: "", linkedin: "", photo: null },
-  ]);
+  ];
+
+  const [teamMembers, setTeamMembers] = useState(initialTeamMembers);
 
   const handleAddMember = () => {
     if (teamMembers.length < 6) {
