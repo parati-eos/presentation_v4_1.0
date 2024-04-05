@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/presentationcheck.css";
 import "../css/HistoryOverlay.css";
@@ -7,13 +7,11 @@ import ExportButton from "./export.js";
 import Googleslides from "../../helper/googlepresentation-helper.js";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
 
-var userId = localStorage.getItem("userEmail");
-var formId = localStorage.getItem("submissionId");
 const GooglePresentation = ({ url }) => {
   return (
     <div className="PresentationContainer">
       <div>
-        <Googleslides userId={userId} formId={formId} />
+        <Googleslides />
       </div>
     </div>
   );
@@ -26,7 +24,7 @@ const PresentationCheck = () => {
   const historyTimeout = useRef(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [currentSlideKey, setCurrentSlideKey] = useState(0);
-
+  var formId = localStorage.getItem("submissionId");
   const handleMouseEnterHistory = () => {
     clearTimeout(historyTimeout.current);
     setShowHistory(true);
@@ -53,10 +51,6 @@ const PresentationCheck = () => {
     navigate("/form");
   };
 
-  const applicationId = "your_application_id";
-  const presentationUrl =
-    "https://docs.google.com/presentation/d/1enbGTOYKtwHDQ5R2Z3BMYPnXq0xdiOk8DL_hjKcpfOo/edit#slide=id.SLIDES_API1193561537_0";
-
   const handleDownload = () => {
     setIsPaymentModalOpen(true);
   };
@@ -66,7 +60,7 @@ const PresentationCheck = () => {
   };
 
   const handleShare = () => {
-    const shareUrl = `http://localhost:3000/share?submissionId=${formId}`;
+    const shareUrl = `https://presentation-final-fd.vercel.app/share?submissionId=${formId}`;
     navigator.clipboard
       .writeText(shareUrl)
       .then(() => {
@@ -80,6 +74,68 @@ const PresentationCheck = () => {
         console.error("Failed to copy URL to clipboard: ", error);
       });
   };
+
+  // Company Name--------------->>
+  const [PPTName, setPPTName] = useState("PPTName");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const apiUrl = `https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`;
+      try {
+        const response = await fetch(apiUrl, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setPPTName(data[3]);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    if (formId !== "") {
+        fetchData();
+    }
+  }, [formId]);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleNameChange = (e) => {
+    setPPTName(e.target.value);
+  };
+
+  const handleSave = async () => {
+    setIsEditing(false);
+
+    const requestBody = {
+      userID: localStorage.getItem("userEmail"),
+      formID: localStorage.getItem("submissionId"),
+      newColumnValue: PPTName,
+    };
+
+    try {
+      const response = await fetch("https://pitchdeck-server.onrender.com/updateRow", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (response.ok) {
+        console.log("Row updated successfully");
+        alert("Row updated successfully");
+      } else {
+        console.error("Failed to update row");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  // <<---------------Company Name
 
   return (
     <div className="main-container">
@@ -100,21 +156,33 @@ const PresentationCheck = () => {
         </div>
       )}
       <div className="presentation-viewing-container">
+      <div className="presentation-viewing-side">
+      <div className="share-export">
+      {isEditing ? (
+            <input
+              type="text"
+              value={PPTName}
+              onBlur={handleSave}
+              onChange={handleNameChange}
+            />
+          ) : (
+            <h2 onClick={() => setIsEditing(true)}>
+              <span>{PPTName}</span>
+            </h2>
+          )}
+          <ShareButton onClick={handleShare} />
+          <ExportButton onClick={handleDownload} />
+          </div>
+        </div>
         <div className="presentation-viewing-center">
+          
           <div className="presentation-view-slides">
             <GooglePresentation key={currentSlideKey} />
           </div>
-          <div className="export-bttn">
-            <div className="share-container">
-              <ShareButton onClick={handleShare} />
-              
-              {showCopyMessage && (
-                <div className="copy-message">URL copied, share it!</div>
-              )}
-            </div>
-            <ExportButton onClick={handleDownload} />
-          </div>
         </div>
+
+        <div className="presentation-viewing-side"></div>
+
       </div>
     </div>
   );

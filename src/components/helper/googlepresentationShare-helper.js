@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./gph.css";
 import loadingImage from "../Asset/Loading.gif";
 
-const Googleslides = () => {
-  var userId = localStorage.getItem("userEmail");
-  var formId = localStorage.getItem("submissionId");
+const GoogleslidesShare = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  // Get the value of the submissionId parameter from the search string
+  const formId = searchParams.get('submissionId');
   const [slidesData, setSlidesData] = useState([]);
   const [slidesId, setSlidesId] = useState("");
   const [loading, setLoading] = useState("true");
 
-  console.log([userId, formId]);
+
   const fetchSlidesData = async () => {
-    console.log([userId, formId]);
     try {
-      const url = `https://pitchdeck-server.onrender.com/slides?userId=${userId}&formId=${formId}`;
+      const url = `https://pitchdeck-server.onrender.com/slides?&formId=${formId}`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed to fetch slides data");
@@ -46,9 +49,9 @@ const Googleslides = () => {
       setLoading("false");
     }
 
-    const intervalId = setInterval(fetchSlidesData, 1000); // Poll every 5 seconds
-    return () => clearInterval(intervalId);
-  }, [userId, formId]); // Removed slidesData.length from the dependency array
+    fetchSlidesData(); // Poll every 5 seconds
+ 
+  }, [formId]); // Removed slidesData.length from the dependency array
 
   if (loading == "true") {
     return (
@@ -74,4 +77,4 @@ const Googleslides = () => {
   );
 };
 
-export default Googleslides;
+export default GoogleslidesShare;
