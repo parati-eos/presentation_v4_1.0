@@ -128,7 +128,6 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
             color={secondaryColor}
             handleChange={handleSecondaryColorChange}
             required
-      
           />
         </div>
       </div>
