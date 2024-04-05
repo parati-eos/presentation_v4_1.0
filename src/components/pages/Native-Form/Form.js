@@ -186,15 +186,21 @@ const Form = () => {
     localStorage.setItem("percentage", formData.percentage);
   }, []); // Empty dependency array to run this effect only once
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    console.log([name, value]);
-    console.log(e.target);
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value === "" ? undefined : value,
-    }));
-  };
+const handleChange = (e) => {
+  const { name, value } = e.target;
+  let newValue = value;
+
+  // Check if the value is empty
+  if (name === "primaryColor" || name === "secondaryColor") {
+    newValue = value === "" ? "#000000" : value;
+  }
+
+  setFormData((prevState) => ({
+    ...prevState,
+    [name]: newValue,
+  }));
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -536,17 +542,17 @@ console.log("-----------------------"+changedData+"----------------------------"
       case 4:
         return "Solutions";
       case 5:
-        return "Market";
+        return "Market and Opportunity";
       case 6:
-        return "Product";
+        return "Products and Services";
       case 7:
         return "Product Screenshots";
       case 8:
         return "Business Model";
       case 9:
-        return "GTM";
+        return "Go-to-market Strategy";
       case 10:
-        return "Track";
+        return "Track Record";
       case 11:
         return "Case";
       case 12:
@@ -558,7 +564,7 @@ console.log("-----------------------"+changedData+"----------------------------"
       case 15:
         return "Team";
       case 16:
-        return "Financials"; // Update the case for Financials section
+        return "Financial Snapshot"; // Update the case for Financials section
       case 17:
         return "Contact"; // Update the case for Contact section
       default:

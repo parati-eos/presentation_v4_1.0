@@ -118,7 +118,7 @@ const Financials = ({ formData, handleChange }) => {
                     onChange={(e) =>
                       handleRevenueCostChange(index, "year", e.target.value)
                     }
-                   
+                    required
                   >
                     <option value="">Select a Year</option>
                     {years.map((year) => (
@@ -200,7 +200,7 @@ const Financials = ({ formData, handleChange }) => {
                     onChange={(e) =>
                       handleuseOfFundsChange(index, "use", e.target.value)
                     }
-                 
+                    required
                   >
                     <option value="">Select a Use</option>
                     <option value="Product and Development">
