@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <nav>
       <div className="navbar-container">
-        <img src={ParatiLogo}></img>
+        <img src={ParatiLogo} width={200}></img>
       </div>
     </nav>
   );

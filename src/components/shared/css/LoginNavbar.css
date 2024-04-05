@@ -8,8 +8,9 @@ nav {
     display: flex;
     justify-content: center; /* Use space-between to push the links and image to the edges */
     align-items: center;
+    background-color: #000fff;
   }
   .navbar-container img{
-    height: 5vh !important;
-    width: auto ;
+
+    background-color: #fff;
   }

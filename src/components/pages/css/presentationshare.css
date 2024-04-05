@@ -65,13 +65,15 @@
    
   }
   .presentation-viewing-center {
+    
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 70vw;
+    height: 100vh;
   }
-  .presentation-viewing-center input{
+  /* .presentation-viewing-center input{
     background-color: transparent;
     color: white;
     text-decoration: none;
@@ -80,24 +82,29 @@
     text-align: center;
     width: 10vw;
     padding: 1vw;
-  }
+  } */
   .presentation-view-slides{
     transform: translateY(6vh);
     display: flex;
     justify-self: center;
-    background-color:aliceblue;
     width: 90%;
     height: 90vh;
     border-radius: 2cqb;
     background: transparent;
     overflow-y: auto;
     overflow-x: hidden;
+    border: 3px solid white;
+  }
+  .PresentationContainer{
+    background-color: black;
   }
   .presentation-viewing-side .logo-icon{
     transform: translateY(6vh);
   }
   .presentation-view-slides::-webkit-scrollbar {
-    width: 12px; /* Adjust as needed */
+    width: 12px;
+    background-color: black;
+    border-radius: 4cqb; /* Adjust as needed */
   }
   .copy-message {
     color: white;
