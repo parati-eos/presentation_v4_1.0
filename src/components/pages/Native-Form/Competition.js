@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import close from "../../Asset/close.png";
 
 const Competition = ({ formData, handleChange }) => {
-  const [competitors, setCompetitors] = useState([
-    "",
-    "", // Initial competitor
-  ]);
+  const minCompetitorFields = 4; // Minimum number of competitor fields to display by default
+  const initialCompetitors = Array.from({ length: minCompetitorFields }, () => "");
+
+  const [competitors, setCompetitors] = useState(initialCompetitors);
 
   const handleCompetitorChange = (index, value) => {
     const updatedCompetitors = [...competitors];
@@ -52,13 +52,13 @@ const Competition = ({ formData, handleChange }) => {
               onChange={(e) => handleCompetitorChange(index, e.target.value)}
             />
           </div>
-          {competitors.length > 2 && (
+          {competitors.length > minCompetitorFields && (
             <div
               className="close-button-competition"
               type="button"
               onClick={() => removeCompetitorRow(index)}
             >
-              <img src={close}></img>
+              <img src={close} alt="Close" />
             </div>
           )}
           </>

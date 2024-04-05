@@ -72,12 +72,12 @@ const Form = () => {
     percentage: "",
   });
   const [progress, setProgress] = useState(0);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [formId, setFormId] = useState("");
   const handleHiddenButtonClick = async () => {
     try {
       const response = await fetch(
-        `https://script.google.com/macros/s/AKfycbwHxRZ-BojygDnHhho3JOXn6Pxj63YZhl6yCMopGyVgVGlIvi6_vWoaCSlbk9eESunk/exec?userID=${localStorage.getItem(
+        `https://script.google.com/macros/s/AKfycbz0zbbuFDgq0U0REwSt-eQmdT9ujOWLK38lUJP3YZjpgjVNw4l2Oe0hu8I2tMeeiQ0d/exec?userID=${localStorage.getItem(
           "userEmail"
         )}&submissionID=${formId}`
       );
@@ -118,6 +118,72 @@ const Form = () => {
     // Fetch user email from local storage
     const userEmail = localStorage.getItem("userEmail");
     console.log("User Email:", userEmail);
+
+    //Setting local variables for check on next button click.
+    localStorage.setItem("companyName", formData.companyName);
+    localStorage.setItem("tagline", formData.tagline);
+    localStorage.setItem("logo", formData.logo);
+    localStorage.setItem("primaryColor", formData.primaryColor);
+    localStorage.setItem("secondaryColor", formData.secondaryColor);
+
+    localStorage.setItem("establishmentYear", formData.establishmentYear);
+    localStorage.setItem("companyOverview", formData.companyOverview);
+
+    localStorage.setItem("problemDescription", formData.problemDescription);
+
+    localStorage.setItem("solutionsDescription", formData.solutionsDescription);
+
+    localStorage.setItem("sector", formData.sector);
+    localStorage.setItem("otherSector", formData.otherSector);
+    localStorage.setItem("marketDescription", formData.marketDescription);
+    localStorage.setItem("TAM", formData.TAM);
+    localStorage.setItem("TAMGrowthRate", formData.TAMGrowthRate);
+    localStorage.setItem("SAM", formData.SAM);
+    localStorage.setItem("SAMGrowthRate", formData.SAMGrowthRate);
+
+    localStorage.setItem("productOverview", formData.productOverview);
+    localStorage.setItem("productRoadmap", formData.productRoadmap);
+    localStorage.setItem(
+      "productRoadmapDescription",
+      formData.productRoadmapDescription
+    );
+    localStorage.setItem(
+      "technicalArchitecture",
+      formData.technicalArchitecture
+    );
+
+    localStorage.setItem("appType", formData.appType);
+    localStorage.setItem("mobileScreenshots", formData.mobileScreenshots);
+    localStorage.setItem("webScreenshots", formData.webScreenshots);
+
+    localStorage.setItem("businessModel", formData.businessModel);
+
+    localStorage.setItem("keyStakeholders", formData.keyStakeholders);
+    localStorage.setItem("customerPersona", formData.customerPersona);
+    localStorage.setItem("goToMarketStrategy", formData.goToMarketStrategy);
+
+    localStorage.setItem("trackRecord", formData.trackRecord);
+
+    localStorage.setItem("caseStudies", formData.caseStudies);
+
+    localStorage.setItem("testimonials", formData.testimonials);
+
+    localStorage.setItem("competitors", formData.competitors);
+
+    localStorage.setItem("competitiveDiff", formData.competitiveDiff);
+
+    localStorage.setItem("teamMembers", formData.teamMembers);
+
+    localStorage.setItem("websiteLink", formData.websiteLink);
+    localStorage.setItem("linkedinLink", formData.linkedinLink);
+    localStorage.setItem("contactEmail", formData.contactEmail);
+    localStorage.setItem("contactPhone", formData.contactPhone);
+
+    localStorage.setItem("financialSnapshot", formData.financialSnapshot);
+    localStorage.setItem("revenueCost", formData.revenueCost);
+    localStorage.setItem("plannedRaise", formData.plannedRaise);
+    localStorage.setItem("useOfFunds", formData.useOfFunds);
+    localStorage.setItem("percentage", formData.percentage);
   }, []); // Empty dependency array to run this effect only once
 
   const handleChange = (e) => {
@@ -132,6 +198,7 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     // Validation logic to check if all mandatory fields are filled
     // Add your validation logic here
     // Log the form data along with form ID and user email
@@ -168,33 +235,217 @@ const Form = () => {
       section: sectionNames[section - 1],
     };
     console.log("API Payload:", payload); // Log the payload before sending
+    var changedData = false;
+    if (
+      (section === 1 &&
+        (localStorage.getItem("companyName") != formData.companyName ||
+      localStorage.getItem("tagline") != formData.tagline ||
+      localStorage.getItem("logo") != formData.logo ||
+      localStorage.getItem("primaryColor") != formData.primaryColor ||
+      localStorage.getItem("secondaryColor") != formData.secondaryColor)
+    )) {
+      changedData = true;
+    } else if (
+      (section === 2 &&
+        (localStorage.getItem("establishmentYear") != formData.establishmentYear ||
+      localStorage.getItem("companyOverview") != formData.companyOverview)
+    )) {
+      changedData = true;
+    } else if (
+      section === 3 &&
+      localStorage.getItem("problemDescription") != formData.problemDescription
+    ) {
+      changedData = true;
+    } else if (
+      section === 4 &&
+      localStorage.getItem("solutionsDescription") != formData.solutionsDescription
+    ) {
+      changedData = true;
+    } else if (
+      (section === 5 &&
+        (localStorage.getItem("sector") != formData.sector ||
+      localStorage.getItem("otherSector") != formData.otherSector ||
+      localStorage.getItem("marketDescription") != formData.marketDescription ||
+      localStorage.getItem("TAM") != formData.TAM ||
+      localStorage.getItem("TAMGrowthRate") != formData.TAMGrowthRate ||
+      localStorage.getItem("SAM") != formData.SAM ||
+      localStorage.getItem("SAMGrowthRate") != formData.SAMGrowthRate)
+    )) {
+      changedData = true;
+    } else if (
+      (section === 6 &&
+        (localStorage.getItem("productOverview") != formData.productOverview ||
+      localStorage.getItem("productRoadmap") != formData.productRoadmap ||
+      localStorage.getItem("productRoadmapDescription") != formData.productRoadmapDescription ||
+      localStorage.getItem("technicalArchitecture") != formData.technicalArchitecture)
+    )) {
+      changedData = true;
+    } else if (
+      (section === 7 &&
+        (localStorage.getItem("appType") != formData.appType ||
+      localStorage.getItem("mobileScreenshots") != formData.mobileScreenshots ||
+      localStorage.getItem("webScreenshots") != formData.webScreenshots)
+    )) {
+      changedData = true;
+    } else if (
+      section === 8 &&
+      localStorage.getItem("businessModel") != formData.businessModel
+    ) {
+      changedData = true;
+    } else if (
+      section === 9 &&
+      (localStorage.getItem("keyStakeholders") != formData.keyStakeholders ||
+      localStorage.getItem("customerPersona") != formData.customerPersona ||
+      localStorage.getItem("goToMarketStrategy") != formData.goToMarketStrategy)
+    ) {
+      changedData = true;
+    } else if (
+      section === 10 &&
+      localStorage.getItem("trackRecord") != formData.trackRecord
+    ) {
+      changedData = true;
+    } else if (
+      section === 11 &&
+      localStorage.getItem("caseStudies") != formData.caseStudies
+    ) {
+      changedData = true;
+    } else if (
+      section === 12 &&
+      localStorage.getItem("testimonials") != formData.testimonials
+    ) {
+      changedData = true;
+    } else if (
+      section === 13 &&
+      localStorage.getItem("competitors") != formData.competitors
+    ) {
+      changedData = true;
+    } else if (
+      section === 14 &&
+      localStorage.getItem("competitiveDiff") != formData.competitiveDiff
+    ) {
+      changedData = true;
+    } else if (
+      section === 15 &&
+      localStorage.getItem("teamMembers") != formData.teamMembers
+    ) {
+      changedData = true;
+    } else if (
+      section === 16 &&
+      (localStorage.getItem("financialSnapshot") != formData.financialSnapshot ||
+      localStorage.getItem("revenueCost") != formData.revenueCost ||
+      localStorage.getItem("plannedRaise") != formData.plannedRaise ||
+      localStorage.getItem("useOfFunds") != formData.useOfFunds ||
+      localStorage.getItem("percentage") != formData.percentage)
+    ) {
+      changedData = true;
+    } else if (
+      section === 17 &&
+      (localStorage.getItem("websiteLink") != formData.websiteLink ||
+      localStorage.getItem("linkedinLink") != formData.linkedinLink ||
+      localStorage.getItem("contactEmail") != formData.contactEmail ||
+      localStorage.getItem("contactPhone") != formData.contactPhone)
+    ) {
+      changedData = true;
+    }
+console.log("-----------------------"+changedData+"----------------------------");
+    if (changedData) {
+      try {
+        const response = await fetch(
+          "https://pitchdeck-server.onrender.com/submission",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          }
+        );
 
-    try {
-      const response = await fetch(
-        "https://pitchdeck-server.onrender.com/submission",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
         }
+
+        const data = await response.json();
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+      //Setting local variables for check on next button click.
+      localStorage.setItem("companyName", formData.companyName);
+      localStorage.setItem("tagline", formData.tagline);
+      localStorage.setItem("logo", formData.logo);
+      localStorage.setItem("primaryColor", formData.primaryColor);
+      localStorage.setItem("secondaryColor", formData.secondaryColor);
+
+      localStorage.setItem("establishmentYear", formData.establishmentYear);
+      localStorage.setItem("companyOverview", formData.companyOverview);
+
+      localStorage.setItem("problemDescription", formData.problemDescription);
+
+      localStorage.setItem(
+        "solutionsDescription",
+        formData.solutionsDescription
       );
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
+      localStorage.setItem("sector", formData.sector);
+      localStorage.setItem("otherSector", formData.otherSector);
+      localStorage.setItem("marketDescription", formData.marketDescription);
+      localStorage.setItem("TAM", formData.TAM);
+      localStorage.setItem("TAMGrowthRate", formData.TAMGrowthRate);
+      localStorage.setItem("SAM", formData.SAM);
+      localStorage.setItem("SAMGrowthRate", formData.SAMGrowthRate);
 
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error("Error:", error);
+      localStorage.setItem("productOverview", formData.productOverview);
+      localStorage.setItem("productRoadmap", formData.productRoadmap);
+      localStorage.setItem(
+        "productRoadmapDescription",
+        formData.productRoadmapDescription
+      );
+      localStorage.setItem(
+        "technicalArchitecture",
+        formData.technicalArchitecture
+      );
+
+      localStorage.setItem("appType", formData.appType);
+      localStorage.setItem("mobileScreenshots", formData.mobileScreenshots);
+      localStorage.setItem("webScreenshots", formData.webScreenshots);
+
+      localStorage.setItem("businessModel", formData.businessModel);
+
+      localStorage.setItem("keyStakeholders", formData.keyStakeholders);
+      localStorage.setItem("customerPersona", formData.customerPersona);
+      localStorage.setItem("goToMarketStrategy", formData.goToMarketStrategy);
+
+      localStorage.setItem("trackRecord", formData.trackRecord);
+
+      localStorage.setItem("caseStudies", formData.caseStudies);
+
+      localStorage.setItem("testimonials", formData.testimonials);
+
+      localStorage.setItem("competitors", formData.competitors);
+
+      localStorage.setItem("competitiveDiff", formData.competitiveDiff);
+
+      localStorage.setItem("teamMembers", formData.teamMembers);
+
+      localStorage.setItem("websiteLink", formData.websiteLink);
+      localStorage.setItem("linkedinLink", formData.linkedinLink);
+      localStorage.setItem("contactEmail", formData.contactEmail);
+      localStorage.setItem("contactPhone", formData.contactPhone);
+
+      localStorage.setItem("financialSnapshot", formData.financialSnapshot);
+      localStorage.setItem("revenueCost", formData.revenueCost);
+      localStorage.setItem("plannedRaise", formData.plannedRaise);
+      localStorage.setItem("useOfFunds", formData.useOfFunds);
+      localStorage.setItem("percentage", formData.percentage);
+      changedData = false;
     }
 
     // Proceed to the next section or show success
     // message
     if (section < 17) {
       setSection((prevSection) => prevSection + 1);
+      setIsLoading(false); 
     } else {
       alert("Form submitted successfully!");
       // Reset form data or navigate to another page
@@ -380,6 +631,7 @@ const Form = () => {
                   formData={formData}
                   handleChange={handleChange}
                   setFormData={setFormData} // Pass setFormData here
+                  isLoading={isLoading} 
                 />
               )}
               {section === 11 && (
@@ -417,8 +669,12 @@ const Form = () => {
                   </button>
                 )}
               </div>
-              <div className="form-next-button">
-                <button type="submit">
+              <div
+                className={`form-next-button ${
+                  isLoading ? "form-next-button-disabled" : ""
+                }`}
+              >
+                <button type="submit" disabled={isLoading}>
                   {section !== 17 ? "Next" : "Submit"}
                 </button>
               </div>

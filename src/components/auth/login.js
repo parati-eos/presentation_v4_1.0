@@ -35,18 +35,22 @@ function Login() {
   };
 
   const handleMicrosoftSuccess = (data) => {
-    if (data && typeof data === "object" && data.authResponse) {
-      const decoded = jwtDecode(data.authResponse.access_token);
-      localStorage.setItem("userEmail", decoded.email);
-      console.log("Microsoft Login Success:", decoded);
-
-      // Redirect to success.js upon successful login
-      navigate("/applicationLanding");
-    } else {
-      console.error("Microsoft Login Failed: Invalid data format");
+    console.log("Microsoft Authentication Response:", data); // Log the authentication response
+    try {
+      if (data && data.authResponse && data.authResponse.access_token) {
+        const decoded = jwtDecode(data.authResponse.access_token);
+        localStorage.setItem("userEmail", decoded.email);
+        console.log("Microsoft Login Success:", decoded);
+        // Redirect to success.js upon successful login
+        navigate("/applicationLanding");
+      } else {
+        console.error("Microsoft Login Failed: Invalid authentication response format");
+      }
+    } catch (error) {
+      console.error("Microsoft Login Failed:", error);
     }
   };
-
+  
   const handleLoginFailure = (provider, error) => {
     console.error(`${provider} Login Failed:`, error);
   };
@@ -73,12 +77,15 @@ function Login() {
               </GoogleOAuthProvider>
             </div>
             <div className="microsoft-login">
-              <MicrosoftLogin
-                clientId="aa71ebda-4ff4-4a67-9aef-217ea9a28bbc"
-                authCallback={handleMicrosoftSuccess}
-                children={<button>Login with Microsoft</button>}
-                redirectUri="https://nopyirmbluqbatnxoqrl.supabase.co/auth/v1/callback"
-              />
+            <MicrosoftLogin
+  clientId="1fe7a2de-f766-4418-b6c8-1e7be3da2b9e"
+  authCallback={handleMicrosoftSuccess}
+  redirectUri="http://localhost:3000" // Specify your redirect URL here
+  children={<button>Login with Microsoft</button>}
+  prompt="select_account" // Specify the prompt parameter
+/>
+
+
             </div>
           </div>
         </div>
