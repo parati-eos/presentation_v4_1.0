@@ -79,6 +79,8 @@ const PresentationCheck = () => {
   const [PPTName, setPPTName] = useState("PPTName");
 
   useEffect(() => {
+    formId = localStorage.getItem("submissionId");
+    console.log("foooooooooorm id: ",formId)
     const fetchData = async () => {
       const apiUrl = `https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`;
       try {
