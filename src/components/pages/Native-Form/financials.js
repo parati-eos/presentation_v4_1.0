@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const Financials = ({ formData, handleChange }) => {
   const [revenueRows, setRevenueRows] = useState([
@@ -18,17 +18,6 @@ const Financials = ({ formData, handleChange }) => {
     { length: 10 },
     (_, index) => currentYear - 5 + index
   );
-
-  useEffect(() => {
-    // Populate revenueRows from formData if available
-    if (formData.revenueCost) {
-      setRevenueRows(formData.revenueCost);
-    }
-    // Populate useOfFunds from formData if available
-    if (formData.useOfFunds) {
-      setUseOfFunds(formData.useOfFunds);
-    }
-  }, [formData]);
 
   const handleRevenueCostChange = (index, field, value) => {
     const updatedRevenueCost = [...revenueRows];
