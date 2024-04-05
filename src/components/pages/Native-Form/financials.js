@@ -1,30 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Financials = ({ formData, handleChange }) => {
   const [revenueRows, setRevenueRows] = useState([
     { year: "", revenue: "", cost: "" },
   ]);
 
-  const [useOfFunds, setUseOfFunds] = useState([{ use: "", percentage: "" }]);
+  const [useOfFunds, setUseOfFunds] = useState([
+    { use: "", percentage: "" },
+    { use: "", percentage: "" },
+    { use: "", percentage: "" },
+    { use: "", percentage: "" },
+    { use: "", percentage: "" }
+  ]);
+
   const currentYear = new Date().getFullYear();
   const years = Array.from(
     { length: 10 },
     (_, index) => currentYear - 5 + index
   );
 
-  const handleRevenueInputChange = (e, index) => {
-    const { name, value } = e.target;
-    const newRows = [...revenueRows];
-    newRows[index][name] = value;
-    setRevenueRows(newRows);
-  };
-
-  const handleUseOfFundsChange = (e, index) => {
-    const { name, value } = e.target;
-    const newUses = [...useOfFunds];
-    newUses[index][name] = value;
-    setUseOfFunds(newUses);
-  };
+  useEffect(() => {
+    // Populate revenueRows from formData if available
+    if (formData.revenueCost) {
+      setRevenueRows(formData.revenueCost);
+    }
+    // Populate useOfFunds from formData if available
+    if (formData.useOfFunds) {
+      setUseOfFunds(formData.useOfFunds);
+    }
+  }, [formData]);
 
   const handleRevenueCostChange = (index, field, value) => {
     const updatedRevenueCost = [...revenueRows];
@@ -37,14 +41,15 @@ const Financials = ({ formData, handleChange }) => {
       },
     });
   };
-  const handleuseOfFundsChange = (index, field, value) => {
-    const updateduseOfFunds = [...useOfFunds];
-    updateduseOfFunds[index][field] = value;
-    setUseOfFunds(updateduseOfFunds);
+
+  const handleUseOfFundsChange = (index, field, value) => {
+    const updatedUseOfFunds = [...useOfFunds];
+    updatedUseOfFunds[index][field] = value;
+    setUseOfFunds(updatedUseOfFunds);
     handleChange({
       target: {
         name: "useOfFunds",
-        value: updateduseOfFunds,
+        value: updatedUseOfFunds,
       },
     });
   };
@@ -54,25 +59,12 @@ const Financials = ({ formData, handleChange }) => {
       setRevenueRows([...revenueRows, { year: "", revenue: "", cost: "" }]);
     }
   };
-  const addUseOfFundsRow = () => {
-    if (useOfFunds.length < 5) {
-      setUseOfFunds([...useOfFunds, { use: "", percentage: "" }]);
-    }
-  };
 
   const removeRevenueRow = (index) => {
     if (revenueRows.length > 1) {
       const newRows = [...revenueRows];
       newRows.splice(index, 1);
       setRevenueRows(newRows);
-    }
-  };
-
-  const removeUseOfFundsRow = (index) => {
-    if (useOfFunds.length > 1) {
-      const newUses = [...useOfFunds];
-      newUses.splice(index, 1);
-      setUseOfFunds(newUses);
     }
   };
 
@@ -198,7 +190,7 @@ const Financials = ({ formData, handleChange }) => {
                     name="use"
                     value={use.use}
                     onChange={(e) =>
-                      handleuseOfFundsChange(index, "use", e.target.value)
+                      handleUseOfFundsChange(index, "use", e.target.value)
                     }
                     required
                   >
@@ -222,22 +214,9 @@ const Financials = ({ formData, handleChange }) => {
                     name="percentage"
                     value={use.percentage}
                     onChange={(e) =>
-                      handleuseOfFundsChange(
-                        index,
-                        "percentage",
-                        e.target.value
-                      )
+                      handleUseOfFundsChange(index, "percentage", e.target.value)
                     }
                   />
-                </td>
-                <td>
-                  {index === useOfFunds.length - 1 ? (
-                    <button onClick={addUseOfFundsRow}>Add Row</button>
-                  ) : (
-                    <button onClick={() => removeUseOfFundsRow(index)}>
-                      Remove
-                    </button>
-                  )}
                 </td>
               </tr>
             ))}
