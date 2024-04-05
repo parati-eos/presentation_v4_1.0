@@ -98,6 +98,7 @@ const Testimonials = ({ formData, handleChange }) => {
             onChange={(e) =>
               handleTestimonialChange(index, "company", e.target.value)
             }
+            required
           />
           <input
             type="text"
@@ -105,7 +106,9 @@ const Testimonials = ({ formData, handleChange }) => {
             value={testimonial.designation}
             onChange={(e) =>
               handleTestimonialChange(index, "designation", e.target.value)
+              
             }
+            required
           />
           {testimonials.length > 2 && (
             <div
@@ -122,6 +125,7 @@ const Testimonials = ({ formData, handleChange }) => {
             onChange={(e) =>
               handleTestimonialChange(index, "testimonial", e.target.value)
             }
+            required
           ></textarea>
           <br />
         </div>

@@ -305,7 +305,7 @@ const handleChange = (e) => {
       case 10:
         return "Track Record";
       case 11:
-        return "Case";
+        return "Case Study";
       case 12:
         return "Testimonials";
       case 13:

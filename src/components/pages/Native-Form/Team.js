@@ -4,8 +4,8 @@ import uploadFileToS3 from "./uploadFileToS3";
 
 const Team = ({ formData, handleChange }) => {
   const initialTeamMembers = formData.teamMembers || [
-    { name: "", title: "", experience: "", linkedin: "", photo: null },
-    { name: "", title: "", experience: "", linkedin: "", photo: null },
+    { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null },
+    { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null },
   ];
 
   const [teamMembers, setTeamMembers] = useState(initialTeamMembers);
@@ -14,7 +14,7 @@ const Team = ({ formData, handleChange }) => {
     if (teamMembers.length < 6) {
       setTeamMembers([
         ...teamMembers,
-        { name: "", title: "", experience: "", linkedin: "", photo: null },
+        { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null },
       ]);
     }
   };
@@ -112,6 +112,9 @@ const Team = ({ formData, handleChange }) => {
                   handleTeamMemberChange(index, "photo", e.target.files[0])
                 }
               />
+              {member.photoUrl && (
+                <img src={member.photoUrl} alt={`Photo of ${member.name}`} />
+              )}
             </div>
           </div>
           <br />
