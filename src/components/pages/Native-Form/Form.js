@@ -113,6 +113,7 @@ const Form = () => {
   useEffect(() => {
     // Generate a unique form ID when the component mounts for the first time
     const newFormId = generateFormId();
+    localStorage.setItem("submissionId", newFormId);
     setFormId(newFormId);
     console.log("Form ID:", newFormId);
     // Fetch user email from local storage
@@ -125,14 +126,10 @@ const Form = () => {
     localStorage.setItem("logo", formData.logo);
     localStorage.setItem("primaryColor", formData.primaryColor);
     localStorage.setItem("secondaryColor", formData.secondaryColor);
-
     localStorage.setItem("establishmentYear", formData.establishmentYear);
     localStorage.setItem("companyOverview", formData.companyOverview);
-
     localStorage.setItem("problemDescription", formData.problemDescription);
-
     localStorage.setItem("solutionsDescription", formData.solutionsDescription);
-
     localStorage.setItem("sector", formData.sector);
     localStorage.setItem("otherSector", formData.otherSector);
     localStorage.setItem("marketDescription", formData.marketDescription);
@@ -140,7 +137,6 @@ const Form = () => {
     localStorage.setItem("TAMGrowthRate", formData.TAMGrowthRate);
     localStorage.setItem("SAM", formData.SAM);
     localStorage.setItem("SAMGrowthRate", formData.SAMGrowthRate);
-
     localStorage.setItem("productOverview", formData.productOverview);
     localStorage.setItem("productRoadmap", formData.productRoadmap);
     localStorage.setItem(
