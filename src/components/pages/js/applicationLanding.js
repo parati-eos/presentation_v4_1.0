@@ -26,7 +26,7 @@ function ApplicationLanding() {
   const handleBuildPresentation = () => {
     console.log("working");
     // Redirect to the 'form.js' page upon clicking "Build Presentation"
-    navigate("/form", { state: { user } });
+    navigate("/Pages/Nativeform", { state: { user } });
   };
 
   const handleLogout = () => {
