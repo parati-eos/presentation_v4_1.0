@@ -66,6 +66,11 @@ const GoogleslidesShare = () => {
       {slidesData.slice(0, slidesData.length - 1).map((slide, index) => (
         <div key={slide.objectId}>
           <iframe
+            allowtransparency="true"
+            frameborder="0" 
+            allowfullscreen="true" 
+            mozallowfullscreen="true" 
+            webkitallowfullscreen="true"
             key={slide.objectId} // Add key prop here
             className="slides-iframe"
             title="Google Slides Embed"

@@ -1,6 +1,5 @@
-
-import React, { useState, useRef, useEffect} from "react";
-import { useNavigate , useLocation } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import "../css/presentationshare.css";
 import "../css/HistoryOverlay.css";
@@ -27,7 +26,6 @@ const PresentationCheck = () => {
 
   // Company Name--------------->>
 
-
   useEffect(() => {
     const fetchData = async () => {
       const apiUrl = `https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`;
@@ -51,14 +49,15 @@ const PresentationCheck = () => {
   return (
     <div className="main-container">
       <div className="presentation-viewing-container">
-      <div className="presentation-viewing-side">
-      <div className="logo-icon">
+        <div className="presentation-viewing-side">
+          <div className="logo-icon">
             <img
               src={ParatiLogo}
               alt="Parati Logo"
+              width={150}
               className="branding-logo"
             ></img>
-        </div>
+          </div>
         </div>
         <div className="presentation-viewing-center">
           <div className="presentation-view-slides">
@@ -72,13 +71,3 @@ const PresentationCheck = () => {
 };
 
 export default PresentationCheck;
-
-
-
-
-
-
-
-
-
-

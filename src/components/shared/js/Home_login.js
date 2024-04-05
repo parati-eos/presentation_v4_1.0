@@ -9,11 +9,11 @@ function Navbar() {
       <div className="navbar-containerhome">
         <div className="icon">
           <Link to="/">
-            <img
+            {/* <img
               src={ParatiLogo}
               alt="Parati Logo"
               className="navbar-logo"
-            ></img>
+            ></img> */}
           </Link>
         </div>
 

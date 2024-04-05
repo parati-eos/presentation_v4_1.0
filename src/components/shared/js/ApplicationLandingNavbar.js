@@ -15,7 +15,7 @@ function Navbar({historyShow, historyHide }) {
     <nav>
       <div className="navbar-container">
         <div className="navbar-logo-container">
-          <img src={ParatiLogo} alt="Parati Logo" />
+          <img src={ParatiLogo} width={200} alt="Parati Logo" />
         </div>
         <div className="navbar-generateppt-container">
         </div>
