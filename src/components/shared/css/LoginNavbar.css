@@ -9,7 +9,4 @@ nav {
     justify-content: center; /* Use space-between to push the links and image to the edges */
     align-items: center;
   }
-  .navbar-container img{
-    height: 5vh !important;
-    width: auto ;
-  }
+  
