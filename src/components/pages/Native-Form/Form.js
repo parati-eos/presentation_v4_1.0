@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import "./NativeForm.css"; // Assuming you have a CSS file for styling
 import AboutCompany from "./AboutCom";
 import CoverSlide from "./Coverslide";
@@ -19,7 +18,7 @@ import Team from "./Team"; // Import the Team component
 import Navbar from "../../shared/js/LoginNavbar";
 import Contact from "./contact"; // Import the Contact component
 import Financials from "./financials"; // Import the Financials component
-import { Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 const Form = () => {
   const [section, setSection] = useState(1);
@@ -76,7 +75,8 @@ const Form = () => {
   });
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate(); // Initialize useHistory hook
+  // Remove the duplicate declaration of 'navigate'
+  // const navigate = useNavigate(); // Initialize useHistory hook
   const [formId, setFormId] = useState("");
   const handleHiddenButtonClick = async () => {
     try {
