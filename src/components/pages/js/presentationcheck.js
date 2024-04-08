@@ -1,4 +1,4 @@
- import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/presentationcheck.css";
 import "../css/HistoryOverlay.css";
@@ -80,7 +80,7 @@ const PresentationCheck = () => {
 
   useEffect(() => {
     formId = localStorage.getItem("submissionId");
-    console.log("foooooooooorm id: ",formId)
+    console.log("foooooooooorm id: ", formId);
     const fetchData = async () => {
       const apiUrl = `https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`;
       try {
@@ -100,7 +100,7 @@ const PresentationCheck = () => {
       }
     };
     if (formId !== "") {
-        fetchData();
+      fetchData();
     }
   }, [formId]);
   const [isEditing, setIsEditing] = useState(false);
@@ -119,13 +119,16 @@ const PresentationCheck = () => {
     };
 
     try {
-      const response = await fetch("https://pitchdeck-server.onrender.com/updateRow", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const response = await fetch(
+        "https://pitchdeck-server.onrender.com/updateRow",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
 
       if (response.ok) {
         console.log("Row updated successfully");
@@ -158,33 +161,31 @@ const PresentationCheck = () => {
         </div>
       )}
       <div className="presentation-viewing-container">
-      <div className="presentation-viewing-side">
-      <div className="share-export">
-      {isEditing ? (
-            <input
-              type="text"
-              value={PPTName}
-              onBlur={handleSave}
-              onChange={handleNameChange}
-            />
-          ) : (
-            <h2 onClick={() => setIsEditing(true)}>
-              <span>{PPTName}</span>
-            </h2>
-          )}
-          <ShareButton onClick={handleShare} />
-          <ExportButton onClick={handleDownload} />
+        <div className="presentation-viewing-side">
+          <div className="share-export">
+            {isEditing ? (
+              <input
+                type="text"
+                value={PPTName}
+                onBlur={handleSave}
+                onChange={handleNameChange}
+              />
+            ) : (
+              <h2 onClick={() => setIsEditing(true)}>
+                <span>{PPTName}</span>
+              </h2>
+            )}
+            <ShareButton onClick={handleShare} />
+            <ExportButton onClick={handleDownload} />
           </div>
         </div>
         <div className="presentation-viewing-center">
-          
           <div className="presentation-view-slides">
             <GooglePresentation key={currentSlideKey} />
           </div>
         </div>
 
         <div className="presentation-viewing-side"></div>
-
       </div>
     </div>
   );

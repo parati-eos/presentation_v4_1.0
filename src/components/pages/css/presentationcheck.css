@@ -46,7 +46,7 @@
 }
 
 .presentation-viewing-container {
-  height: 88.5vh;
+  height: fit-content;
   width: 94vw;
   display: flex;
   justify-content: center;
@@ -79,6 +79,7 @@
   align-items: center;
   flex-direction: column;
   width: 70vw;
+  z-index: -1;
 }
 .presentation-viewing-center input{
   background-color: transparent;

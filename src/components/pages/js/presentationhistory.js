@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import ApplicationNavbar from "../../shared/js/ApplicationNavbar";
+import HistoryNavbar from "../../shared/js/HistoryNavbar";
 import HistoryCard from "../cards/historycard";
 import "../css/presentationhistory.css";
 
@@ -35,7 +35,7 @@ function History() {
   }, [userID]);
   return (
     <div className="historypage">
-      <ApplicationNavbar/>
+      <HistoryNavbar/>
 
       <div className="history-component">
       <h2>History</h2>

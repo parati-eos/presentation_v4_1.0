@@ -1,48 +1,36 @@
 import React, { useState, useLocation } from "react";
 import { useNavigate } from "react-router-dom";
 import ParatiLogo from "../../Asset/parati-logo.png";
-import "../css/ApplicationNavbar.css";
+import "../css/HistoryNavbar.css";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import magicWand from "../../Asset/magic-wand.png";
-import { faHistory, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
-function Navbar({ historyShow, historyHide }) {
+function Navbar() {
   const useremail = localStorage.getItem("userEmail");
   const navigate = useNavigate();
   const handleBuildPresentation = () => {
     // Redirect to the 'form.js' page upon clicking "Build Presentation"
     navigate("/form", { state: { useremail } });
   };
-  const handleHistoryButtonClicked = () => {
-    navigate("/pages/presentationhistory");
-  };
   return (
-    <nav className="app-nav">
-      <div className="app-navbar-container">
-        <div className="app-navbar-logo-container">
+    <nav className="history-nav">
+      <div className="history-navbar-container">
+        <div className="history-navbar-logo-container">
           <img src={ParatiLogo} width={200} alt="Parati Logo" />
         </div>
-        <div className="app-navbar-generateppt-container">
+        <div className="history-navbar-generateppt-container">
           <button onClick={handleBuildPresentation}>
-            <div className="app-button-inner">
+            <div className="history-button-inner">
               <img src={magicWand}></img>
               <span>Generate Pitch Deck</span>
             </div>
           </button>
         </div>
-        <div className="app-navbar-details-container">
+        <div className="history-navbar-details-container">
           {/* Apply hover event handlers */}
-          <button
-            className="app-history-button"
-            onMouseEnter={historyShow}
-            onMouseLeave={historyHide}
-            onClick={handleHistoryButtonClicked}
-          >
-            <FontAwesomeIcon icon={faHistory} /> History
-          </button>
-
-          <img src={localStorage.getItem("userDP")} className="app-user" />
+          <img src={localStorage.getItem("userDP")} className="history-user" />
         </div>
       </div>
     </nav>

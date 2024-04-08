@@ -1,16 +1,16 @@
-nav {
-    background-color: #001723;
-    padding: 10px;
-  }
-  
-  .navbar-container {
-    height: 5vh;
-    display: flex;
-    justify-content: center; /* Use space-between to push the links and image to the edges */
-    align-items: center;
-    background-color: #000fff;
-  }
-  .navbar-container img{
-
-    background-color: #fff;
-  }
+.login-nav {
+  background-color: #001723;
+  z-index: 1;
+  border-bottom: 1px solid #004264;
+}
+.login-navbar-container {
+  display: flex;
+  height: 55px;
+  padding: 0.3vh;
+  justify-content: center;
+  align-items: center;
+}
+.login-navbar-logo {
+  width: 130px;
+  height: auto;
+}
