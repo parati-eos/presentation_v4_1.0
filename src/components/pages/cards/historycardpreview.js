@@ -6,7 +6,7 @@ const HistoryCardPreveiw = ({ userID, submissionID, PPTName, Date, link }) => {
   const navigate = useNavigate();
   const handlePreviewCardClicked = () => {
     navigate(
-      `https://presentation-final-fd.vercel.app/share?submissionId=${link}`
+      `https://presentation-final-fd.vercel.app/share?submissionId=${submissionID}`
     );
   };
   return (
