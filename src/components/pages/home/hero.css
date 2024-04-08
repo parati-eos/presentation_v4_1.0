@@ -6,7 +6,7 @@
   justify-content: space-between;
   padding: 50px;
   height: 80vh;
-  width: 92vw;
+  width: 100%;
 }
 
 @media (max-width: 991px) {
@@ -105,7 +105,7 @@
 }
 .hero-asset {
   position: absolute;
-  top: -17vh;
+  top: -8vh;
   left: 0px;
   z-index: -1;
 }
