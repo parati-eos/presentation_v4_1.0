@@ -6,6 +6,7 @@ import ShareButton from "./Share.js";
 import ExportButton from "./export.js";
 import Googleslides from "../../helper/googlepresentation-helper.js";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
+import HistoryCardPreview from "../cards/historycardpreview.js";
 
 const GooglePresentation = ({ url }) => {
   return (
@@ -25,25 +26,59 @@ const PresentationCheck = () => {
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [currentSlideKey, setCurrentSlideKey] = useState(0);
   var formId = localStorage.getItem("submissionId");
+
+  //History-Preview Code
+  const [userID, setUserID] = useState(localStorage.getItem("userEmail"));
+
+  useEffect(() => {
+    const fetchDataHistory = async () => {
+      try {
+        const response = await fetch(
+          "https://pitchdeck-server.onrender.com/history",
+          {
+            headers: {
+              "x-userid": userID,
+            },
+          }
+        );
+        console.log(response);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        console.log();
+        setHistoryData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchDataHistory();
+  }, [userID]);
+  const [historyData, setHistoryData] = useState([]);
   const handleMouseEnterHistory = () => {
-    clearTimeout(historyTimeout.current);
+    clearTimeout(historyTimeout.current); // Clear any existing timeout
     setShowHistory(true);
   };
 
   const handleMouseLeaveHistory = () => {
+    // Set a timeout to hide the history div after a delay
     historyTimeout.current = setTimeout(() => {
       setShowHistory(false);
-    }, 200);
+    }, 200); // Adjust the delay as needed
   };
 
   const handleMouseEnterDiv = () => {
-    clearTimeout(historyTimeout.current);
+    clearTimeout(historyTimeout.current); // Clear any existing timeout
     console.log("Enter the div");
   };
 
   const handleMouseLeaveDiv = () => {
     setShowHistory(false);
     console.log("Left the div");
+  };
+  const handleShowMoreHistory = () => {
+    navigate("/pages/presentationhistory");
   };
 
   const handleBuildPresentation = () => {
@@ -154,9 +189,16 @@ const PresentationCheck = () => {
           <div
             className="history-preview-bar"
             onMouseEnter={handleMouseEnterDiv}
-            onMouseLeave={handleMouseLeaveDiv}
+            onMouseLeave={handleMouseLeaveDiv} // Close history on mouse leave
           >
-            {/* History preview content */}
+            <div className="history-preview-cards-row">
+              {historyData.slice(0, 5).map((card, index) => (
+                <HistoryCardPreview key={index} {...card} />
+              ))}
+            </div>
+            <div className="see-more-container" onClick={handleShowMoreHistory}>
+              See More ...
+            </div>
           </div>
         </div>
       )}
