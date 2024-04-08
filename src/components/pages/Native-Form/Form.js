@@ -19,6 +19,7 @@ import Team from "./Team"; // Import the Team component
 import Navbar from "../../shared/js/LoginNavbar";
 import Contact from "./contact"; // Import the Contact component
 import Financials from "./financials"; // Import the Financials component
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Form = () => {
   const [section, setSection] = useState(1);
@@ -75,6 +76,7 @@ const Form = () => {
   });
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate(); // Initialize useHistory hook
   const [formId, setFormId] = useState("");
   const handleHiddenButtonClick = async () => {
     try {
@@ -460,8 +462,10 @@ const Form = () => {
       setSection((prevSection) => prevSection + 1);
       setIsLoading(false);
     } else {
-      navigate("/Pages/presentationcheck");
-      // Reset form data or navigate to another page
+      navigate("/pages/presentationcheck");
+
+
+
     }
     if (section === 1) {
       if (progress < 6) {
