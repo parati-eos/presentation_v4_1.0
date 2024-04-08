@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./NativeForm.css"; // Assuming you have a CSS file for styling
 import AboutCompany from "./AboutCom";
 import CoverSlide from "./Coverslide";
@@ -21,6 +22,7 @@ import Financials from "./financials"; // Import the Financials component
 
 const Form = () => {
   const [section, setSection] = useState(1);
+  const navigate = useNavigate();
   const userEmail = localStorage.getItem("userEmail");
   const [generatedPresentationID, setgeneratedPresentationID] = useState(null);
   const [showHiddenButton, setShowHiddenButton] = useState(false); // State to control button visibility
@@ -113,7 +115,7 @@ const Form = () => {
   useEffect(() => {
     // Generate a unique form ID when the component mounts for the first time
     const newFormId = generateFormId();
-    localStorage.setItem("submissionId",  newFormId);
+    localStorage.setItem("submissionId", newFormId);
     setFormId(newFormId);
     console.log("Form ID:", newFormId);
     // Fetch user email from local storage
@@ -182,21 +184,20 @@ const Form = () => {
     localStorage.setItem("percentage", formData.percentage);
   }, []); // Empty dependency array to run this effect only once
 
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  let newValue = value;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    let newValue = value;
 
-  // Check if the value is empty
-  if (name === "primaryColor" || name === "secondaryColor") {
-    newValue = value === "" ? "#000000" : value;
-  }
+    // Check if the value is empty
+    if (name === "primaryColor" || name === "secondaryColor") {
+      newValue = value === "" ? "#000000" : value;
+    }
 
-  setFormData((prevState) => ({
-    ...prevState,
-    [name]: newValue,
-  }));
-};
-
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: newValue,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -239,19 +240,20 @@ const handleChange = (e) => {
     console.log("API Payload:", payload); // Log the payload before sending
     var changedData = false;
     if (
-      (section === 1 &&
-        (localStorage.getItem("companyName") != formData.companyName ||
-      localStorage.getItem("tagline") != formData.tagline ||
-      localStorage.getItem("logo") != formData.logo ||
-      localStorage.getItem("primaryColor") != formData.primaryColor ||
-      localStorage.getItem("secondaryColor") != formData.secondaryColor)
-    )) {
+      section === 1 &&
+      (localStorage.getItem("companyName") != formData.companyName ||
+        localStorage.getItem("tagline") != formData.tagline ||
+        localStorage.getItem("logo") != formData.logo ||
+        localStorage.getItem("primaryColor") != formData.primaryColor ||
+        localStorage.getItem("secondaryColor") != formData.secondaryColor)
+    ) {
       changedData = true;
     } else if (
-      (section === 2 &&
-        (localStorage.getItem("establishmentYear") != formData.establishmentYear ||
-      localStorage.getItem("companyOverview") != formData.companyOverview)
-    )) {
+      section === 2 &&
+      (localStorage.getItem("establishmentYear") !=
+        formData.establishmentYear ||
+        localStorage.getItem("companyOverview") != formData.companyOverview)
+    ) {
       changedData = true;
     } else if (
       section === 3 &&
@@ -260,34 +262,39 @@ const handleChange = (e) => {
       changedData = true;
     } else if (
       section === 4 &&
-      localStorage.getItem("solutionsDescription") != formData.solutionsDescription
+      localStorage.getItem("solutionsDescription") !=
+        formData.solutionsDescription
     ) {
       changedData = true;
     } else if (
-      (section === 5 &&
-        (localStorage.getItem("sector") != formData.sector ||
-      localStorage.getItem("otherSector") != formData.otherSector ||
-      localStorage.getItem("marketDescription") != formData.marketDescription ||
-      localStorage.getItem("TAM") != formData.TAM ||
-      localStorage.getItem("TAMGrowthRate") != formData.TAMGrowthRate ||
-      localStorage.getItem("SAM") != formData.SAM ||
-      localStorage.getItem("SAMGrowthRate") != formData.SAMGrowthRate)
-    )) {
+      section === 5 &&
+      (localStorage.getItem("sector") != formData.sector ||
+        localStorage.getItem("otherSector") != formData.otherSector ||
+        localStorage.getItem("marketDescription") !=
+          formData.marketDescription ||
+        localStorage.getItem("TAM") != formData.TAM ||
+        localStorage.getItem("TAMGrowthRate") != formData.TAMGrowthRate ||
+        localStorage.getItem("SAM") != formData.SAM ||
+        localStorage.getItem("SAMGrowthRate") != formData.SAMGrowthRate)
+    ) {
       changedData = true;
     } else if (
-      (section === 6 &&
-        (localStorage.getItem("productOverview") != formData.productOverview ||
-      localStorage.getItem("productRoadmap") != formData.productRoadmap ||
-      localStorage.getItem("productRoadmapDescription") != formData.productRoadmapDescription ||
-      localStorage.getItem("technicalArchitecture") != formData.technicalArchitecture)
-    )) {
+      section === 6 &&
+      (localStorage.getItem("productOverview") != formData.productOverview ||
+        localStorage.getItem("productRoadmap") != formData.productRoadmap ||
+        localStorage.getItem("productRoadmapDescription") !=
+          formData.productRoadmapDescription ||
+        localStorage.getItem("technicalArchitecture") !=
+          formData.technicalArchitecture)
+    ) {
       changedData = true;
     } else if (
-      (section === 7 &&
-        (localStorage.getItem("appType") != formData.appType ||
-      localStorage.getItem("mobileScreenshots") != formData.mobileScreenshots ||
-      localStorage.getItem("webScreenshots") != formData.webScreenshots)
-    )) {
+      section === 7 &&
+      (localStorage.getItem("appType") != formData.appType ||
+        localStorage.getItem("mobileScreenshots") !=
+          formData.mobileScreenshots ||
+        localStorage.getItem("webScreenshots") != formData.webScreenshots)
+    ) {
       changedData = true;
     } else if (
       section === 8 &&
@@ -297,8 +304,9 @@ const handleChange = (e) => {
     } else if (
       section === 9 &&
       (localStorage.getItem("keyStakeholders") != formData.keyStakeholders ||
-      localStorage.getItem("customerPersona") != formData.customerPersona ||
-      localStorage.getItem("goToMarketStrategy") != formData.goToMarketStrategy)
+        localStorage.getItem("customerPersona") != formData.customerPersona ||
+        localStorage.getItem("goToMarketStrategy") !=
+          formData.goToMarketStrategy)
     ) {
       changedData = true;
     } else if (
@@ -333,23 +341,26 @@ const handleChange = (e) => {
       changedData = true;
     } else if (
       section === 16 &&
-      (localStorage.getItem("financialSnapshot") != formData.financialSnapshot ||
-      localStorage.getItem("revenueCost") != formData.revenueCost ||
-      localStorage.getItem("plannedRaise") != formData.plannedRaise ||
-      localStorage.getItem("useOfFunds") != formData.useOfFunds ||
-      localStorage.getItem("percentage") != formData.percentage)
+      (localStorage.getItem("financialSnapshot") !=
+        formData.financialSnapshot ||
+        localStorage.getItem("revenueCost") != formData.revenueCost ||
+        localStorage.getItem("plannedRaise") != formData.plannedRaise ||
+        localStorage.getItem("useOfFunds") != formData.useOfFunds ||
+        localStorage.getItem("percentage") != formData.percentage)
     ) {
       changedData = true;
     } else if (
       section === 17 &&
       (localStorage.getItem("websiteLink") != formData.websiteLink ||
-      localStorage.getItem("linkedinLink") != formData.linkedinLink ||
-      localStorage.getItem("contactEmail") != formData.contactEmail ||
-      localStorage.getItem("contactPhone") != formData.contactPhone)
+        localStorage.getItem("linkedinLink") != formData.linkedinLink ||
+        localStorage.getItem("contactEmail") != formData.contactEmail ||
+        localStorage.getItem("contactPhone") != formData.contactPhone)
     ) {
       changedData = true;
     }
-console.log("-----------------------"+changedData+"----------------------------");
+    console.log(
+      "-----------------------" + changedData + "----------------------------"
+    );
     if (changedData) {
       try {
         const response = await fetch(
@@ -447,9 +458,9 @@ console.log("-----------------------"+changedData+"----------------------------"
     // message
     if (section < 17) {
       setSection((prevSection) => prevSection + 1);
-      setIsLoading(false); 
+      setIsLoading(false);
     } else {
-      alert("Form submitted successfully!");
+      navigate("/Pages/presentationcheck");
       // Reset form data or navigate to another page
     }
     if (section === 1) {
@@ -633,7 +644,7 @@ console.log("-----------------------"+changedData+"----------------------------"
                   formData={formData}
                   handleChange={handleChange}
                   setFormData={setFormData} // Pass setFormData here
-                  isLoading={isLoading} 
+                  isLoading={isLoading}
                 />
               )}
               {section === 11 && (
