@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 const Financials = ({ formData, handleChange }) => {
-  const [revenueRows, setRevenueRows] = useState(formData.revenueCost || [
+  const [revenueRows, setRevenueRows] = useState([
     { year: "", revenue: "", cost: "" },
   ]);
 
-  const [useOfFunds, setUseOfFunds] = useState(formData.useOfFunds || [
+  const [useOfFunds, setUseOfFunds] = useState([
     { use: "", percentage: "" },
     { use: "", percentage: "" },
     { use: "", percentage: "" },
@@ -19,34 +19,28 @@ const Financials = ({ formData, handleChange }) => {
     (_, index) => currentYear - 5 + index
   );
 
-  useEffect(() => {
-    handleChange({
-      target: {
-        name: "revenueCost",
-        value: revenueRows,
-      },
-    });
-  }, [revenueRows, handleChange]);
-
-  useEffect(() => {
-    handleChange({
-      target: {
-        name: "useOfFunds",
-        value: useOfFunds,
-      },
-    });
-  }, [useOfFunds, handleChange]);
-
   const handleRevenueCostChange = (index, field, value) => {
     const updatedRevenueCost = [...revenueRows];
     updatedRevenueCost[index][field] = value;
     setRevenueRows(updatedRevenueCost);
+    handleChange({
+      target: {
+        name: "revenueCost",
+        value: updatedRevenueCost,
+      },
+    });
   };
 
   const handleUseOfFundsChange = (index, field, value) => {
     const updatedUseOfFunds = [...useOfFunds];
     updatedUseOfFunds[index][field] = value;
     setUseOfFunds(updatedUseOfFunds);
+    handleChange({
+      target: {
+        name: "useOfFunds",
+        value: updatedUseOfFunds,
+      },
+    });
   };
 
   const addRevenueRow = () => {
@@ -65,7 +59,6 @@ const Financials = ({ formData, handleChange }) => {
 
   return (
     <div className="form-section">
-      {/* Financial Snapshot */}
       <div className="textInputQuestions">
         <label htmlFor="financialSnapshot">
           Please provide a financial snapshot of the company.*
@@ -79,8 +72,8 @@ const Financials = ({ formData, handleChange }) => {
           required
         ></textarea>
       </div>
-
-      {/* Revenue and Cost Projections */}
+      <br />
+      <br />
       <div className="textInputQuestions">
         <label>
           Please provide revenue/revenue projections for the following years.
@@ -150,8 +143,8 @@ const Financials = ({ formData, handleChange }) => {
           </tbody>
         </table>
       </div>
-
-      {/* Planned Raise */}
+      <br />
+      <br />
       <div className="textInputQuestions">
         <label htmlFor="plannedRaise">
           How much money do you plan to raise? Please enter the numbers in
@@ -166,8 +159,8 @@ const Financials = ({ formData, handleChange }) => {
           required
         />
       </div>
-
-      {/* Use of Funds */}
+      <br />
+      <br />
       <div className="textInputQuestions">
         <label>Breakdown in percentages for the use of funds:</label>
         <br />
