@@ -1,31 +1,32 @@
 /* components/shared/Navbar.css */
-.app-nav {
+.history-nav {
   background-color: #001723;
+  z-index: 1;
   border-bottom: 1px solid #004264;
 }
 
-.app-navbar-container {
+.history-navbar-container {
   display: flex;
   height: 55px;
   padding: 0.3vh;
   justify-content: center;
   align-items: center;
 }
-.app-navbar-logo-container {
+.history-navbar-logo-container {
   width: 33%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   padding-left: 1vw;
 }
-.app-navbar-generateppt-container {
+.history-navbar-generateppt-container {
   width: 33%;
   font-display: flex;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.app-navbar-details-container {
+.history-navbar-details-container {
   /* background-color: yellow; */
   width: 33%;
   display: flex;
@@ -36,12 +37,12 @@
   padding-right: 1vw;
 }
 
-.app-navbar-logo-container img {
+.history-navbar-logo-container img {
   width: 130px;
   height: auto;
 }
 
-.app-navbar-generateppt-container button {
+.history-navbar-generateppt-container button {
   cursor: pointer;
   width: 250px;
   height: fit-content;
@@ -51,33 +52,32 @@
   background-color: #e6a500;
   color: rgb(255, 255, 255, 1);
   border: 3px solid #e6a500;
-  z-index: 10;
 }
-.app-navbar-generateppt-container button:hover {
+.history-navbar-generateppt-container button:hover {
   color: #e6a500;
   background-color: rgb(255, 255, 255, 1);
 }
-.app-navbar-generateppt-container button:hover img {
+.history-navbar-generateppt-container button:hover img {
   background-color: #e6a500;
   border-radius: 5px;
   border: 3px solid #e6a500;
 }
 
-.app-button-inner {
+.history-button-inner {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
 }
 
-.app-navbar-generateppt-container button img {
+.history-navbar-generateppt-container button img {
   /* position: relative; */
   width: 18px;
   height: auto;
   border: 3px solid transparent;
 }
 
-.app-navbar-details-container button {
+.history-navbar-details-container button {
   width: 130px;
   height: fit-content;
   border-radius: 50px;
@@ -86,15 +86,14 @@
   background-color: #004264;
   color: rgb(255, 255, 255, 0.8);
   border: 2px solid #004264;
-  z-index: 10;
 }
 
-.app-navbar-details-container button:hover {
+.history-navbar-details-container button:hover {
   color: #004264;
   background-color: rgb(255, 255, 255, 0.8);
 }
 
-.app-user {
+.history-user {
   font-size: 35px;
   font-weight: 800;
   color: aliceblue;

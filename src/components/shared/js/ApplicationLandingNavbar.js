@@ -1,31 +1,32 @@
-// ApplicationLandingNavbar.js
-import React from "react";
+import React, { useState, useLocation } from "react";
 import { useNavigate } from "react-router-dom";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/ApplicationLandingNavbar.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHistory, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
-function Navbar({ user, historyShow, historyHide }) {
+function Navbar({ historyShow, historyHide }) {
   const navigate = useNavigate();
   const handleHistoryButtonClicked = () => {
-    navigate("/History");
+    navigate("/pages/presentationhistory");
   };
   return (
-    <nav>
-      <div className="ALnavbar-container">
-        <div className="ALnavbar-logo-container">
-          <img src={ParatiLogo} alt="Parati Logo" />
+    <nav className="appLanding-nav">
+      <div className="appLanding-navbar-container">
+        <div className="appLanding-navbar-logo-container">
+          <img src={ParatiLogo} width={200} alt="Parati Logo" />
         </div>
-        <div className="ALnavbar-details-container">
+        <div className="appLanding-navbar-details-container">
           {/* Apply hover event handlers */}
           <button
-            className="history-button"
+            className="appLanding-history-button"
             onMouseEnter={historyShow}
             onMouseLeave={historyHide}
             onClick={handleHistoryButtonClicked}
           >
-            History
+            <FontAwesomeIcon icon={faHistory} /> History
           </button>
-          <img src={user.picture} alt="User Profile" />
+          <img src={localStorage.getItem("userDP")} className="appLanding-user" />
         </div>
       </div>
     </nav>

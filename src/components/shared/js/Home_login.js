@@ -5,23 +5,23 @@ import "../css/home_login.css";
 
 function Navbar() {
   return (
-    <nav>
-      <div className="navbar-containerhome">
-        <div className="icon">
-          <Link to="/">
+    <nav className="home-nav">
+      <div className="home-navbar-container">
+        <div className="home-icon">
+          <Link to="/" className="home-icon-img">
             <img
               src={ParatiLogo}
               alt="Parati Logo"
-              className="navbar-logo"
+              className="home-navbar-logo"
             ></img>
           </Link>
         </div>
 
-        <div className="navbar-buttons">
-          <Link to="/auth/login" className="navbar-button1">
+        <div className="home-navbar-buttons">
+          <Link to="/auth/login" className="home-navbar-button1">
             Login
           </Link>
-          <Link to="/auth/login" className="navbar-button2">
+          <Link to="/auth/login" className="home-navbar-button2">
             Sign Up
           </Link>
         </div>

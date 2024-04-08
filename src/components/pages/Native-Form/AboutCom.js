@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from "react";
 import ColorPicker from "./ColorPicker";
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function for uploading files to S3
 import "./About.css";
 
 const AboutCompany = ({ formData, handleChange, handleNext }) => {
+
   const [logoUrl, setLogoUrl] = useState(formData.logo || null); // Initialize with formData.logo if available
   const [fileInputKey, setFileInputKey] = useState(0); // Key to reset file input
   const [primaryColor, setPrimaryColor] = useState(formData.primaryColor || "#000000"); // Default primary color
@@ -30,7 +32,6 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
     handleChange({ target: { name: "logo", value: null } });
     setFileInputKey((prevKey) => prevKey + 1); // Reset file input
   };
-
   const handlePrimaryColorChange = (color) => {
     const newColor = color || "#000000"; // Set default color if color is not selected
     setPrimaryColor(newColor); // Update primary color state
@@ -82,6 +83,8 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
       <br />
       <div className="textInputQuestions">
         <label htmlFor="logo">Please upload your logo (PDF, JPG, JPEG, PNG, WEBP)*</label>
+
+
         {logoUrl ? (
           <div className="text-input-logo">
             <div className="text-input-logo-filename">
@@ -102,6 +105,7 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
             required
           />
         )}
+
       </div>
       <br />
       <br />
@@ -124,7 +128,6 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
             color={secondaryColor}
             handleChange={handleSecondaryColorChange}
             required
-      
           />
         </div>
       </div>
@@ -132,5 +135,7 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
     </>
   );
 };
+
+
 
 export default AboutCompany;

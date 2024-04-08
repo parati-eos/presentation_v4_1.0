@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import LoginImage from "../Asset/LoginImage.png";
-import LoginNavbar from '../shared/js/LoginNavbar.js';
+import LoginNavbar from "../shared/js/LoginNavbar.js";
 import MicrosoftLogin from "react-microsoft-login";
 import "./Login.css";
 
@@ -13,6 +13,8 @@ function Login() {
   const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
     localStorage.setItem("userEmail", decoded.email);
+    localStorage.setItem("userDP", decoded.picture);
+    console.log(decoded.picture);
     console.log(decoded);
 
     fetch(`https://pitchdeck-server.onrender.com/store-user`, {
@@ -44,20 +46,22 @@ function Login() {
         // Redirect to success.js upon successful login
         navigate("/applicationLanding");
       } else {
-        console.error("Microsoft Login Failed: Invalid authentication response format");
+        console.error(
+          "Microsoft Login Failed: Invalid authentication response format"
+        );
       }
     } catch (error) {
       console.error("Microsoft Login Failed:", error);
     }
   };
-  
+
   const handleLoginFailure = (provider, error) => {
     console.error(`${provider} Login Failed:`, error);
   };
 
   return (
     <div className="main-container">
-      <LoginNavbar/>
+      <LoginNavbar />
       <div className="login-container">
         <div className="login-image-container">
           <img src={LoginImage} alt="Login" />
@@ -65,9 +69,7 @@ function Login() {
         <div className="login-details-container">
           <div className="wrapper">
             <h1>Login</h1>
-            <form action="">
-              {/* Your login form here */}
-            </form>
+            <form action="">{/* Your login form here */}</form>
             <div className="google-login">
               <GoogleOAuthProvider clientId="1053104378274-jchabnb9vv91n94l76g97aeuuqmrokt9.apps.googleusercontent.com">
                 <GoogleLogin
@@ -77,15 +79,13 @@ function Login() {
               </GoogleOAuthProvider>
             </div>
             <div className="microsoft-login">
-            <MicrosoftLogin
-  clientId="1fe7a2de-f766-4418-b6c8-1e7be3da2b9e"
-  authCallback={handleMicrosoftSuccess}
-  redirectUri="http://localhost:3000" // Specify your redirect URL here
-  children={<button>Login with Microsoft</button>}
-  prompt="select_account" // Specify the prompt parameter
-/>
-
-
+              <MicrosoftLogin
+                clientId="1fe7a2de-f766-4418-b6c8-1e7be3da2b9e"
+                authCallback={handleMicrosoftSuccess}
+                redirectUri="http://localhost:3000" // Specify your redirect URL here
+                children={<button>Login with Microsoft</button>}
+                prompt="select_account" // Specify the prompt parameter
+              />
             </div>
           </div>
         </div>
