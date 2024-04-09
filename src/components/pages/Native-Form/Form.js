@@ -19,7 +19,7 @@ import Navbar from "../../shared/js/LoginNavbar";
 import Contact from "./contact"; // Import the Contact component
 import Financials from "./financials"; // Import the Financials component
 import {useNavigate } from "react-router-dom";
-import { TrackProvider } from "./Track"; // Import the TrackProvider
+// 
 
 const Form = () => {
   const [section, setSection] = useState(1);
@@ -32,8 +32,8 @@ const Form = () => {
     companyName: "",
     tagline: "",
     logo: null,
-    primaryColor: "",
-    secondaryColor: "",
+    primaryColor: "#000000",
+    secondaryColor: "#000000",
     establishmentYear: "",
     companyOverview: "",
     problemDescription: "",
@@ -645,14 +645,14 @@ const Form = () => {
                 <GTM formData={formData} handleChange={handleChange} />
               )}
               {section === 10 && (
-                <TrackProvider> 
+          
                 <Track
                   formData={formData}
                   handleChange={handleChange}
                   setFormData={setFormData} // Pass setFormData here
                   isLoading={isLoading}
                 />
-                </TrackProvider>
+           
                 
               )}
               {section === 11 && (

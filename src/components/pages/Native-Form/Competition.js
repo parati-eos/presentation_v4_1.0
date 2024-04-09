@@ -25,9 +25,9 @@ const useCompetitionData = () => {
   return useContext(CompetitionContext);
 };
 
-const Competition = () => {
+const Competition = ({formData}) => {
   const { competitors, updateCompetitors } = useCompetitionData();
-
+  formData['competitors'] = competitors;
   const handleCompetitorChange = (index, value) => {
     const updatedCompetitors = [...competitors];
     updatedCompetitors[index] = value;

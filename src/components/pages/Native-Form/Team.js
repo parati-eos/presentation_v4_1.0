@@ -27,9 +27,9 @@ const TeamProvider = ({ children }) => {
   );
 };
 
-const Team = () => {
+const Team = ({formData}) => {
   const { teamMembers, updateTeamMembers } = useTeamData();
-
+  formData['teamMembers'] = teamMembers;
   const handleAddMember = () => {
     if (teamMembers.length < 6) {
       updateTeamMembers([

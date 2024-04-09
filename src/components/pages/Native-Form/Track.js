@@ -1,14 +1,8 @@
-import React, { useState, useContext } from "react";
+// Track.js
+import React, { useState, createContext, useContext } from "react";
 
-// Create context for track records data
-const TrackDataContext = React.createContext();
+const TrackDataContext = createContext();
 
-// Custom hook to use track records context
-const useTrackData = () => {
-  return useContext(TrackDataContext);
-};
-
-// Track Provider component
 const TrackProvider = ({ children }) => {
   const [phaseRows, setPhaseRows] = useState([
     { year1: "", year2: "", TR: "" },
@@ -16,8 +10,8 @@ const TrackProvider = ({ children }) => {
     { year1: "", year2: "", TR: "" },
   ]);
 
-  const updatePhaseRows = (rows) => {
-    setPhaseRows(rows);
+  const updatePhaseRows = (updatedRows) => {
+    setPhaseRows(updatedRows);
   };
 
   return (
@@ -27,13 +21,16 @@ const TrackProvider = ({ children }) => {
   );
 };
 
-const Track = () => {
-  const { phaseRows, updatePhaseRows } = useTrackData();
+const useTrackData = () => {
+  return useContext(TrackDataContext);
+};
 
-  // Function to generate an array of years for the dropdown options
+const Track = ({formData}) => {
+  const { phaseRows, updatePhaseRows } = useTrackData();
+  formData['trackRecord'] = phaseRows;
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
-    const years = [];
+    const years = ["SELECT YEAR"];
     for (let i = currentYear - 15; i <= currentYear; i++) {
       years.push(i);
     }
@@ -57,30 +54,30 @@ const Track = () => {
           <div>
             <label htmlFor={`phase${index + 1}UpperBound`}>From</label>
             <select
-              id={`year1-${index}`}
-              name={`year1-${index}`}
+              id={`year1_${index}`}
+              name={`year1_${index}`}
               value={row.year1}
               onChange={(e) =>
                 handlePhaseRowsChange(index, "year1", e.target.value)
               }
             >
-              {generateYears().map((year) => (
-                <option key={year} value={year}>
+              {generateYears().map((year, idx) => (
+                <option key={idx} value={year}>
                   {year}
                 </option>
               ))}
             </select>
             <label htmlFor={`phase${index + 1}LowerBound`}>To</label>
             <select
-              id={`year2-${index}`}
-              name={`year2-${index}`}
+              id={`year2_${index}`}
+              name={`year2_${index}`}
               value={row.year2}
               onChange={(e) =>
                 handlePhaseRowsChange(index, "year2", e.target.value)
               }
             >
-              {generateYears().map((year) => (
-                <option key={year} value={year}>
+              {generateYears().map((year, idx) => (
+                <option key={idx} value={year}>
                   {year}
                 </option>
               ))}
@@ -89,8 +86,8 @@ const Track = () => {
           <div>
             <label htmlFor={`phase${index + 1}Timeline`}>Track Record</label>
             <textarea
-              id={`TR-${index}`}
-              name={`TR-${index}`}
+              id={`TR_${index}`}
+              name={`TR_${index}`}
               value={row.TR}
               onChange={(e) =>
                 handlePhaseRowsChange(index, "TR", e.target.value)
@@ -103,4 +100,4 @@ const Track = () => {
   );
 };
 
-export { Track, TrackProvider, useTrackData };
+export { TrackProvider, useTrackData, Track };
