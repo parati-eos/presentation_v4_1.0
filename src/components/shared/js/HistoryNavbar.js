@@ -12,7 +12,7 @@ function Navbar() {
   const navigate = useNavigate();
   const handleBuildPresentation = () => {
     // Redirect to the 'form.js' page upon clicking "Build Presentation"
-    navigate("/form", { state: { useremail } });
+    navigate("/pages/Nativeform", { state: { useremail } });
   };
   return (
     <nav className="history-nav">

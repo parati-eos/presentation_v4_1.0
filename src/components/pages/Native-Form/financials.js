@@ -8,6 +8,8 @@ const useFinancialData = () => {
   return useContext(FinancialDataContext);
 };
 
+
+
 // Provider component for financial data
 const FinancialDataProvider = ({ children }) => {
   const [formData, setFormData] = useState({
@@ -22,6 +24,7 @@ const FinancialDataProvider = ({ children }) => {
       { use: "Team Salaries", percentage: "" }
     ]
   });
+
 
   return (
     <FinancialDataContext.Provider value={{ formData, setFormData }}>
@@ -42,7 +45,9 @@ const Financials = () => {
   const handleUseOfFundsChange = (index, field, value) => {
     const updatedUseOfFunds = [...formData.useOfFunds];
     updatedUseOfFunds[index][field] = value;
+
     updateFormData({ ...formData, useOfFunds: updatedUseOfFunds });
+
   };
 
   const addRevenueRow = () => {
@@ -199,3 +204,4 @@ const Financials = () => {
 
 export default Financials;
 export { FinancialDataProvider, useFinancialData };
+
