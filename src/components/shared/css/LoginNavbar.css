@@ -2,6 +2,7 @@
 .login-nav {
   background-color: #001723;
   z-index: 1;
+  width: 100%;
   border-bottom: 1px solid #004264;
 }
 .login-navbar-container {

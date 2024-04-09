@@ -18,7 +18,7 @@ import Team from "./Team"; // Import the Team component
 import Navbar from "../../shared/js/LoginNavbar";
 import Contact from "./contact"; // Import the Contact component
 import Financials from "./financials"; // Import the Financials component
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
   const [section, setSection] = useState(1);
@@ -463,9 +463,6 @@ const Form = () => {
       setIsLoading(false);
     } else {
       navigate("/pages/presentationcheck");
-
-
-
     }
     if (section === 1) {
       if (progress < 6) {
