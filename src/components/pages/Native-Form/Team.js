@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import close from '../../Asset/close.png'
 // Create context for team data
 const TeamDataContext = React.createContext();
 

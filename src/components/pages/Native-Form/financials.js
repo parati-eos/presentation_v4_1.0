@@ -3,14 +3,10 @@ import React, { useState, useContext } from "react";
 // Create context for financial data
 const FinancialDataContext = React.createContext();
 
-
 // Custom hook to use financial data context
 const useFinancialData = () => {
   return useContext(FinancialDataContext);
 };
-
-
-
 
 // Provider component for financial data
 const FinancialDataProvider = ({ children }) => {
@@ -23,25 +19,26 @@ const FinancialDataProvider = ({ children }) => {
       { use: "Marketing and Sales", percentage: "" },
       { use: "Business Operation", percentage: "" },
       { use: "Capex", percentage: "" },
-      { use: "Team Salaries", percentage: "" }
-    ]
+      { use: "Team Salaries", percentage: "" },
+    ],
   });
 
-
   return (
-    <FinancialDataContext.Provider value={{ FinancialsData,setFinancialsData}}>
+    <FinancialDataContext.Provider
+      value={{ FinancialsData, setFinancialsData }}
+    >
       {children}
     </FinancialDataContext.Provider>
   );
 };
 
-const Financials = ({formData}) => {
+const Financials = ({ formData }) => {
   const { FinancialsData, setFinancialsData } = useFinancialData();
-  formData['financialSnapshot'] = FinancialsData['financialSnapshot']
-  formData['plannedRaise'] = FinancialsData['plannedRaise']
-  formData['revenueCost'] = FinancialsData['revenueCost']
-  formData['useOfFunds'] = FinancialsData['useOfFunds']
-  console.log(FinancialsData['financialSnapshot'])
+  formData["financialSnapshot"] = FinancialsData["financialSnapshot"];
+  formData["plannedRaise"] = FinancialsData["plannedRaise"];
+  formData["revenueCost"] = FinancialsData["revenueCost"];
+  formData["useOfFunds"] = FinancialsData["useOfFunds"];
+  console.log(FinancialsData["financialSnapshot"]);
   const handleRevenueCostChange = (index, field, value) => {
     const updatedRevenueCost = [...FinancialsData.revenueCost];
     updatedRevenueCost[index][field] = value;
@@ -53,12 +50,14 @@ const Financials = ({formData}) => {
     updatedUseOfFunds[index][field] = value;
 
     updateFinancialData({ ...FinancialsData, useOfFunds: updatedUseOfFunds });
-
   };
 
   const addRevenueRow = () => {
     if (FinancialsData.revenueCost.length < 11) {
-      const newRevenueCost = [...FinancialsData.revenueCost, { year: "", revenue: "", cost: "" }];
+      const newRevenueCost = [
+        ...FinancialsData.revenueCost,
+        { year: "", revenue: "", cost: "" },
+      ];
       updateFinancialData({ ...FinancialsData, revenueCost: newRevenueCost });
     }
   };
@@ -92,7 +91,12 @@ const Financials = ({formData}) => {
           name="financialSnapshot"
           rows="4"
           value={FinancialsData.financialSnapshot}
-          onChange={(e) => updateFinancialData({ ...FinancialsData, financialSnapshot: e.target.value })}
+          onChange={(e) =>
+            updateFinancialData({
+              ...FinancialsData,
+              financialSnapshot: e.target.value,
+            })
+          }
           required
         ></textarea>
       </div>
@@ -119,7 +123,9 @@ const Financials = ({formData}) => {
                   <select
                     name="year"
                     value={row.year}
-                    onChange={(e) => handleRevenueCostChange(index, "year", e.target.value)}
+                    onChange={(e) =>
+                      handleRevenueCostChange(index, "year", e.target.value)
+                    }
                     required
                   >
                     <option value="">Select a Year</option>
@@ -135,7 +141,9 @@ const Financials = ({formData}) => {
                     type="number"
                     name="revenue"
                     value={row.revenue}
-                    onChange={(e) => handleRevenueCostChange(index, "revenue", e.target.value)}
+                    onChange={(e) =>
+                      handleRevenueCostChange(index, "revenue", e.target.value)
+                    }
                   />
                 </td>
                 <td>
@@ -143,14 +151,18 @@ const Financials = ({formData}) => {
                     type="number"
                     name="cost"
                     value={row.cost}
-                    onChange={(e) => handleRevenueCostChange(index, "cost", e.target.value)}
+                    onChange={(e) =>
+                      handleRevenueCostChange(index, "cost", e.target.value)
+                    }
                   />
                 </td>
                 <td>
                   {index === FinancialsData.revenueCost.length - 1 ? (
                     <button onClick={addRevenueRow}>Add Row</button>
                   ) : (
-                    <button onClick={() => removeRevenueRow(index)}>Remove</button>
+                    <button onClick={() => removeRevenueRow(index)}>
+                      Remove
+                    </button>
                   )}
                 </td>
               </tr>
@@ -169,7 +181,12 @@ const Financials = ({formData}) => {
           id="plannedRaise"
           name="plannedRaise"
           value={FinancialsData.plannedRaise}
-          onChange={(e) => updateFinancialData({ ...FinancialsData, plannedRaise: e.target.value })}
+          onChange={(e) =>
+            updateFinancialData({
+              ...FinancialsData,
+              plannedRaise: e.target.value,
+            })
+          }
           required
         />
       </div>
@@ -192,8 +209,13 @@ const Financials = ({formData}) => {
                     type="number"
                     name="percentage"
                     value={use.percentage}
-
-                    onChange={(e) => handleUseOfFundsChange(index, "percentage", e.target.value)}
+                    onChange={(e) =>
+                      handleUseOfFundsChange(
+                        index,
+                        "percentage",
+                        e.target.value
+                      )
+                    }
                   />
                 </td>
               </tr>
@@ -205,9 +227,5 @@ const Financials = ({formData}) => {
   );
 };
 
-
-
+export default Financials;
 export { FinancialDataProvider, useFinancialData };
-
-
-
