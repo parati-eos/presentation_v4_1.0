@@ -24,7 +24,7 @@ function Navbar({ historyShow, historyHide }) {
             onMouseLeave={historyHide}
             onClick={handleHistoryButtonClicked}
           >
-            <FontAwesomeIcon icon={faHistory} /> History
+            <FontAwesomeIcon className="history-icon" icon={faHistory} /> <span>History</span>
           </button>
           <img src={localStorage.getItem("userDP")} className="appLanding-user" />
         </div>
