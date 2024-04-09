@@ -1,17 +1,36 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
-const Financials = ({ formData, handleChange }) => {
-  const [revenueRows, setRevenueRows] = useState(formData.revenueCost || [
+// Create context for financial data
+const FinancialDataContext = React.createContext();
+
+// Custom hook to use financial data context
+const useFinancialData = () => {
+  return useContext(FinancialDataContext);
+};
+
+// Provider component for financial data
+const FinancialDataProvider = ({ children }) => {
+  const [revenueRows, setRevenueRows] = useState([
     { year: "", revenue: "", cost: "" },
   ]);
 
-  const [useOfFunds, setUseOfFunds] = useState(formData.useOfFunds || [
-    { use: "", percentage: "" },
-    { use: "", percentage: "" },
-    { use: "", percentage: "" },
-    { use: "", percentage: "" },
-    { use: "", percentage: "" }
+  const [useOfFunds, setUseOfFunds] = useState([
+    { use: "Product and Development", percentage: "" },
+    { use: "Marketing and Sales", percentage: "" },
+    { use: "Business Operation", percentage: "" },
+    { use: "Capex", percentage: "" },
+    { use: "Team Salaries", percentage: "" }
   ]);
+
+  return (
+    <FinancialDataContext.Provider value={{ revenueRows, setRevenueRows, useOfFunds, setUseOfFunds }}>
+      {children}
+    </FinancialDataContext.Provider>
+  );
+};
+
+const Financials = ({handleChange}) => {
+  const { revenueRows, setRevenueRows, useOfFunds, setUseOfFunds } = useFinancialData();
 
   const currentYear = new Date().getFullYear();
   const years = Array.from(
@@ -19,28 +38,16 @@ const Financials = ({ formData, handleChange }) => {
     (_, index) => currentYear - 5 + index
   );
 
-  useEffect(() => {
-    handleChange({
-      target: {
-        name: "revenueCost",
-        value: revenueRows,
-      },
-    });
-  }, [revenueRows, handleChange]);
-
-  useEffect(() => {
-    handleChange({
-      target: {
-        name: "useOfFunds",
-        value: useOfFunds,
-      },
-    });
-  }, [useOfFunds, handleChange]);
-
   const handleRevenueCostChange = (index, field, value) => {
     const updatedRevenueCost = [...revenueRows];
     updatedRevenueCost[index][field] = value;
     setRevenueRows(updatedRevenueCost);
+    handleChange({
+      target: {
+        name: "revenueCost",
+        value: updatedRevenueCost,
+      },
+    });
   };
 
   const handleUseOfFundsChange = (index, field, value) => {
@@ -63,9 +70,23 @@ const Financials = ({ formData, handleChange }) => {
     }
   };
 
+  // useEffect to initialize state with context data when the component mounts
+  useEffect(() => {
+    // Check if the context data is already initialized
+    if (revenueRows.length === 1 && !revenueRows[0].year) {
+      const initialRevenueRows = [
+        { year: "", revenue: "", cost: "" },
+        ...revenueRows.slice(1)
+      ];
+      setRevenueRows(initialRevenueRows);
+
+      // Initialize useOfFunds with context data
+      setUseOfFunds(useOfFunds);
+    }
+  }, []);
+
   return (
     <div className="form-section">
-      {/* Financial Snapshot */}
       <div className="textInputQuestions">
         <label htmlFor="financialSnapshot">
           Please provide a financial snapshot of the company.*
@@ -73,14 +94,13 @@ const Financials = ({ formData, handleChange }) => {
         <textarea
           id="financialSnapshot"
           name="financialSnapshot"
-          value={formData.financialSnapshot}
-          onChange={handleChange}
           rows="4"
           required
+          onChange={handleChange}
         ></textarea>
       </div>
-
-      {/* Revenue and Cost Projections */}
+      <br />
+      <br />
       <div className="textInputQuestions">
         <label>
           Please provide revenue/revenue projections for the following years.
@@ -107,6 +127,7 @@ const Financials = ({ formData, handleChange }) => {
                       handleRevenueCostChange(index, "year", e.target.value)
                     }
                     required
+                    
                   >
                     <option value="">Select a Year</option>
                     {years.map((year) => (
@@ -150,8 +171,8 @@ const Financials = ({ formData, handleChange }) => {
           </tbody>
         </table>
       </div>
-
-      {/* Planned Raise */}
+      <br />
+      <br />
       <div className="textInputQuestions">
         <label htmlFor="plannedRaise">
           How much money do you plan to raise? Please enter the numbers in
@@ -161,13 +182,11 @@ const Financials = ({ formData, handleChange }) => {
           type="number"
           id="plannedRaise"
           name="plannedRaise"
-          value={formData.plannedRaise}
-          onChange={handleChange}
           required
         />
       </div>
-
-      {/* Use of Funds */}
+      <br />
+      <br />
       <div className="textInputQuestions">
         <label>Breakdown in percentages for the use of funds:</label>
         <br />
@@ -181,29 +200,7 @@ const Financials = ({ formData, handleChange }) => {
           <tbody>
             {useOfFunds.map((use, index) => (
               <tr key={index}>
-                <td>
-                  <select
-                    name="use"
-                    value={use.use}
-                    onChange={(e) =>
-                      handleUseOfFundsChange(index, "use", e.target.value)
-                    }
-                    required
-                  >
-                    <option value="">Select a Use</option>
-                    <option value="Product and Development">
-                      Product and Development
-                    </option>
-                    <option value="Marketing and Sales">
-                      Marketing and Sales
-                    </option>
-                    <option value="Capex">Capex</option>
-                    <option value="Business Operation">
-                      Business Operation
-                    </option>
-                    <option value="Team Salaries">Team Salaries</option>
-                  </select>
-                </td>
+                <td>{use.use}</td>
                 <td>
                   <input
                     type="number"
@@ -224,3 +221,4 @@ const Financials = ({ formData, handleChange }) => {
 };
 
 export default Financials;
+export { FinancialDataProvider, useFinancialData };
