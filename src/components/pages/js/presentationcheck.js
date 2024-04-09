@@ -94,6 +94,7 @@ const PresentationCheck = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
+        console.log("===============================",data[3])
         setPPTName(data[3]);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -115,12 +116,12 @@ const PresentationCheck = () => {
     const requestBody = {
       userID: localStorage.getItem("userEmail"),
       formID: localStorage.getItem("submissionId"),
-      newColumnValue: PPTName,
+      newColumnValue: PPTName
     };
 
     try {
       const response = await fetch(
-        "https://pitchdeck-server.onrender.com/updateRow",
+        "http://localhost:5000/updateRow",
         {
           method: "POST",
           headers: {

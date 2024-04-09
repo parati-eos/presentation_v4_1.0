@@ -108,15 +108,22 @@ function ApplicationLanding() {
       )}
       <div className="app-landing-container">
         <div className="image-stack" onMouseEnter={handleMouseLeaveDiv}>
-          <img src={img1} alt="Image 1"></img>
-          <img src={img2} alt="Image 2"></img>
-          <img src={img3} alt="Image 3"></img>
-          <img src={img4} alt="Image 4"></img>
-          <div className="overlay-button" onClick={handleBuildPresentation}>
-            <div>
-              <img src={magicWand}></img>{" "}
+          <div className="button-shade">
+            <div className="button-shade1">
+              <div className="button-shade2">
+                <div className="button-shade3">
+                <button
+                  className="overlay-button"
+                  onClick={handleBuildPresentation}
+                >
+                  <div>
+                    <img src={magicWand}></img>{" "}
+                  </div>
+                  <div>Generate Presentation</div>
+                </button>
+                </div>
+              </div>
             </div>
-            <div>Generate Presentation</div>
           </div>
         </div>
       </div>

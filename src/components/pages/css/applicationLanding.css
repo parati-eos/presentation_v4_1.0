@@ -11,49 +11,110 @@
 .app-landing-container {
   background-color: #001b28;
   height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   z-index: -1;
 }
-.image-stack img {
-  position: absolute;
-  top: 10vh;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-}
-
 .overlay-button {
   cursor: pointer;
-  height: 6.8vh;
-  width: 40vh;
-  position: absolute;
-  top: 16.5vh;
-  left: 40vh;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-  transform: translate(-50%, -50%);
-  background-color: #e6a500;
-  color: white;
-  padding: 0px;
-  border: none;
-  border-radius: 3.25vh;
-  font-size: 18px;
-  font-weight: 700;
   display: flex;
   flex-direction: row;
+  height: 6.8vh;
+  width: 50vh;
+  background-color: rgb(230, 165, 0);
+  color: white;
+  border: none;
+  border-radius: 3.25vw;
+  font-size: 1.4vw;
+  font-weight: 700;
+  justify-content: center;
+  gap:10px;
+  align-items: center;
+}
+.image-stack{
+  display: flex;
   justify-content: center;
   align-items: center;
-  gap:10px;
+  width: 45%;
+  height:40%;
+  /* background: red; */
 }
+.button-shade{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 75%;
+  background-color: rgba(230, 165, 0, 0.06);   
+  border-radius: 12vw;
+}
+
+.button-shade1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 75%;
+  background-color: rgba(230, 165, 0, 0.1);   
+  border-radius: 12vw;
+}
+
+.button-shade2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 75%;
+  background-color: rgba(230, 165, 0, 0.1);   
+  border-radius: 8vw;
+}
+.button-shade3{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  height: 75%;
+  background-color: rgba(230, 165, 0, 0.1);   
+  border-radius: 8vw;
+}
+
+
 .overlay-button img {
-  position: relative;
-  top: 0;
   height: 4vh;
   width: auto;
+}
+
+@media screen and (max-width: 600px){
+ 
+  .overlay-button{
+    width: 58vw;
+    border-radius: 3.25vh;
+    height: auto;
+    font-size: 1.8vh;
+  }
+  .image-stack{
+    width: 100%;
+    height:30%;
+  }
+  .button-shade{  
+    border-radius: 12vh;
+  }
+  
+  .button-shade1{  
+    border-radius: 12vh;
+  }
+  .button-shade2{  
+    border-radius: 8vh;
+  }
+  .button-shade3{
+    border-radius: 8vh;
+  }
+  .overlay-button img {
+    height: 3vh;
+    width: auto;
+  }
 }
 

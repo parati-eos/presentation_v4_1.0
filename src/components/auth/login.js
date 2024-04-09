@@ -6,6 +6,7 @@ import LoginImage from "../Asset/LoginImage.png";
 import LoginNavbar from "../shared/js/LoginNavbar.js";
 import MicrosoftLogin from "react-microsoft-login";
 import "./Login.css";
+import MSLogin from "../Asset/ms-login.svg";
 
 function Login() {
   const navigate = useNavigate();
@@ -83,9 +84,10 @@ function Login() {
                 clientId="1fe7a2de-f766-4418-b6c8-1e7be3da2b9e"
                 authCallback={handleMicrosoftSuccess}
                 redirectUri="http://localhost:3000" // Specify your redirect URL here
-                children={<button>Login with Microsoft</button>}
                 prompt="select_account" // Specify the prompt parameter
-              />
+              >
+                  <img src={MSLogin} alt="Microsoft Login" />
+              </MicrosoftLogin>
             </div>
           </div>
         </div>
