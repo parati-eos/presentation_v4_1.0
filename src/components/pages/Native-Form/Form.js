@@ -9,16 +9,17 @@ import Product from "./product";
 import ProductScreen from "./productscreen";
 import Business from "./Business";
 import GTM from "./GTM";
-import Track from "./Track";
+import {Track} from "./Track";
 import Case from "./case";
 import Testimonials from "./Testimonials";
-import Competition from "./Competition";
+import {Competition} from "./Competition";
 import CompetitiveDiff from "./CompetitiveDiff";
-import Team from "./Team"; // Import the Team component
+import {Team} from "./Team"; // Import the Team component
 import Navbar from "../../shared/js/LoginNavbar";
 import Contact from "./contact"; // Import the Contact component
 import Financials from "./financials"; // Import the Financials component
-import { useNavigate } from "react-router-dom";
+
+import {useNavigate } from "react-router-dom";
 
 const Form = () => {
   const [section, setSection] = useState(1);
@@ -31,8 +32,8 @@ const Form = () => {
     companyName: "",
     tagline: "",
     logo: null,
-    primaryColor: "",
-    secondaryColor: "",
+    primaryColor: "#000000",
+    secondaryColor: "#000000",
     establishmentYear: "",
     companyOverview: "",
     problemDescription: "",
@@ -565,12 +566,15 @@ const Form = () => {
                 <GTM formData={formData} handleChange={handleChange} />
               )}
               {section === 10 && (
+          
                 <Track
                   formData={formData}
                   handleChange={handleChange}
                   setFormData={setFormData} // Pass setFormData here
                   isLoading={isLoading}
                 />
+           
+                
               )}
               {section === 11 && (
                 <Case formData={formData} handleChange={handleChange} />

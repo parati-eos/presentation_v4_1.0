@@ -1,20 +1,40 @@
-import React, { useState } from "react";
-import close from "../../Asset/close.png";
-import uploadFileToS3 from "./uploadFileToS3";
+import React, { useState, useContext } from "react";
 
-const Team = ({ formData, handleChange }) => {
-  const initialTeamMembers = formData.teamMembers || [
+// Create context for team data
+const TeamDataContext = React.createContext();
+
+// Custom hook to use team data context
+const useTeamData = () => {
+  return useContext(TeamDataContext);
+};
+
+const TeamProvider = ({ children }) => {
+  // Initialize with two team members by default
+  const [teamMembers, setTeamMembers] = useState([
     { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null },
-    { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null },
-  ];
+    { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null }
+  ]);
 
-  const [teamMembers, setTeamMembers] = useState(initialTeamMembers);
+  // Function to update team members
+  const updateTeamMembers = (members) => {
+    setTeamMembers(members);
+  };
 
+  return (
+    <TeamDataContext.Provider value={{ teamMembers, updateTeamMembers }}>
+      {children}
+    </TeamDataContext.Provider>
+  );
+};
+
+const Team = ({formData}) => {
+  const { teamMembers, updateTeamMembers } = useTeamData();
+  formData['teamMembers'] = teamMembers;
   const handleAddMember = () => {
     if (teamMembers.length < 6) {
-      setTeamMembers([
+      updateTeamMembers([
         ...teamMembers,
-        { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null },
+        { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null }
       ]);
     }
   };
@@ -23,7 +43,7 @@ const Team = ({ formData, handleChange }) => {
     if (teamMembers.length > 2) {
       const updatedTeamMembers = [...teamMembers];
       updatedTeamMembers.splice(index, 1);
-      setTeamMembers(updatedTeamMembers);
+      updateTeamMembers(updatedTeamMembers);
     }
   };
 
@@ -31,23 +51,7 @@ const Team = ({ formData, handleChange }) => {
     const updatedTeamMembers = [...teamMembers];
     updatedTeamMembers[index][field] = value;
 
-    if (field === "photo") {
-      try {
-        const imageUrl = await uploadFileToS3(value); // Upload image to S3 and get the URL
-        updatedTeamMembers[index]["photoUrl"] = imageUrl; // Store the URL in the team member object
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        // Handle error, maybe show a message to the user
-      }
-    }
-
-    setTeamMembers(updatedTeamMembers);
-    handleChange({
-      target: {
-        name: "teamMembers",
-        value: updatedTeamMembers,
-      },
-    });
+    updateTeamMembers(updatedTeamMembers);
   };
 
   return (
@@ -92,7 +96,7 @@ const Team = ({ formData, handleChange }) => {
               type="button"
               onClick={() => handleRemoveMember(index)}
             >
-              <img src={close}></img>
+              Close
             </div>
           )}
           <textarea
@@ -103,20 +107,13 @@ const Team = ({ formData, handleChange }) => {
             }
             required
           />
-          <div className="file-close-container">
-            <div>
-              <input
-                type="file"
-                accept="image/*, application/pdf"
-                onChange={(e) =>
-                  handleTeamMemberChange(index, "photo", e.target.files[0])
-                }
-              />
-              {member.photoUrl && (
-                <img src={member.photoUrl} alt={`Photo of ${member.name}`} />
-              )}
-            </div>
-          </div>
+          <input
+            type="file"
+            accept="image/*, application/pdf"
+            onChange={(e) =>
+              handleTeamMemberChange(index, "photo", e.target.files[0])
+            }
+          />
           <br />
         </div>
       ))}
@@ -134,4 +131,4 @@ const Team = ({ formData, handleChange }) => {
   );
 };
 
-export default Team;
+export { Team, TeamProvider, useTeamData };
