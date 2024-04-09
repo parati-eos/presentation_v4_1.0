@@ -115,6 +115,7 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
             color={primaryColor}
             handleChange={handlePrimaryColorChange}
             required
+            value={formData.primaryColor}
           />
         </div>
         <div className="secondary-color">
@@ -127,6 +128,7 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
             color={secondaryColor}
             handleChange={handleSecondaryColorChange}
             required
+            value={formData.secondaryColor}
           />
         </div>
       </div>

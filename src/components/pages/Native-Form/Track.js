@@ -1,77 +1,93 @@
-import { React, useState } from "react";
+// Track.js
+import React, { useState, createContext, useContext } from "react";
 
-const Track = ({ formData, handleChange }) => {
+const TrackDataContext = createContext();
+
+const TrackProvider = ({ children }) => {
   const [phaseRows, setPhaseRows] = useState([
     { year1: "", year2: "", TR: "" },
     { year1: "", year2: "", TR: "" },
     { year1: "", year2: "", TR: "" },
   ]);
-  // Function to generate an array of years for the dropdown options
+
+  const updatePhaseRows = (updatedRows) => {
+    setPhaseRows(updatedRows);
+  };
+
+  return (
+    <TrackDataContext.Provider value={{ phaseRows, updatePhaseRows }}>
+      {children}
+    </TrackDataContext.Provider>
+  );
+};
+
+const useTrackData = () => {
+  return useContext(TrackDataContext);
+};
+
+const Track = ({formData}) => {
+  const { phaseRows, updatePhaseRows } = useTrackData();
+  formData['trackRecord'] = phaseRows;
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
-    const years = [];
+    const years = ["SELECT YEAR"];
     for (let i = currentYear - 15; i <= currentYear; i++) {
       years.push(i);
     }
     return years;
   };
+
   const handlePhaseRowsChange = (index, field, value) => {
     const updatedPhaseRows = [...phaseRows];
     updatedPhaseRows[index][field] = value;
-    setPhaseRows(updatedPhaseRows);
-    handleChange({
-      target: {
-        name: "trackRecord",
-        value: updatedPhaseRows,
-      },
-    });
+    updatePhaseRows(updatedPhaseRows);
   };
+
   return (
-    <div className="textInputQuestions">
+    <div>
       <label htmlFor="productOverview">
-        Can you provide company's track record in terms of traction across
-        different phases and their timeline?
+        Can you provide company's track record in terms of traction across different phases and their timeline?
       </label>
       {phaseRows.map((row, index) => (
-        <div className="trackRecord-details">
-          <label htmlFor="phase1">{`Phase ${index + 1}`}</label>
-          <div className="trackRecord-to-from">
-            <label htmlFor="phase1UpperBound">From</label>
+        <div key={index}>
+          <label htmlFor={`phase${index + 1}`}>{`Phase ${index + 1}`}</label>
+          <div>
+            <label htmlFor={`phase${index + 1}UpperBound`}>From</label>
             <select
-              id="year1"
-              name="year1"
+              id={`year1_${index}`}
+              name={`year1_${index}`}
               value={row.year1}
               onChange={(e) =>
                 handlePhaseRowsChange(index, "year1", e.target.value)
               }
             >
-              {generateYears().map((year) => (
-                <option key={year} value={year}>
+              {generateYears().map((year, idx) => (
+                <option key={idx} value={year}>
                   {year}
                 </option>
               ))}
             </select>
-            <label htmlFor="phase1LowerBound">To</label>
+            <label htmlFor={`phase${index + 1}LowerBound`}>To</label>
             <select
-              id="year2"
-              name="year2"
+              id={`year2_${index}`}
+              name={`year2_${index}`}
               value={row.year2}
               onChange={(e) =>
                 handlePhaseRowsChange(index, "year2", e.target.value)
               }
             >
-              {generateYears().map((year) => (
-                <option key={year} value={year}>
+              {generateYears().map((year, idx) => (
+                <option key={idx} value={year}>
                   {year}
                 </option>
               ))}
             </select>
           </div>
           <div>
-            <label htmlFor="phase1Timeline">Track Record</label>
+            <label htmlFor={`phase${index + 1}Timeline`}>Track Record</label>
             <textarea
-              id="TR"
-              name="TR"
+              id={`TR_${index}`}
+              name={`TR_${index}`}
               value={row.TR}
               onChange={(e) =>
                 handlePhaseRowsChange(index, "TR", e.target.value)
@@ -84,4 +100,6 @@ const Track = ({ formData, handleChange }) => {
   );
 };
 
-export default Track;
+
+export { TrackProvider, useTrackData, Track };
+

@@ -1,42 +1,49 @@
-import React, { useState, useEffect } from "react";
+// Competition.js
+import React, { useState, createContext, useContext } from "react";
 import close from "../../Asset/close.png";
 
-const Competition = ({ formData, handleChange }) => {
-  const minCompetitorFields = 4; // Minimum number of competitor fields to display by default
-  const initialCompetitors =
-    formData.competitors ||
-    Array.from({ length: minCompetitorFields }, () => "");
+const CompetitionContext = createContext();
+
+const CompetitionProvider = ({ children }) => {
+  const minCompetitorFields = 4;
+  const initialCompetitors = Array.from({ length: minCompetitorFields }, () => "");
 
   const [competitors, setCompetitors] = useState(initialCompetitors);
 
+  const updateCompetitors = (updatedCompetitors) => {
+    setCompetitors(updatedCompetitors);
+  };
+
+  return (
+    <CompetitionContext.Provider value={{ competitors, updateCompetitors }}>
+      {children}
+    </CompetitionContext.Provider>
+  );
+};
+
+const useCompetitionData = () => {
+  return useContext(CompetitionContext);
+};
+
+const Competition = ({formData}) => {
+  const { competitors, updateCompetitors } = useCompetitionData();
+  formData['competitors'] = competitors;
   const handleCompetitorChange = (index, value) => {
     const updatedCompetitors = [...competitors];
     updatedCompetitors[index] = value;
-    setCompetitors(updatedCompetitors);
-    handleChange({
-      target: {
-        name: "competitors",
-        value: updatedCompetitors,
-      },
-    });
+    updateCompetitors(updatedCompetitors);
   };
 
   const addCompetitorRow = () => {
     if (competitors.length < 6) {
-      setCompetitors([...competitors, ""]); // Add an empty competitor
+      updateCompetitors([...competitors, ""]); // Add an empty competitor
     }
   };
 
   const removeCompetitorRow = (index) => {
     const updatedCompetitors = [...competitors];
     updatedCompetitors.splice(index, 1); // Remove competitor at the specified index
-    setCompetitors(updatedCompetitors);
-    handleChange({
-      target: {
-        name: "competitors",
-        value: updatedCompetitors,
-      },
-    });
+    updateCompetitors(updatedCompetitors);
   };
 
   return (
@@ -89,5 +96,5 @@ const Competition = ({ formData, handleChange }) => {
     </>
   );
 };
+export { CompetitionProvider, useCompetitionData, Competition };
 
-export default Competition;

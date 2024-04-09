@@ -1,41 +1,39 @@
-import React, { useState } from "react";
-import close from "../../Asset/close.png";
-import uploadFileToS3 from "./uploadFileToS3";
+import React, { useState, useContext } from "react";
+// Create context for team data
+const TeamDataContext = React.createContext();
 
-const Team = ({ formData, handleChange }) => {
-  const initialTeamMembers = formData.teamMembers || [
-    {
-      name: "",
-      title: "",
-      experience: "",
-      linkedin: "",
-      photo: null,
-      photoUrl: null,
-    },
-    {
-      name: "",
-      title: "",
-      experience: "",
-      linkedin: "",
-      photo: null,
-      photoUrl: null,
-    },
-  ];
+// Custom hook to use team data context
+const useTeamData = () => {
+  return useContext(TeamDataContext);
+};
 
-  const [teamMembers, setTeamMembers] = useState(initialTeamMembers);
+const TeamProvider = ({ children }) => {
+  // Initialize with two team members by default
+  const [teamMembers, setTeamMembers] = useState([
+    { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null },
+    { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null }
+  ]);
 
+  // Function to update team members
+  const updateTeamMembers = (members) => {
+    setTeamMembers(members);
+  };
+
+  return (
+    <TeamDataContext.Provider value={{ teamMembers, updateTeamMembers }}>
+      {children}
+    </TeamDataContext.Provider>
+  );
+};
+
+const Team = ({formData}) => {
+  const { teamMembers, updateTeamMembers } = useTeamData();
+  formData['teamMembers'] = teamMembers;
   const handleAddMember = () => {
     if (teamMembers.length < 6) {
-      setTeamMembers([
+      updateTeamMembers([
         ...teamMembers,
-        {
-          name: "",
-          title: "",
-          experience: "",
-          linkedin: "",
-          photo: null,
-          photoUrl: null,
-        },
+        { name: "", title: "", experience: "", linkedin: "", photo: null, photoUrl: null }
       ]);
     }
   };
@@ -44,7 +42,7 @@ const Team = ({ formData, handleChange }) => {
     if (teamMembers.length > 2) {
       const updatedTeamMembers = [...teamMembers];
       updatedTeamMembers.splice(index, 1);
-      setTeamMembers(updatedTeamMembers);
+      updateTeamMembers(updatedTeamMembers);
     }
   };
 
@@ -52,28 +50,13 @@ const Team = ({ formData, handleChange }) => {
     const updatedTeamMembers = [...teamMembers];
     updatedTeamMembers[index][field] = value;
 
-    if (field === "photo") {
-      try {
-        const imageUrl = await uploadFileToS3(value); // Upload image to S3 and get the URL
-        updatedTeamMembers[index]["photoUrl"] = imageUrl; // Store the URL in the team member object
-      } catch (error) {
-        console.error("Error uploading image:", error);
-        // Handle error, maybe show a message to the user
-      }
-    }
-
-    setTeamMembers(updatedTeamMembers);
-    handleChange({
-      target: {
-        name: "teamMembers",
-        value: updatedTeamMembers,
-      },
-    });
+    updateTeamMembers(updatedTeamMembers);
   };
 
   return (
     <>
       <br />
+
       <div className="textInputQuestions">
         <label>
           Can you provide background information about the founder(s) and key
@@ -163,4 +146,4 @@ const Team = ({ formData, handleChange }) => {
   );
 };
 
-export default Team;
+export { Team, TeamProvider, useTeamData };
