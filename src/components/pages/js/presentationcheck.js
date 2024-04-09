@@ -6,12 +6,13 @@ import ShareButton from "./Share.js";
 import ExportButton from "./export.js";
 import Googleslides from "../../helper/googlepresentation-helper.js";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
-
+// import Footer from "../../shared/js/footer.js";
 const GooglePresentation = ({ url }) => {
   return (
     <div className="PresentationContainer">
       <div>
         <Googleslides />
+        {/* <Footer /> */}
       </div>
     </div>
   );
@@ -60,19 +61,20 @@ const PresentationCheck = () => {
   };
 
   const handleShare = () => {
-    const shareUrl = `https://presentation-final-fd.vercel.app/share?submissionId=${formId}`;
-    navigator.clipboard
-      .writeText(shareUrl)
-      .then(() => {
-        console.log("URL copied to clipboard: ", shareUrl);
-        setShowCopyMessage(true); // Show copy message
-        setTimeout(() => {
-          setShowCopyMessage(false); // Hide copy message after 5 seconds
-        }, 5000);
-      })
-      .catch((error) => {
-        console.error("Failed to copy URL to clipboard: ", error);
-      });
+    const uniqueShareableUrl = `https://presentation-final-fd.vercel.app/share?submissionId=${formId}`;
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Share Presentation",
+          text: "Check out this presentation",
+          url: uniqueShareableUrl,
+        })
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.error("Share failed: ", error));
+    } else {
+      alert("Sharing is not supported on this device/browser.");
+    }
   };
 
   // Company Name--------------->>
