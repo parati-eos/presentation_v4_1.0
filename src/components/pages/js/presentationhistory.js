@@ -7,30 +7,29 @@ function History() {
   const [userID, setUserID] = useState(localStorage.getItem("userEmail"));
   const [historyData, setHistoryData] = useState([]);
 
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          "https://pitchdeck-server.onrender.com/history",
-          {
-            headers: {
-              "x-userid": userID,
-            },
-          }
-        );
-        console.log(response);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        "https://pitchdeck-server.onrender.com/history",
+        {
+          headers: {
+            "x-userid": userID,
+          },
         }
-        const data = await response.json();
-        console.log();
-        setHistoryData(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+      );
+      console.log(response);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    };
-
+      const data = await response.json();
+      console.log();
+      setHistoryData(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  
+  useEffect(() => {
     fetchData();
   }, [userID]);
   return (
