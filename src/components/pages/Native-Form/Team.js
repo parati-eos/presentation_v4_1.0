@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-
 // Create context for team data
 const TeamDataContext = React.createContext();
 
@@ -57,75 +56,91 @@ const Team = ({formData}) => {
   return (
     <>
       <br />
-      <label>
-        Can you provide background information about the founder(s) and key
-        members of your core team, including details about their education,
-        expertise, and experience that contribute to the company's success?*
-      </label>
-      {teamMembers.map((member, index) => (
-        <div key={index} className="team-row ">
-          <input
-            type="text"
-            value={member.name}
-            placeholder={`Name ${index + 1}`}
-            onChange={(e) =>
-              handleTeamMemberChange(index, "name", e.target.value)
-            }
-            required
-          />
-          <input
-            type="text"
-            value={member.title}
-            placeholder={`Title ${index + 1}`}
-            onChange={(e) =>
-              handleTeamMemberChange(index, "title", e.target.value)
-            }
-            required
-          />
-          <input
-            type="text"
-            value={member.linkedin}
-            placeholder={`LinkedIn ${index + 1}`}
-            onChange={(e) =>
-              handleTeamMemberChange(index, "linkedin", e.target.value)
-            }
-          />
-          {teamMembers.length > 2 && (
-            <div
-              className="close-button"
-              type="button"
-              onClick={() => handleRemoveMember(index)}
-            >
-              Close
+
+      <div className="textInputQuestions">
+        <label>
+          Can you provide background information about the founder(s) and key
+          members of your core team, including details about their education,
+          expertise, and experience that contribute to the company's success?*
+        </label>
+        <br />
+        {teamMembers.map((member, index) => (
+          <>
+            <div key={index} className="team-row ">
+              <input
+                type="text"
+                value={member.name}
+                placeholder={`Name ${index + 1}`}
+                onChange={(e) =>
+                  handleTeamMemberChange(index, "name", e.target.value)
+                }
+                required
+              />
+              <input
+                type="text"
+                value={member.title}
+                placeholder={`Title ${index + 1}`}
+                onChange={(e) =>
+                  handleTeamMemberChange(index, "title", e.target.value)
+                }
+                required
+              />
+              <input
+                type="text"
+                value={member.linkedin}
+                placeholder={`LinkedIn ${index + 1}`}
+                onChange={(e) =>
+                  handleTeamMemberChange(index, "linkedin", e.target.value)
+                }
+              />
+              {teamMembers.length > 2 && (
+                <div
+                  className="close-button"
+                  type="button"
+                  onClick={() => handleRemoveMember(index)}
+                >
+                  <img src={close}></img>
+                </div>
+              )}
+              <textarea
+                value={member.experience}
+                placeholder={`Experience ${index + 1}`}
+                onChange={(e) =>
+                  handleTeamMemberChange(index, "experience", e.target.value)
+                }
+                required
+              />
+              <div className="file-close-container">
+                <div>
+                  <input
+                    type="file"
+                    accept="image/*, application/pdf"
+                    onChange={(e) =>
+                      handleTeamMemberChange(index, "photo", e.target.files[0])
+                    }
+                  />
+                  {member.photoUrl && (
+                    <img
+                      src={member.photoUrl}
+                      alt={`Photo of ${member.name}`}
+                    />
+                  )}
+                </div>
+              </div>
             </div>
-          )}
-          <textarea
-            value={member.experience}
-            placeholder={`Experience ${index + 1}`}
-            onChange={(e) =>
-              handleTeamMemberChange(index, "experience", e.target.value)
-            }
-            required
-          />
-          <input
-            type="file"
-            accept="image/*, application/pdf"
-            onChange={(e) =>
-              handleTeamMemberChange(index, "photo", e.target.files[0])
-            }
-          />
-          <br />
-        </div>
-      ))}
-      {teamMembers.length < 6 && (
-        <button
-          className="add-row-button"
-          type="button"
-          onClick={handleAddMember}
-        >
-          Add Team Member
-        </button>
-      )}
+            <br />
+          </>
+        ))}
+        {teamMembers.length < 6 && (
+          <button
+            className="add-row-button"
+            type="button"
+            onClick={handleAddMember}
+          >
+            Add Team Member
+          </button>
+        )}
+      </div>
       <br />
     </>
   );

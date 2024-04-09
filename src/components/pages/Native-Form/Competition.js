@@ -48,47 +48,53 @@ const Competition = ({formData}) => {
 
   return (
     <>
-      <label htmlFor="competitors">
-        Who would you consider to be your company's top competitors in the market? List at least 4 of them
-      </label>
-      {competitors.map((competitor, index) => (
-        <div key={index} className="competitor-row">
-          <br />
-          <br />
-          <div className="competitor">
-            <input
-              type="text"
-              placeholder={`Competitor ${index + 1}`}
-              value={competitor}
-              onChange={(e) => handleCompetitorChange(index, e.target.value)}
-              required
-            />
+      <div className="textInputQuestions">
+        <label htmlFor="competitors">
+          Who would you consider to be your company's top competitors in the
+          market? List at least 4 of them
+        </label>
+        {competitors.map((competitor, index) => (
+          <div key={index} className="competitor-row">
+            <br />
+            <br />
+            <>
+              <div className="competitor">
+                <input
+                  type="text"
+                  placeholder={`Competitor ${index + 1}`}
+                  value={competitor}
+                  onChange={(e) =>
+                    handleCompetitorChange(index, e.target.value)
+                  }
+                  required
+                />
+              </div>
+              {competitors.length > minCompetitorFields && (
+                <div
+                  className="close-button-competition"
+                  type="button"
+                  onClick={() => removeCompetitorRow(index)}
+                >
+                  <img src={close} alt="Close" />
+                </div>
+              )}
+            </>
           </div>
-          {competitors.length > 4 && (
-            <div
-              className="close-button-competition"
+        ))}
+        {competitors.length < 6 && (
+          <>
+            <button
               type="button"
-              onClick={() => removeCompetitorRow(index)}
+              onClick={addCompetitorRow}
+              className="add-row-button"
             >
-              <img src={close} alt="Close" />
-            </div>
-          )}
-        </div>
-      ))}
-      {competitors.length < 6 && (
-        <>
-          <br />
-          <button
-            type="button"
-            onClick={addCompetitorRow}
-            className="add-row-button"
-          >
-            Add Competitor
-          </button>
-        </>
-      )}
+              Add Competitor
+            </button>
+          </>
+        )}
+      </div>
     </>
   );
 };
-
 export { CompetitionProvider, useCompetitionData, Competition };
+

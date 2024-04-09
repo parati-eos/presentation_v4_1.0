@@ -3,10 +3,12 @@ import React, { useState, useContext } from "react";
 // Create context for financial data
 const FinancialDataContext = React.createContext();
 
+
 // Custom hook to use financial data context
 const useFinancialData = () => {
   return useContext(FinancialDataContext);
 };
+
 
 
 
@@ -95,20 +97,19 @@ const Financials = ({formData}) => {
         ></textarea>
       </div>
       <br />
-      <br />
       <div className="textInputQuestions">
         <label>
           Please provide revenue/revenue projections for the following years.
           Leave the fields blank for the years where you do not have the
           required information. Please enter the numbers in million (USD).
         </label>
-        <br />
-        <table>
+        <table className="table-contents">
           <thead>
             <tr>
               <th>Years</th>
               <th>Revenue Projections</th>
               <th>Cost Projections</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -158,7 +159,6 @@ const Financials = ({formData}) => {
         </table>
       </div>
       <br />
-      <br />
       <div className="textInputQuestions">
         <label htmlFor="plannedRaise">
           How much money do you plan to raise? Please enter the numbers in
@@ -174,11 +174,9 @@ const Financials = ({formData}) => {
         />
       </div>
       <br />
-      <br />
       <div className="textInputQuestions">
         <label>Breakdown in percentages for the use of funds:</label>
-        <br />
-        <table>
+        <table className="table-contents-useoffunds">
           <thead>
             <tr>
               <th>Use</th>
@@ -194,6 +192,7 @@ const Financials = ({formData}) => {
                     type="number"
                     name="percentage"
                     value={use.percentage}
+
                     onChange={(e) => handleUseOfFundsChange(index, "percentage", e.target.value)}
                   />
                 </td>
@@ -206,7 +205,9 @@ const Financials = ({formData}) => {
   );
 };
 
-export default Financials;
+
+
 export { FinancialDataProvider, useFinancialData };
+
 
 

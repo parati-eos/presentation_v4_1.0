@@ -4,9 +4,7 @@ const Contact = ({ formData, handleChange }) => {
   return (
     <>
       <div className="textInputQuestions">
-      <label>
-      Please provide the link to your website.*
-      </label>
+        <label>Please provide the link to your website.*</label>
         <input
           type="text"
           id="websiteLink"
@@ -16,11 +14,10 @@ const Contact = ({ formData, handleChange }) => {
           placeholder="Enter your website link"
           required
         />
-        <br />
-        <br />
-        <label>
-        Please provide the link to your company Linkedin page.
-      </label>
+      </div>
+      <br />
+      <div className="textInputQuestions">
+        <label>Please provide the link to your company Linkedin page.</label>
         <input
           type="text"
           id="linkedinLink"
@@ -28,13 +25,11 @@ const Contact = ({ formData, handleChange }) => {
           value={formData.linkedinLink}
           onChange={handleChange}
           placeholder="Enter your LinkedIn page link"
-         
         />
-        <br />
-        <br />
-        <label>
-        Please provide the contact email address.*
-      </label> 
+      </div>
+      <br />
+      <div className="textInputQuestions">
+        <label>Please provide the contact email address.*</label>
         <input
           type="email"
           id="contactEmail"
@@ -44,11 +39,10 @@ const Contact = ({ formData, handleChange }) => {
           placeholder="Enter contact email address"
           required
         />
-        <br />
-        <br />
-        <label>
-        Please provide the contact phone number.
-      </label> 
+      </div>
+      <br />
+      <div className="textInputQuestions">
+        <label>Please provide the contact phone number.</label>
         <input
           type="tel"
           id="contactPhone"
@@ -56,10 +50,9 @@ const Contact = ({ formData, handleChange }) => {
           value={formData.contactPhone}
           onChange={handleChange}
           placeholder="Enter contact phone number"
-       
         />
-        <br />
       </div>
+      <br />
     </>
   );
 };

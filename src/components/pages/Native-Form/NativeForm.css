@@ -23,7 +23,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 1vh 5vw 1vh 5vw;
   background-color: #001723;
   border-top: 2px solid #004264;
@@ -54,7 +54,7 @@
   gap: 15px;
 }
 .textInputQuestions {
-  width: 90%;
+  width: 92%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -80,20 +80,38 @@
   text-align: left;
   color: #cececd;
 }
-.form-area table {
-  width: 90% !important;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 24px;
+.table-contents {
+  color: whitesmoke;
   text-align: left;
-  color: #cececd;
-  padding-bottom: 5px !important;
 }
-.form-area th,
-tr {
-  text-align: center;
-  padding-top: 10px;
+.table-contents th{
+  width: 25%;
+  font-size: 15px;
+  font-weight: 200;
 }
+.table-contents td {
+  padding-right: 10px;
+}
+.table-contents td input {
+  width: 120px !important;
+}
+
+.table-contents-useoffunds {
+  color: whitesmoke;
+  text-align: left;
+}
+.table-contents-useoffunds th{
+  width: 100%;
+  font-size: 15px;
+  font-weight: 200;
+}
+.table-contents-useoffunds td {
+  padding-right: 10px;
+}
+.table-contents-useoffunds td input {
+  width: 180px !important;
+}
+
 .form-area input {
   width: 100% !important;
   background-color: #001b28;
@@ -251,11 +269,12 @@ tr {
 }
 .testimonial-row .close-button {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   height: fit-content;
   width: 12px;
+  cursor: pointer;
 }
 .competitor-row {
   display: flex;
@@ -303,7 +322,7 @@ tr {
   gap: 20px;
 }
 .team-row input {
-  width: 23% !important;
+  width: 22% !important;
 }
 .team-row textarea {
   width: 60% !important;
@@ -324,9 +343,9 @@ tr {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-end;
   width: 19%;
-  height: 93px;
+  height: 55%;
 }
 .file-close-container input {
   width: 90% !important;
@@ -337,4 +356,26 @@ tr {
 .form-next-button-disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+.trackRecord-to-from {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+.trackRecord-to-from label {
+  width: 10% !important;
+  text-align: right;
+  padding-right: 30px;
+}
+.trackRecord-to-from select {
+  width: 40% !important;
+}
+.trackRecord-details {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  gap: 3px;
+  padding-top: 10px;
 }

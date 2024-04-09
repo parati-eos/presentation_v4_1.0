@@ -6,35 +6,39 @@ const CoverSlide = ({ formData, handleChange }) => {
 
   return (
     <>
-      <label htmlFor="establishmentYear">
-        In what year was your company established?*
-      </label>
-      <select
-        id="establishmentYear"
-        name="establishmentYear"
-        value={formData.establishmentYear}
-        onChange={handleChange}
-        required
-      >
-        <option value="">Select Year</option>
-        {years.map((year) => (
-          <option key={year} value={year}>
-            {year}
-          </option>
-        ))}
-      </select>
+      <div className="textInputQuestions">
+        <label htmlFor="establishmentYear">
+          In what year was your company established?*
+        </label>
+        <select
+          id="establishmentYear"
+          name="establishmentYear"
+          value={formData.establishmentYear}
+          onChange={handleChange}
+          required
+        >
+          <option value="">Select Year</option>
+          {years.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+      </div>
       <br />
-      <label htmlFor="companyOverview">
-        Could you provide a comprehensive overview of your company?*
-      </label>
-      <textarea
-        style={{ height: "250px" }}
-        id="companyOverview"
-        name="companyOverview"
-        value={formData.companyOverview}
-        onChange={handleChange}
-        required
-      />
+      <div className="textInputQuestions">
+        <label htmlFor="companyOverview">
+          Could you provide a comprehensive overview of your company?*
+        </label>
+        <textarea
+          style={{ height: "250px" }}
+          id="companyOverview"
+          name="companyOverview"
+          value={formData.companyOverview}
+          onChange={handleChange}
+          required
+        />
+      </div>
     </>
   );
 };
