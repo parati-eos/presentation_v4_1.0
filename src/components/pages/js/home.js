@@ -5,6 +5,7 @@ import Hero from "../home/hero";
 import Feature from "../home/Feature";
 import TopFeature from "../home/TopFeature";
 import "../css/home.css";
+import Footer from "../../shared/js/footer";
 
 function Home() {
   return (
@@ -14,6 +15,7 @@ function Home() {
       <Hero />
       <TopFeature />
       <Feature />
+      <Footer />
     </div>
   );
 }

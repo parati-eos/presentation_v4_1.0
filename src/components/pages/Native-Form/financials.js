@@ -25,6 +25,7 @@ const FinancialDataProvider = ({ children }) => {
     ]
   });
 
+
   return (
     <FinancialDataContext.Provider value={{ FinancialsData,setFinancialsData}}>
       {children}
@@ -207,4 +208,5 @@ const Financials = ({formData}) => {
 
 export default Financials;
 export { FinancialDataProvider, useFinancialData };
+
 
