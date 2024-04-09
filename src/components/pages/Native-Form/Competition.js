@@ -6,7 +6,10 @@ const CompetitionContext = createContext();
 
 const CompetitionProvider = ({ children }) => {
   const minCompetitorFields = 4;
-  const initialCompetitors = Array.from({ length: minCompetitorFields }, () => "");
+  const initialCompetitors = Array.from(
+    { length: minCompetitorFields },
+    () => ""
+  );
 
   const [competitors, setCompetitors] = useState(initialCompetitors);
 
@@ -25,9 +28,9 @@ const useCompetitionData = () => {
   return useContext(CompetitionContext);
 };
 
-const Competition = ({formData}) => {
+const Competition = ({ formData }) => {
   const { competitors, updateCompetitors } = useCompetitionData();
-  formData['competitors'] = competitors;
+  formData["competitors"] = competitors;
   const handleCompetitorChange = (index, value) => {
     const updatedCompetitors = [...competitors];
     updatedCompetitors[index] = value;
@@ -57,32 +60,29 @@ const Competition = ({formData}) => {
           <div key={index} className="competitor-row">
             <br />
             <br />
-            <>
-              <div className="competitor">
-                <input
-                  type="text"
-                  placeholder={`Competitor ${index + 1}`}
-                  value={competitor}
-                  onChange={(e) =>
-                    handleCompetitorChange(index, e.target.value)
-                  }
-                  required
-                />
+            <div className="competitor">
+              <input
+                type="text"
+                placeholder={`Competitor ${index + 1}`}
+                value={competitor}
+                onChange={(e) => handleCompetitorChange(index, e.target.value)}
+                required
+              />
+            </div>
+            {competitors.length > 4 && (
+              <div
+                className="close-button-competition"
+                type="button"
+                onClick={() => removeCompetitorRow(index)}
+              >
+                <img src={close} alt="Close" />
               </div>
-              {competitors.length > minCompetitorFields && (
-                <div
-                  className="close-button-competition"
-                  type="button"
-                  onClick={() => removeCompetitorRow(index)}
-                >
-                  <img src={close} alt="Close" />
-                </div>
-              )}
-            </>
+            )}
           </div>
         ))}
         {competitors.length < 6 && (
           <>
+            <br />
             <button
               type="button"
               onClick={addCompetitorRow}
@@ -96,5 +96,5 @@ const Competition = ({formData}) => {
     </>
   );
 };
-export { CompetitionProvider, useCompetitionData, Competition };
 
+export { CompetitionProvider, useCompetitionData, Competition };

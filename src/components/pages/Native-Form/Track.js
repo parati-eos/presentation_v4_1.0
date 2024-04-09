@@ -25,9 +25,9 @@ const useTrackData = () => {
   return useContext(TrackDataContext);
 };
 
-const Track = ({formData}) => {
+const Track = ({ formData }) => {
   const { phaseRows, updatePhaseRows } = useTrackData();
-  formData['trackRecord'] = phaseRows;
+  formData["trackRecord"] = phaseRows;
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
     const years = ["SELECT YEAR"];
@@ -44,14 +44,15 @@ const Track = ({formData}) => {
   };
 
   return (
-    <div>
+    <div className="textInputQuestions">
       <label htmlFor="productOverview">
-        Can you provide company's track record in terms of traction across different phases and their timeline?
+        Can you provide company's track record in terms of traction across
+        different phases and their timeline?
       </label>
       {phaseRows.map((row, index) => (
-        <div key={index}>
+        <div key={index} className="trackRecord-details">
           <label htmlFor={`phase${index + 1}`}>{`Phase ${index + 1}`}</label>
-          <div>
+          <div className="trackRecord-to-from">
             <label htmlFor={`phase${index + 1}UpperBound`}>From</label>
             <select
               id={`year1_${index}`}
@@ -100,6 +101,4 @@ const Track = ({formData}) => {
   );
 };
 
-
 export { TrackProvider, useTrackData, Track };
-
