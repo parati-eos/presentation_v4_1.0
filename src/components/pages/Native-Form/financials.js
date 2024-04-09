@@ -12,7 +12,7 @@ const useFinancialData = () => {
 
 // Provider component for financial data
 const FinancialDataProvider = ({ children }) => {
-  const [formData, setFormData] = useState({
+  const [FinancialsData, setFinancialsData] = useState({
     financialSnapshot: "",
     plannedRaise: "",
     revenueCost: [{ year: "", revenue: "", cost: "" }],
@@ -25,48 +25,51 @@ const FinancialDataProvider = ({ children }) => {
     ]
   });
 
-
   return (
-    <FinancialDataContext.Provider value={{ formData, setFormData }}>
+    <FinancialDataContext.Provider value={{ FinancialsData,setFinancialsData}}>
       {children}
     </FinancialDataContext.Provider>
   );
 };
 
-const Financials = () => {
-  const { formData, setFormData } = useFinancialData();
-
+const Financials = ({formData}) => {
+  const { FinancialsData, setFinancialsData } = useFinancialData();
+  formData['financialSnapshot'] = FinancialsData['financialSnapshot']
+  formData['plannedRaise'] = FinancialsData['plannedRaise']
+  formData['revenueCost'] = FinancialsData['revenueCost']
+  formData['useOfFunds'] = FinancialsData['useOfFunds']
+  console.log(FinancialsData['financialSnapshot'])
   const handleRevenueCostChange = (index, field, value) => {
-    const updatedRevenueCost = [...formData.revenueCost];
+    const updatedRevenueCost = [...FinancialsData.revenueCost];
     updatedRevenueCost[index][field] = value;
-    updateFormData({ ...formData, revenueCost: updatedRevenueCost });
+    updateFinancialData({ ...FinancialsData, revenueCost: updatedRevenueCost });
   };
 
   const handleUseOfFundsChange = (index, field, value) => {
-    const updatedUseOfFunds = [...formData.useOfFunds];
+    const updatedUseOfFunds = [...FinancialsData.useOfFunds];
     updatedUseOfFunds[index][field] = value;
 
-    updateFormData({ ...formData, useOfFunds: updatedUseOfFunds });
+    updateFinancialData({ ...FinancialsData, useOfFunds: updatedUseOfFunds });
 
   };
 
   const addRevenueRow = () => {
-    if (formData.revenueCost.length < 11) {
-      const newRevenueCost = [...formData.revenueCost, { year: "", revenue: "", cost: "" }];
-      updateFormData({ ...formData, revenueCost: newRevenueCost });
+    if (FinancialsData.revenueCost.length < 11) {
+      const newRevenueCost = [...FinancialsData.revenueCost, { year: "", revenue: "", cost: "" }];
+      updateFinancialData({ ...FinancialsData, revenueCost: newRevenueCost });
     }
   };
 
   const removeRevenueRow = (index) => {
-    if (formData.revenueCost.length > 1) {
-      const newRevenueCost = [...formData.revenueCost];
+    if (FinancialsData.revenueCost.length > 1) {
+      const newRevenueCost = [...FinancialsData.revenueCost];
       newRevenueCost.splice(index, 1);
-      updateFormData({ ...formData, revenueCost: newRevenueCost });
+      updateFinancialData({ ...FinancialsData, revenueCost: newRevenueCost });
     }
   };
 
-  const updateFormData = (newData) => {
-    setFormData(newData);
+  const updateFinancialData = (newData) => {
+    setFinancialsData(newData);
   };
 
   const currentYear = new Date().getFullYear();
@@ -85,8 +88,8 @@ const Financials = () => {
           id="financialSnapshot"
           name="financialSnapshot"
           rows="4"
-          value={formData.financialSnapshot}
-          onChange={(e) => updateFormData({ ...formData, financialSnapshot: e.target.value })}
+          value={FinancialsData.financialSnapshot}
+          onChange={(e) => updateFinancialData({ ...FinancialsData, financialSnapshot: e.target.value })}
           required
         ></textarea>
       </div>
@@ -108,7 +111,7 @@ const Financials = () => {
             </tr>
           </thead>
           <tbody>
-            {formData.revenueCost.map((row, index) => (
+            {FinancialsData.revenueCost.map((row, index) => (
               <tr key={index}>
                 <td>
                   <select
@@ -142,7 +145,7 @@ const Financials = () => {
                   />
                 </td>
                 <td>
-                  {index === formData.revenueCost.length - 1 ? (
+                  {index === FinancialsData.revenueCost.length - 1 ? (
                     <button onClick={addRevenueRow}>Add Row</button>
                   ) : (
                     <button onClick={() => removeRevenueRow(index)}>Remove</button>
@@ -164,8 +167,8 @@ const Financials = () => {
           type="number"
           id="plannedRaise"
           name="plannedRaise"
-          value={formData.plannedRaise}
-          onChange={(e) => updateFormData({ ...formData, plannedRaise: e.target.value })}
+          value={FinancialsData.plannedRaise}
+          onChange={(e) => updateFinancialData({ ...FinancialsData, plannedRaise: e.target.value })}
           required
         />
       </div>
@@ -182,7 +185,7 @@ const Financials = () => {
             </tr>
           </thead>
           <tbody>
-            {formData.useOfFunds.map((use, index) => (
+            {FinancialsData.useOfFunds.map((use, index) => (
               <tr key={index}>
                 <td>{use.use}</td>
                 <td>

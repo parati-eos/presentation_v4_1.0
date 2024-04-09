@@ -596,7 +596,7 @@ const Form = () => {
                 <Team formData={formData} handleChange={handleChange} />
               )}
               {section === 16 && (
-                <Financials formData={formData} handleChange={handleChange} />
+                <Financials formData={formData}/>
               )}{" "}
               {/* Render the Financials component */}
               {section === 17 && (
