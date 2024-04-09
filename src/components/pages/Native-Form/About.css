@@ -1,33 +1,30 @@
-.remove-button {
-    font-size: 8px; /* Adjust the font size */
-    padding: 6px 10px; /* Adjust the padding */
-    border-radius: 400px; /* Adjust the border radius if needed */
-    /* Add any other styles you want to apply */
-    float: right;
-    margin-top: 5%;
-  }
-  .file-info {
-    display: flex;
-    align-items: center; /* Center items vertically */
-  }
-  .text-input-logo{
-display: flex;
-flex-direction: row;
-align-items: flex-start;
-padding-top: 5px;
-  }
+.file-info {
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+.text-input-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding-top: 5px;
+}
 
-  .text-input-logo-remove{
-    width: 10%;
-    height: 20px;
-  }
-  
-  .text-input-logo-filename{
-    width: 90%;
-    height: 20px;
-    font-size:12px;
-    color: azure;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-  }
+.text-input-logo-remove {
+  display: flex;
+  flex-wrap: wrap;
+  width: 15%;
+  height: 20px;
+}
+.text-input-logo-remove button {
+  width: 10px !important;
+  height: 10px !important;
+}
+.text-input-logo-filename {
+  width: 80%;
+  height: 20px;
+  font-size: 12px;
+  color: azure;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

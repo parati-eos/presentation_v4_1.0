@@ -18,8 +18,8 @@ import {Team} from "./Team"; // Import the Team component
 import Navbar from "../../shared/js/LoginNavbar";
 import Contact from "./contact"; // Import the Contact component
 import Financials from "./financials"; // Import the Financials component
+
 import {useNavigate } from "react-router-dom";
-// 
 
 const Form = () => {
   const [section, setSection] = useState(1);
@@ -156,30 +156,20 @@ const Form = () => {
     localStorage.setItem("appType", formData.appType);
     localStorage.setItem("mobileScreenshots", formData.mobileScreenshots);
     localStorage.setItem("webScreenshots", formData.webScreenshots);
-
     localStorage.setItem("businessModel", formData.businessModel);
-
     localStorage.setItem("keyStakeholders", formData.keyStakeholders);
     localStorage.setItem("customerPersona", formData.customerPersona);
     localStorage.setItem("goToMarketStrategy", formData.goToMarketStrategy);
-
     localStorage.setItem("trackRecord", formData.trackRecord);
-
     localStorage.setItem("caseStudies", formData.caseStudies);
-
     localStorage.setItem("testimonials", formData.testimonials);
-
     localStorage.setItem("competitors", formData.competitors);
-
     localStorage.setItem("competitiveDiff", formData.competitiveDiff);
-
     localStorage.setItem("teamMembers", formData.teamMembers);
-
     localStorage.setItem("websiteLink", formData.websiteLink);
     localStorage.setItem("linkedinLink", formData.linkedinLink);
     localStorage.setItem("contactEmail", formData.contactEmail);
     localStorage.setItem("contactPhone", formData.contactPhone);
-
     localStorage.setItem("financialSnapshot", formData.financialSnapshot);
     localStorage.setItem("revenueCost", formData.revenueCost);
     localStorage.setItem("plannedRaise", formData.plannedRaise);
@@ -241,7 +231,9 @@ const Form = () => {
       section: sectionNames[section - 1],
     };
     console.log("API Payload:", payload); // Log the payload before sending
+
     var changedData = false;
+
     if (
       section === 1 &&
       (localStorage.getItem("companyName") != formData.companyName ||
@@ -464,79 +456,8 @@ const Form = () => {
       setIsLoading(false);
     } else {
       navigate("/pages/presentationcheck");
-
-
-
     }
-    if (section === 1) {
-      if (progress < 6) {
-        setProgress(6);
-      }
-    } else if (section === 2) {
-      if (progress < 12) {
-        setProgress(12);
-      }
-    } else if (section === 3) {
-      if (progress < 18) {
-        setProgress(18);
-      }
-    } else if (section === 4) {
-      if (progress < 24) {
-        setProgress(24);
-      }
-    } else if (section === 5) {
-      if (progress < 30) {
-        setProgress(30);
-      }
-    } else if (section === 6) {
-      if (progress < 36) {
-        setProgress(36);
-      }
-    } else if (section === 7) {
-      if (progress < 42) {
-        setProgress(42);
-      }
-    } else if (section === 8) {
-      if (progress < 48) {
-        setProgress(48);
-      }
-    } else if (section === 9) {
-      if (progress < 54) {
-        setProgress(54);
-      }
-    } else if (section === 10) {
-      if (progress < 60) {
-        setProgress(60);
-      }
-    } else if (section === 11) {
-      if (progress < 66) {
-        setProgress(66);
-      }
-    } else if (section === 12) {
-      if (progress < 72) {
-        setProgress(72);
-      }
-    } else if (section === 13) {
-      if (progress < 78) {
-        setProgress(78);
-      }
-    } else if (section === 14) {
-      if (progress < 84) {
-        setProgress(84);
-      }
-    } else if (section === 15) {
-      if (progress < 90) {
-        setProgress(90);
-      }
-    } else if (section === 16) {
-      if (progress < 96) {
-        setProgress(96);
-      }
-    } else if (section === 17) {
-      if (progress < 100) {
-        setProgress(100);
-      }
-    }
+    setProgress(section * 6);
   };
 
   const handleBack = () => {

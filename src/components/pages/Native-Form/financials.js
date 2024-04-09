@@ -1,3 +1,4 @@
+
 import React, { useState, useContext } from "react";
 
 // Create context for financial data
@@ -23,6 +24,7 @@ const FinancialDataProvider = ({ children }) => {
     ]
   });
 
+
   return (
     <FinancialDataContext.Provider value={{ formData, setFormData }}>
       {children}
@@ -37,11 +39,13 @@ const Financials = () => {
     const updatedRevenueCost = [...formData.revenueCost];
     updatedRevenueCost[index][field] = value;
     updateFormData({ ...formData, revenueCost: updatedRevenueCost });
+
   };
 
   const handleUseOfFundsChange = (index, field, value) => {
     const updatedUseOfFunds = [...formData.useOfFunds];
     updatedUseOfFunds[index][field] = value;
+
     updateFormData({ ...formData, useOfFunds: updatedUseOfFunds });
   };
 
@@ -199,3 +203,4 @@ const Financials = () => {
 
 export default Financials;
 export { FinancialDataProvider, useFinancialData };
+
