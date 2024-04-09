@@ -18,8 +18,9 @@ import {Team} from "./Team"; // Import the Team component
 import Navbar from "../../shared/js/LoginNavbar";
 import Contact from "./contact"; // Import the Contact component
 import Financials from "./financials"; // Import the Financials component
-
 import {useNavigate } from "react-router-dom";
+
+
 
 const Form = () => {
   const [section, setSection] = useState(1);
@@ -595,7 +596,7 @@ const Form = () => {
                 <Team formData={formData} handleChange={handleChange} />
               )}
               {section === 16 && (
-                <Financials formData={formData} handleChange={handleChange} />
+                <Financials formData={formData}/>
               )}{" "}
               {/* Render the Financials component */}
               {section === 17 && (
