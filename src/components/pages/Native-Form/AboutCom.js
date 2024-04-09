@@ -69,7 +69,6 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
         />
       </div>
       <br />
-      <br />
       <div className="textInputQuestions">
         <label htmlFor="tagline">What is the company's tagline?</label>
         <input
@@ -81,7 +80,6 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
         />
       </div>
       <br />
-      <br />
       <div className="textInputQuestions">
         <label htmlFor="logo">
           Please upload your logo (PDF, JPG, JPEG, PNG, WEBP)*
@@ -92,9 +90,7 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
               <div>{logoUrl.split("/").pop()}</div>
             </div>
             <div className="text-input-logo-remove">
-              <button className="remove-button" onClick={handleRemoveLogo}>
-                Remove
-              </button>
+              <button onClick={handleRemoveLogo}>Remove</button>
             </div>
           </div>
         ) : (
@@ -109,7 +105,6 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
           />
         )}
       </div>
-      <br />
       <br />
       <div className="color-picker">
         <div className="primary-color">

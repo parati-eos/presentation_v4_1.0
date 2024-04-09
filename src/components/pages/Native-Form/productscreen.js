@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function to upload files to S3
 
-
 const MAX_IMAGES = 3; // Maximum number of images allowed to upload
 
 const ProductScreen = ({ formData, handleChange }) => {
@@ -30,7 +29,6 @@ const ProductScreen = ({ formData, handleChange }) => {
         const file = files[i];
         const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
 
-
         if (selectedOption === "both") {
           if (uploadedImagesCopy["mobile"].length < MAX_IMAGES) {
             uploadedImagesCopy["mobile"].push(imageUrl);
@@ -50,7 +48,10 @@ const ProductScreen = ({ formData, handleChange }) => {
       setUploadedImages(uploadedImagesCopy);
       handleChange({
         target: {
-          name: selectedOption === "both" ? "screenshots" : `${selectedOption}Screenshots`,
+          name:
+            selectedOption === "both"
+              ? "screenshots"
+              : `${selectedOption}Screenshots`,
           value: uploadedImagesCopy[selectedOption],
         },
       });
@@ -59,14 +60,16 @@ const ProductScreen = ({ formData, handleChange }) => {
     }
   };
 
-
   const handleRemoveImage = (type, index) => {
     const uploadedImagesCopy = { ...uploadedImages };
     uploadedImagesCopy[type].splice(index, 1);
     setUploadedImages(uploadedImagesCopy);
     handleChange({
       target: {
-        name: selectedOption === "both" ? "screenshots" : `${selectedOption}Screenshots`,
+        name:
+          selectedOption === "both"
+            ? "screenshots"
+            : `${selectedOption}Screenshots`,
         value: uploadedImagesCopy[selectedOption],
       },
     });
@@ -74,22 +77,22 @@ const ProductScreen = ({ formData, handleChange }) => {
 
   return (
     <>
-      <label htmlFor="appType">
-        Is your product interface a mobile application or a web application?
-      </label>
-      <select
-        id="appType"
-        name="appType"
-
-        value={selectedOption}
-
-        onChange={handleAppTypeChange}
-      >
-        <option value="">None</option>
-        <option value="web">Web Application</option>
-        <option value="mobile">Mobile Application</option>
-        <option value="both">Both</option>
-      </select>
+      <div className="textInputQuestions">
+        <label htmlFor="appType">
+          Is your product interface a mobile application or a web application?
+        </label>
+        <select
+          id="appType"
+          name="appType"
+          value={selectedOption}
+          onChange={handleAppTypeChange}
+        >
+          <option value="">None</option>
+          <option value="web">Web Application</option>
+          <option value="mobile">Mobile Application</option>
+          <option value="both">Both</option>
+        </select>
+      </div>
       <br />
 
       {(selectedOption === "mobile" || selectedOption === "both") && (
@@ -110,7 +113,9 @@ const ProductScreen = ({ formData, handleChange }) => {
             <div className="uploadedimages" key={index}>
               <ul>
                 <li>{url}</li>
-                <button onClick={() => handleRemoveImage("mobile", index)}>Remove</button>
+                <button onClick={() => handleRemoveImage("mobile", index)}>
+                  Remove
+                </button>
               </ul>
             </div>
           ))}
@@ -121,14 +126,12 @@ const ProductScreen = ({ formData, handleChange }) => {
         <div className="textInputQuestions">
           <label htmlFor="webScreenshots">
             Please upload up to 3 Web App UI screenshots here -
-
           </label>
           <input
             type="file"
             id="webScreenshots"
             name="webScreenshots"
             multiple
-
             onChange={handleFileChange}
             accept="image/*"
           />
@@ -137,14 +140,15 @@ const ProductScreen = ({ formData, handleChange }) => {
             <div className="uploadedimages" key={index}>
               <ul>
                 <li>{url}</li>
-                <button onClick={() => handleRemoveImage("web", index)}>Remove</button>
+                <button onClick={() => handleRemoveImage("web", index)}>
+                  Remove
+                </button>
               </ul>
             </div>
           ))}
           <br />
         </div>
       )}
-
     </>
   );
 };

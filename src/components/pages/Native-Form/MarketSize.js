@@ -47,10 +47,10 @@ const Market = ({ formData, handleChange }) => {
           <option value="Others">Others</option>
         </select>
       </div>
-      <br />
       <div className="textInputQuestions">
         {showOtherSector && (
           <>
+            <br />
             <label htmlFor="otherSector">Specify other sector*</label>
             <input
               type="text"

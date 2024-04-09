@@ -27,14 +27,15 @@ const Track = ({ formData, handleChange }) => {
     });
   };
   return (
-    <div>
-          <label htmlFor="productOverview">
-          Can you provide company's track record in terms of traction across different phases and their timeline?
+    <div className="textInputQuestions">
+      <label htmlFor="productOverview">
+        Can you provide company's track record in terms of traction across
+        different phases and their timeline?
       </label>
       {phaseRows.map((row, index) => (
-        <div>
+        <div className="trackRecord-details">
           <label htmlFor="phase1">{`Phase ${index + 1}`}</label>
-          <div>
+          <div className="trackRecord-to-from">
             <label htmlFor="phase1UpperBound">From</label>
             <select
               id="year1"
