@@ -12,7 +12,7 @@ function Navbar({ historyShow, historyHide }) {
   const navigate = useNavigate();
   const handleBuildPresentation = () => {
     // Redirect to the 'form.js' page upon clicking "Build Presentation"
-    navigate("/form", { state: { useremail } });
+    navigate("/pages/Nativeform", { state: { useremail } });
   };
   const handleHistoryButtonClicked = () => {
     navigate("/pages/presentationhistory");

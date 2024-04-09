@@ -1,5 +1,5 @@
 // ApplicationLanding.js
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ApplicationLandingNavbar from "../../shared/js/ApplicationLandingNavbar.js";
 import img1 from "../../Asset/1.png";
@@ -10,6 +10,7 @@ import presentationImg from "../../Asset/background.jpg";
 import magicWand from "../../Asset/magic-wand.png";
 import "../css/applicationLanding.css";
 import "../css/HistoryOverlay.css";
+import HistoryCardPreview from "../cards/historycardpreview.js";
 
 function ApplicationLanding() {
   const navigate = useNavigate();
@@ -36,6 +37,34 @@ function ApplicationLanding() {
     navigate("/auth/login");
   };
 
+  //History-Preview Code
+  const [userID, setUserID] = useState(localStorage.getItem("userEmail"));
+
+  useEffect(() => {
+    const fetchDataHistory = async () => {
+      try {
+        const response = await fetch(
+          "https://pitchdeck-server.onrender.com/history",
+          {
+            headers: {
+              "x-userid": userID,
+            },
+          }
+        );
+        console.log(response);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setHistoryData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchDataHistory();
+  }, [userID]);
+  const [historyData, setHistoryData] = useState([]);
   const handleMouseEnterHistory = () => {
     clearTimeout(historyTimeout.current); // Clear any existing timeout
     setShowHistory(true);
@@ -57,6 +86,9 @@ function ApplicationLanding() {
     setShowHistory(false);
     console.log("Left the div");
   };
+  const handleShowMoreHistory = () => {
+    navigate("/pages/presentationhistory");
+  };
 
   return (
     <div className="main-container">
@@ -74,34 +106,13 @@ function ApplicationLanding() {
             onMouseEnter={handleMouseEnterDiv}
             onMouseLeave={handleMouseLeaveDiv} // Close history on mouse leave
           >
-            <div className="history-preview">
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 1</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 2</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 3</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 4</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 5</p>
-              </div>
-              <div className="presentation-history">
-                <img src={presentationImg}></img>
-                <p>Presentation 6</p>
-              </div>
+            <div className="history-preview-cards-row">
+              {historyData.slice(0, 5).map((card, index) => (
+                <HistoryCardPreview key={index} {...card} />
+              ))}
             </div>
-            <div className="see-more-container">
-              <a>See More ...</a>
+            <div className="see-more-container" onClick={handleShowMoreHistory}>
+              See More ...
             </div>
           </div>
         </div>
