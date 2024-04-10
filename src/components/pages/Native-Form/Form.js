@@ -25,6 +25,9 @@ import {useNavigate } from "react-router-dom";
 const Form = () => {
   const [section, setSection] = useState(1);
   const navigate = useNavigate();
+  const handleLogoClicked = () => {
+    navigate("/applicationLanding");
+  };
   const userEmail = localStorage.getItem("userEmail");
   const [generatedPresentationID, setgeneratedPresentationID] = useState(null);
   const [showHiddenButton, setShowHiddenButton] = useState(false); // State to control button visibility
@@ -508,7 +511,7 @@ const Form = () => {
 
   return (
     <div className="native-form">
-      <Navbar />
+      <Navbar handleClick={handleLogoClicked}/>
       <div className="form-container">
         <div className="form-details">
           <div className="section-name">

@@ -10,11 +10,14 @@ function Navbar({ historyShow, historyHide }) {
   const handleHistoryButtonClicked = () => {
     navigate("/pages/presentationhistory");
   };
+  const handleLogoClicked = () => {
+    navigate("/");
+  };
   return (
     <nav className="appLanding-nav">
       <div className="appLanding-navbar-container">
         <div className="appLanding-navbar-logo-container">
-          <img src={ParatiLogo} width={200} alt="Parati Logo" />
+          <img src={ParatiLogo} width={200} alt="Parati Logo"  onClick={handleLogoClicked}/>
         </div>
         <div className="appLanding-navbar-details-container">
           {/* Apply hover event handlers */}

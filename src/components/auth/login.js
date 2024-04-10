@@ -10,7 +10,9 @@ import MSLogin from "../Asset/ms-login.svg";
 
 function Login() {
   const navigate = useNavigate();
-
+  const handleLogoClicked = () => {
+    navigate("/");
+  };
   const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
     localStorage.setItem("userEmail", decoded.email);
@@ -62,7 +64,7 @@ function Login() {
 
   return (
     <div className="main-container">
-      <LoginNavbar />
+      <LoginNavbar handleClick={handleLogoClicked} />
       <div className="login-container">
         <div className="login-image-container">
           <img src={LoginImage} alt="Login" />
@@ -86,7 +88,7 @@ function Login() {
                 redirectUri="http://localhost:3000" // Specify your redirect URL here
                 prompt="select_account" // Specify the prompt parameter
               >
-                  <img src={MSLogin} alt="Microsoft Login" />
+                <img src={MSLogin} alt="Microsoft Login" />
               </MicrosoftLogin>
             </div>
           </div>

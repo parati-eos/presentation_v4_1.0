@@ -39,6 +39,7 @@
 .app-navbar-logo-container img {
   width: 130px;
   height: auto;
+  cursor: pointer;
 }
 
 .app-navbar-generateppt-container button {

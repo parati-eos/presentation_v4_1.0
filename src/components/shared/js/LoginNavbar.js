@@ -1,12 +1,17 @@
-import React from 'react';
-import ParatiLogo from '../../Asset/parati-logo.png'
-import '../css/LoginNavbar.css';
+import React from "react";
+import ParatiLogo from "../../Asset/parati-logo.png";
+import "../css/LoginNavbar.css";
+import { useNavigate } from "react-router-dom";
 
-function Navbar() {
+function Navbar({handleClick}) {
   return (
-    <nav className='login-nav'>
+    <nav className="login-nav">
       <div className="login-navbar-container">
-        <img src={ParatiLogo} className="login-navbar-logo"></img>
+        <img
+          src={ParatiLogo}
+          className="login-navbar-logo"
+          onClick={handleClick}
+        ></img>
       </div>
     </nav>
   );

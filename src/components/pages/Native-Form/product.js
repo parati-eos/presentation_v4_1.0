@@ -27,7 +27,6 @@ const Product = ({ formData, handleChange }) => {
           name="productRoadmapDescription"
           value={formData.productRoadmapDescription}
           onChange={handleChange}
-          placeholder="Please describe your product roadmap."
         />
       </div>
       <br />

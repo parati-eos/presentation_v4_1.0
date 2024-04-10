@@ -1,72 +1,85 @@
 import React, { useState } from "react";
-import "./historycard.css"; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShareAlt, faDownload } from '@fortawesome/free-solid-svg-icons';
+import "./historycard.css";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShareAlt, faDownload } from "@fortawesome/free-solid-svg-icons";
 import ShareButton from "../js/Share.js";
 import ExportButton from "../js/export.js";
 
-const HistoryCard = ({
-  userID,
-  submissionID,
-  PPTName,
-  Date,
-  link,
-}) => {
+const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   const [editableName, setEditableName] = useState(PPTName);
+  const navigate = useNavigate();
+
   const [isEditing, setIsEditing] = useState(false);
+  const handleHistoryCardClicked = () => {
+    navigate(`/share?submissionId=${submissionID}`);
+  };
 
   const handleNameChange = (e) => {
     setEditableName(e.target.value);
   };
 
-  const handleSave = async() => {
+  const handleSave = async () => {
     setIsEditing(false);
-   
+
     const requestBody = {
       userID: userID,
       formID: submissionID,
-      newColumnValue: editableName
+      newColumnValue: editableName,
     };
 
     try {
-      const response = await fetch('http://127.0.0.1:5000/updateRow', {
-        method: 'POST',
+      const response = await fetch("http://127.0.0.1:5000/updateRow", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestBody)
+        body: JSON.stringify(requestBody),
       });
 
       if (response.ok) {
-        console.log('Row updated successfully');
-        alert('Row updated successfully')
+        console.log("Row updated successfully");
+        alert("Row updated successfully");
       } else {
-        console.error('Failed to update row');
+        console.error("Failed to update row");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
   return (
     <div>
-      <div className="card">
+      <div className="card" onClick={handleHistoryCardClicked}>
         <div className="card-image">
-          <iframe src={`https://docs.google.com/presentation/d/${link}/embed?rm=minimal&start=true&loop=true`} />
+          <iframe
+            src={`https://docs.google.com/presentation/d/${link}/embed?rm=minimal&start=true&loop=true`}
+          />
         </div>
         <div className="card-content">
           <div className="card-header">
             {isEditing ? (
-              <input type="text" value={editableName} onBlur={handleSave} onChange={handleNameChange} />
+              <input
+                type="text"
+                value={editableName}
+                onBlur={handleSave}
+                onChange={handleNameChange}
+              />
             ) : (
-              <h2 onClick={() => setIsEditing(true)}>Name: <span>{editableName}</span></h2>
+              <h2 onClick={() => setIsEditing(true)}>
+                Name: <span>{editableName}</span>
+              </h2>
             )}
           </div>
-          <h2>Date Created: <span>{Date}</span></h2>
-          <h2>Form Link: <a href={link}>link</a></h2>
+          <h2>
+            Date Created: <span>{Date}</span>
+          </h2>
+          <h2>
+            Form Link: <a href={link}>link</a>
+          </h2>
           <div className="card-buttons">
-            <ShareButton/>
-            <ExportButton/>
+            <ShareButton />
+            <ExportButton />
           </div>
         </div>
       </div>
@@ -75,4 +88,3 @@ const HistoryCard = ({
 };
 
 export default HistoryCard;
- 

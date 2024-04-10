@@ -14,11 +14,19 @@ function Navbar() {
     // Redirect to the 'form.js' page upon clicking "Build Presentation"
     navigate("/pages/Nativeform", { state: { useremail } });
   };
+  const handleLogoClicked = () => {
+    navigate("/applicationLanding");
+  };
   return (
     <nav className="history-nav">
       <div className="history-navbar-container">
         <div className="history-navbar-logo-container">
-          <img src={ParatiLogo} width={200} alt="Parati Logo" />
+          <img
+            src={ParatiLogo}
+            width={200}
+            alt="Parati Logo"
+            onClick={handleLogoClicked}
+          />
         </div>
         <div className="history-navbar-generateppt-container">
           <button onClick={handleBuildPresentation}>

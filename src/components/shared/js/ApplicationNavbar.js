@@ -17,11 +17,19 @@ function Navbar({ historyShow, historyHide }) {
   const handleHistoryButtonClicked = () => {
     navigate("/pages/presentationhistory");
   };
+  const handleLogoClicked = () => {
+    navigate("/applicationLanding");
+  };
   return (
     <nav className="app-nav">
       <div className="app-navbar-container">
         <div className="app-navbar-logo-container">
-          <img src={ParatiLogo} width={200} alt="Parati Logo" />
+          <img
+            src={ParatiLogo}
+            width={200}
+            alt="Parati Logo"
+            onClick={handleLogoClicked}
+          />
         </div>
         <div className="app-navbar-generateppt-container">
           <button onClick={handleBuildPresentation}>
@@ -39,7 +47,8 @@ function Navbar({ historyShow, historyHide }) {
             onMouseLeave={historyHide}
             onClick={handleHistoryButtonClicked}
           >
-            <FontAwesomeIcon icon={faHistory} /><span>History</span>
+            <FontAwesomeIcon icon={faHistory} />
+            <span>History</span>
           </button>
 
           <img src={localStorage.getItem("userDP")} className="app-user" />
