@@ -77,6 +77,7 @@ const Team = ({ formData }) => {
         </label>
         <br />
         {teamMembers.map((member, index) => (
+          <>
           <div key={index} className="team-row">
             <input
               type="text"
@@ -104,7 +105,15 @@ const Team = ({ formData }) => {
                 handleTeamMemberChange(index, "linkedin", e.target.value)
               }
             />
-            <input
+            {teamMembers.length > 2 && (
+              <div
+                className="close-button"
+                onClick={() => handleRemoveMember(index)}
+              >
+                <img src={close} alt="Remove" />
+              </div>
+            )}
+            <textarea
               type="text"
               value={member.experience}
               placeholder={`Experience ${index + 1}`}
@@ -128,15 +137,10 @@ const Team = ({ formData }) => {
                 />
               )}
             </div>
-            {teamMembers.length > 2 && (
-              <div
-                className="close-button"
-                onClick={() => handleRemoveMember(index)}
-              >
-                <img src={close} alt="Remove" />
-              </div>
-            )}
+           
           </div>
+          <br></br>
+          </>
         ))}
         {teamMembers.length < 6 && (
           <button
