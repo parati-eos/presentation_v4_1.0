@@ -99,7 +99,7 @@ const PresentationCheck = () => {
 
   const handleShare = () => {
     const uniqueShareableUrl = `https://presentation-final-fd.vercel.app/share?submissionId=${formId}`;
-
+  
     if (navigator.share) {
       navigator
         .share({
@@ -109,10 +109,17 @@ const PresentationCheck = () => {
         })
         .then(() => console.log("Shared successfully"))
         .catch((error) => console.error("Share failed: ", error));
+    } else if (navigator.clipboard && navigator.platform.includes('Mac')) {
+      // For macOS devices where navigator.share is not available
+      navigator.clipboard.writeText(uniqueShareableUrl)
+        .then(() => alert("URL copied to clipboard"))
+        .catch((error) => console.error("Copy failed: ", error));
     } else {
+      // For other devices where neither navigator.share nor clipboard API is available
       alert("Sharing is not supported on this device/browser.");
     }
   };
+  
 
   // Company Name--------------->>
   const [PPTName, setPPTName] = useState("PPTName");
