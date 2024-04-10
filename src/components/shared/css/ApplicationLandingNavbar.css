@@ -98,7 +98,6 @@
     cursor: pointer;
     width: auto;
     height: auto;
-    transform: translateX(30px);
   }
   .appLanding-navbar-details-container button span {
     display: none;

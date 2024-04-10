@@ -1,5 +1,4 @@
 .slides {
-    /* margin: 4vw; */
     width: max-content;
     display: grid;
     grid-template-columns: repeat(1, 100%);
@@ -10,7 +9,6 @@
     pointer-events: none;
   }
   .slides-iframe {
-    
     height: 72vh;
     width: 100%;
     background-color: black;
@@ -20,6 +18,16 @@
     position: relative;
     top: 30vh;
     left: 50vh;
+  }
+
+  @media screen and (max-width: 600px){
+    .slides-iframe {
+      height: 25vh;
+      width: 100%;
+      background-color: black;
+      border: none;
+    }
+
   }
   
   

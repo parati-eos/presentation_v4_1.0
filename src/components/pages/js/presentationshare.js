@@ -48,8 +48,8 @@ const PresentationCheck = () => {
 
   return (
     <div className="main-container">
-      <div className="presentation-viewing-container">
-        <div className="presentation-viewing-side">
+      <div className="presentationshare-viewing-container">
+        <div className="presentationshare-viewing-side">
           <div className="logo-icon">
             <img
               src={ParatiLogo}
@@ -59,12 +59,12 @@ const PresentationCheck = () => {
             ></img>
           </div>
         </div>
-        <div className="presentation-viewing-center">
-          <div className="presentation-view-slides">
+        <div className="presentationshare-viewing-center">
+          <div className="presentationshare-view-slides">
             <GooglePresentation key={currentSlideKey} />
           </div>
         </div>
-        <div className="presentation-viewing-side"></div>
+        <div className="presentationshare-viewing-side"></div>
       </div>
     </div>
   );
