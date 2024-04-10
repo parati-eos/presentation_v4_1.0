@@ -207,10 +207,13 @@ const PresentationCheck = () => {
           </div>
         </div>
       )}
+
+      {/******************************************/}
       <div className="presentation-viewing-container">
         <div className="presentation-viewing-side">
+        
           <div className="share-export">
-            {isEditing ? (
+          {isEditing ? (
               <input
                 type="text"
                 value={PPTName}
@@ -222,10 +225,13 @@ const PresentationCheck = () => {
                 <span>{PPTName}</span>
               </h2>
             )}
+            <div className="share-export-combine">
             <ShareButton onClick={handleShare} />
             <ExportButton onClick={handleDownload} />
+            </div>
           </div>
         </div>
+        
         <div className="presentation-viewing-center">
           <div className="presentation-view-slides">
             <GooglePresentation key={currentSlideKey} />
