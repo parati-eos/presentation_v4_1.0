@@ -126,7 +126,7 @@ const Financials = ({ formData }) => {
                     onChange={(e) =>
                       handleRevenueCostChange(index, "year", e.target.value)
                     }
-                    required
+                    
                   >
                     <option value="">Select a Year</option>
                     {years.map((year) => (
