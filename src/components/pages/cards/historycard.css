@@ -9,6 +9,7 @@
   border: 1px solid #004264;
   border-radius: 5px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .card-image iframe {
