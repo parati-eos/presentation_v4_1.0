@@ -1,4 +1,6 @@
 import React from "react";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/bootstrap.css";// Import the CSS for the PhoneInput component
 
 const Contact = ({ formData, handleChange }) => {
   return (
@@ -43,13 +45,12 @@ const Contact = ({ formData, handleChange }) => {
       <br />
       <div className="textInputQuestions">
         <label>Please provide the contact phone number.</label>
-        <input
-          type="tel"
-          id="contactPhone"
-          name="contactPhone"
-          value={formData.contactPhone}
-          onChange={handleChange}
-          placeholder="Enter contact phone number"
+        {/* Replace the input field with the PhoneInput component */}
+        <PhoneInput
+          country={"eg"} // Initial country code (you can change it as needed)
+          enableSearch={true} // Enable country search
+          value={formData.contactPhone} // Set the value
+          onChange={(phone) => handleChange({ target: { name: "contactPhone", value: phone } })} // Handle onChange event to update the state
         />
       </div>
       <br />
