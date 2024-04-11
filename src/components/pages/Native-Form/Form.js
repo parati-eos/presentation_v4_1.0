@@ -80,6 +80,8 @@ const Form = () => {
   });
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploadComplete, setIsUploadComplete] = useState(false);
+
   // Remove the duplicate declaration of 'navigate'
   // const navigate = useNavigate(); // Initialize useHistory hook
   const [formId, setFormId] = useState("");
@@ -194,6 +196,10 @@ const Form = () => {
       ...prevState,
       [name]: newValue,
     }));
+     // Check if the photo upload action is complete for logo or mobileScreenshots
+  if (name === "logo" || name === "mobileScreenshots" || name === "webScreenshots") {
+    setIsUploadComplete(true);
+  }
   };
 
   const handleSubmit = async (e) => {
@@ -620,7 +626,7 @@ const Form = () => {
                   isLoading ? "form-next-button-disabled" : ""
                 }`}
               >
-                <button type="submit" disabled={isLoading}>
+                <button type="submit" disabled={isLoading || !isUploadComplete}>
                   {section !== 17 ? "Next" : "Submit"}
                 </button>
               </div>
