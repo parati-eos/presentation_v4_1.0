@@ -1,186 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function to upload files to S3
 
-const ProductScreen = ({ formData, handleChange }) => {
+const ProductScreen = ({ formData, handleChange, uploadedImages }) => {
   const [selectedOption, setSelectedOption] = useState(""); // State to store selected option
   const [isMobileApp, setIsMobileApp] = useState(null);
   const [isWebApp, setIsWebApp] = useState(null);
-  const [WebUploadedImageUrl, setWebUploadedImageUrl] = useState(null); // State to store uploaded image URL
-  const [MobileUploadedImageUrl, setMobileUploadedImageUrl] = useState(null); // State to store uploaded image URL
+  const [webUploadedImageUrls, setWebUploadedImageUrls] = useState([]);
+  const [mobileUploadedImageUrls, setMobileUploadedImageUrls] = useState([]);
+
+  useEffect(() => {
+    // Populate state with previously uploaded images when component mounts
+    if (uploadedImages) {
+      setWebUploadedImageUrls(uploadedImages.web || []);
+      setMobileUploadedImageUrls(uploadedImages.mobile || []);
+    }
+  }, [uploadedImages]);
 
   const handleAppTypeChange = (e) => {
     const selectedValue = e.target.value;
-    const uploadedMobileImageUrls = [];
-    const uploadedWebImageUrls = [];
-    setSelectedOption(selectedValue); // Update selected option state
-
-    // Check if the selected option is "None"
-    if (selectedValue === "") {
-      setIsMobileApp(null); // Set isMobileApp state to null for "None" option
-      setIsWebApp(null);
-      setWebUploadedImageUrl(null);
-      setMobileUploadedImageUrl(null);
-      handleChange({
-        target: {
-          name: "webScreenshots",
-          value: uploadedWebImageUrls,
-        },
-      });
-      handleChange({
-        target: {
-          name: "mobileScreenshots",
-          value: uploadedMobileImageUrls,
-        },
-      });
-    } else if (selectedValue === "mobile") {
-      setIsMobileApp(true);
-      setIsWebApp(null);
-      setWebUploadedImageUrl(null);
-      setMobileUploadedImageUrl(null);
-      handleChange({
-        target: {
-          name: "webScreenshots",
-          value: uploadedWebImageUrls,
-        },
-      });
-      handleChange({
-        target: {
-          name: "mobileScreenshots",
-          value: uploadedMobileImageUrls,
-        },
-      });
-    } else if (selectedValue === "web") {
-      setIsWebApp(true);
-      setIsMobileApp(null);
-      setWebUploadedImageUrl(null);
-      setMobileUploadedImageUrl(null);
-      handleChange({
-        target: {
-          name: "webScreenshots",
-          value: uploadedWebImageUrls,
-        },
-      });
-      handleChange({
-        target: {
-          name: "mobileScreenshots",
-          value: uploadedMobileImageUrls,
-        },
-      });
-    } else if (selectedValue === "both") {
-      setIsWebApp(true);
-      setIsMobileApp(true);
-      setWebUploadedImageUrl(null);
-      setMobileUploadedImageUrl(null);
-      handleChange({
-        target: {
-          name: "webScreenshots",
-          value: uploadedWebImageUrls,
-        },
-      });
-      handleChange({
-        target: {
-          name: "mobileScreenshots",
-          value: uploadedMobileImageUrls,
-        },
-      });
-    }
+    setSelectedOption(selectedValue);
+    setIsMobileApp(selectedValue === "mobile" || selectedValue === "both");
+    setIsWebApp(selectedValue === "web" || selectedValue === "both");
   };
 
-  const handleFileChange = async (e) => {
-    const files = e.target.files;
-    const uploadedMobileImageUrls = [];
-    const uploadedWebImageUrls = [];
+  const handleFileChange = async (files, type) => {
     try {
-      for (let i = 0; i < files.length; i++) {
-        if (selectedOption === "web") {
-          const file = files[i];
-          const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
-          uploadedWebImageUrls.push(imageUrl); // Push the uploaded image URL to the array
-          handleChange({
-            target: {
-              name: "webScreenshots",
-              value: uploadedWebImageUrls,
-            },
-          });
-          setWebUploadedImageUrl(uploadedWebImageUrls);
-        } else if (selectedOption === "mobile") {
-          const file = files[i];
-          const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
-          uploadedMobileImageUrls.push(imageUrl); // Push the uploaded image URL to the array
-          handleChange({
-            target: {
-              name: "mobileScreenshots",
-              value: uploadedMobileImageUrls,
-            },
-          });
-          setMobileUploadedImageUrl(uploadedMobileImageUrls);
-        }
-      }
-      // Check if the onUpload function is provided as a prop and call it
-      if (typeof handleChange === "function") {
-        handleChange(uploadedMobileImageUrls);
-        handleChange(uploadedWebImageUrls);
-      } else {
-        console.warn("handleChange function is not provided as a prop.");
-      }
-    } catch (error) {
-      console.error("Error uploading file:", error);
-    }
-  };
-
-  const handleBothFileChangeMobile = async (e) => {
-    const files = e.target.files;
-    const uploadedMobileImageUrls = [];
-    try {
+      const uploadedImageUrls = [];
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
-        uploadedMobileImageUrls.push(imageUrl); // Push the uploaded image URL to the array
-        handleChange({
-          target: {
-            name: "mobileScreenshots",
-            value: uploadedMobileImageUrls,
-          },
-        });
-        setMobileUploadedImageUrl(uploadedMobileImageUrls);
+        const imageUrl = await uploadFileToS3(file);
+        uploadedImageUrls.push(imageUrl);
       }
-
-      // Check if the onUpload function is provided as a prop and call it
-      if (typeof handleChange === "function") {
-        handleChange(uploadedMobileImageUrls);
-      } else {
-        console.warn("handleChange function is not provided as a prop.");
+      if (type === "web") {
+        setWebUploadedImageUrls((prevUrls) => [...prevUrls, ...uploadedImageUrls]);
+      } else if (type === "mobile") {
+        setMobileUploadedImageUrls((prevUrls) => [...prevUrls, ...uploadedImageUrls]);
       }
     } catch (error) {
       console.error("Error uploading file:", error);
     }
   };
 
-  const handleBothFileChangeWeb = async (e) => {
-    const files = e.target.files;
-    const uploadedWebImageUrls = [];
-    try {
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
-        uploadedWebImageUrls.push(imageUrl); // Push the uploaded image URL to the array
-        handleChange({
-          target: {
-            name: "webScreenshots",
-            value: uploadedWebImageUrls,
-          },
-        });
-        setWebUploadedImageUrl(uploadedWebImageUrls);
-      }
-
-      // Check if the onUpload function is provided as a prop and call it
-      if (typeof handleChange === "function") {
-        handleChange(uploadedWebImageUrls);
-      } else {
-        console.warn("handleChange function is not provided as a prop.");
-      }
-    } catch (error) {
-      console.error("Error uploading file:", error);
+  const handleRemoveImage = (index, type) => {
+    if (type === "web") {
+      setWebUploadedImageUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
+    } else if (type === "mobile") {
+      setMobileUploadedImageUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
     }
   };
 
@@ -192,7 +57,7 @@ const ProductScreen = ({ formData, handleChange }) => {
       <select
         id="appType"
         name="appType"
-        value={selectedOption} // Use selectedOption state instead of isMobileApp
+        value={selectedOption}
         onChange={handleAppTypeChange}
       >
         <option value="">None</option>
@@ -212,25 +77,23 @@ const ProductScreen = ({ formData, handleChange }) => {
               id="mobileScreenshots"
               name="mobileScreenshots"
               multiple
-              onChange={
-                selectedOption === "both"
-                  ? handleBothFileChangeMobile
-                  : handleFileChange
-              }
+              onChange={(e) => handleFileChange(e.target.files, "mobile")}
               accept="image/*"
             />
           </div>
           <br />
           {/* Display the uploaded mobile image URLs */}
-          {MobileUploadedImageUrl &&
-            MobileUploadedImageUrl.map((url, index) => (
-              <div className="uploadedimages" key={index}>
-                <p>
-                  {`${index + 1}. `}
-                  {url}
-                </p>
-              </div>
-            ))}
+          {mobileUploadedImageUrls.map((url, index) => (
+            <div className="uploadedimages" key={index}>
+              <p>
+                {`${index + 1}. `}
+                {url}
+                <button onClick={() => handleRemoveImage(index, "mobile")}>
+                  Remove
+                </button>
+              </p>
+            </div>
+          ))}
           <br />
         </>
       )}
@@ -244,26 +107,24 @@ const ProductScreen = ({ formData, handleChange }) => {
             id="webScreenshots"
             name="webScreenshots"
             multiple
-            onChange={
-              selectedOption === "both"
-                ? handleBothFileChangeWeb
-                : handleFileChange
-            }
+            onChange={(e) => handleFileChange(e.target.files, "web")}
             accept="image/*"
           />
         </div>
       )}
       <br />
-      {/* Display the uploaded mobile image URLs */}
-      {WebUploadedImageUrl &&
-        WebUploadedImageUrl.map((url, index) => (
-          <div className="uploadedimages" key={index}>
-            <p>
-              {`${index + 1}. `}
-              {url}
-            </p>
-          </div>
-        ))}
+      {/* Display the uploaded web image URLs */}
+      {webUploadedImageUrls.map((url, index) => (
+        <div className="uploadedimages" key={index}>
+          <p>
+            {`${index + 1}. `}
+            {url}
+            <button onClick={() => handleRemoveImage(index, "web")}>
+              Remove
+            </button>
+          </p>
+        </div>
+      ))}
       <br />
     </>
   );
