@@ -1,51 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function to upload files to S3
 
-const ProductScreen = ({ formData, handleChange, uploadedImages }) => {
+const ProductScreen = ({ formData, handleChange }) => {
   const [selectedOption, setSelectedOption] = useState(""); // State to store selected option
   const [isMobileApp, setIsMobileApp] = useState(null);
   const [isWebApp, setIsWebApp] = useState(null);
-  const [webUploadedImageUrls, setWebUploadedImageUrls] = useState([]);
-  const [mobileUploadedImageUrls, setMobileUploadedImageUrls] = useState([]);
-
-  useEffect(() => {
-    // Populate state with previously uploaded images when component mounts
-    if (uploadedImages) {
-      setWebUploadedImageUrls(uploadedImages.web || []);
-      setMobileUploadedImageUrls(uploadedImages.mobile || []);
-    }
-  }, [uploadedImages]);
+  const [WebUploadedImageUrl, setWebUploadedImageUrl] = useState([]); // State to store uploaded image URLs for web
+  const [MobileUploadedImageUrl, setMobileUploadedImageUrl] = useState([]); // State to store uploaded image URLs for mobile
 
   const handleAppTypeChange = (e) => {
     const selectedValue = e.target.value;
-    setSelectedOption(selectedValue);
+    setSelectedOption(selectedValue); // Update selected option state
     setIsMobileApp(selectedValue === "mobile" || selectedValue === "both");
     setIsWebApp(selectedValue === "web" || selectedValue === "both");
+    setWebUploadedImageUrl([]); // Reset uploaded image URLs for web
+    setMobileUploadedImageUrl([]); // Reset uploaded image URLs for mobile
   };
 
-  const handleFileChange = async (files, type) => {
+  const handleFileChange = async (e, isWeb) => {
+    const files = e.target.files;
+    const uploadedImageUrls = [];
     try {
-      const uploadedImageUrls = [];
+      // Check if the total number of uploaded images exceeds 3
+      if ((isWeb && WebUploadedImageUrl.length + files.length > 3) ||
+          (!isWeb && MobileUploadedImageUrl.length + files.length > 3)) {
+        alert("Only 3 images are allowed to upload.Re-Upload the images");
+        return; // Exit the function
+      }
+  
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        const imageUrl = await uploadFileToS3(file);
-        uploadedImageUrls.push(imageUrl);
+        const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
+        uploadedImageUrls.push(imageUrl); // Push the uploaded image URL to the array
       }
-      if (type === "web") {
-        setWebUploadedImageUrls((prevUrls) => [...prevUrls, ...uploadedImageUrls]);
-      } else if (type === "mobile") {
-        setMobileUploadedImageUrls((prevUrls) => [...prevUrls, ...uploadedImageUrls]);
+      if (isWeb) {
+        setWebUploadedImageUrl([...WebUploadedImageUrl, ...uploadedImageUrls]);
+      } else {
+        setMobileUploadedImageUrl([...MobileUploadedImageUrl, ...uploadedImageUrls]);
       }
     } catch (error) {
       console.error("Error uploading file:", error);
     }
   };
+  
 
-  const handleRemoveImage = (index, type) => {
-    if (type === "web") {
-      setWebUploadedImageUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
-    } else if (type === "mobile") {
-      setMobileUploadedImageUrls((prevUrls) => prevUrls.filter((_, i) => i !== index));
+  const handleRemoveImage = (index, isWeb) => {
+    if (isWeb) {
+      const updatedWebImages = [...WebUploadedImageUrl];
+      updatedWebImages.splice(index, 1);
+      setWebUploadedImageUrl(updatedWebImages);
+    } else {
+      const updatedMobileImages = [...MobileUploadedImageUrl];
+      updatedMobileImages.splice(index, 1);
+      setMobileUploadedImageUrl(updatedMobileImages);
     }
   };
 
@@ -57,7 +64,7 @@ const ProductScreen = ({ formData, handleChange, uploadedImages }) => {
       <select
         id="appType"
         name="appType"
-        value={selectedOption}
+        value={selectedOption} // Use selectedOption state instead of isMobileApp
         onChange={handleAppTypeChange}
       >
         <option value="">None</option>
@@ -77,20 +84,18 @@ const ProductScreen = ({ formData, handleChange, uploadedImages }) => {
               id="mobileScreenshots"
               name="mobileScreenshots"
               multiple
-              onChange={(e) => handleFileChange(e.target.files, "mobile")}
+              onChange={(e) => handleFileChange(e, false)}
               accept="image/*"
             />
           </div>
           <br />
           {/* Display the uploaded mobile image URLs */}
-          {mobileUploadedImageUrls.map((url, index) => (
+          {MobileUploadedImageUrl.map((url, index) => (
             <div className="uploadedimages" key={index}>
               <p>
                 {`${index + 1}. `}
                 {url}
-                <button onClick={() => handleRemoveImage(index, "mobile")}>
-                  Remove
-                </button>
+                <button onClick={() => handleRemoveImage(index, false)}>Remove</button>
               </p>
             </div>
           ))}
@@ -107,21 +112,19 @@ const ProductScreen = ({ formData, handleChange, uploadedImages }) => {
             id="webScreenshots"
             name="webScreenshots"
             multiple
-            onChange={(e) => handleFileChange(e.target.files, "web")}
+            onChange={(e) => handleFileChange(e, true)}
             accept="image/*"
           />
         </div>
       )}
       <br />
       {/* Display the uploaded web image URLs */}
-      {webUploadedImageUrls.map((url, index) => (
+      {WebUploadedImageUrl.map((url, index) => (
         <div className="uploadedimages" key={index}>
           <p>
             {`${index + 1}. `}
             {url}
-            <button onClick={() => handleRemoveImage(index, "web")}>
-              Remove
-            </button>
+            <button onClick={() => handleRemoveImage(index, true)}>Remove</button>
           </p>
         </div>
       ))}
