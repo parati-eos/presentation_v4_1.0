@@ -44,7 +44,7 @@ function ApplicationLanding() {
     const fetchDataHistory = async () => {
       try {
         const response = await fetch(
-          "https://pitchdeck-server.onrender.com/history",
+          "https://zynth.ai/api/history",
           {
             headers: {
               "x-userid": userID,
