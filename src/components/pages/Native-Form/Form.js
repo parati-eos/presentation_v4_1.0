@@ -505,7 +505,7 @@ const Form = () => {
       case 14:
         return "Competitive Differentiation";
       case 15:
-        return "Team";
+        return "Team Members";
       case 16:
         return "Financial Snapshot"; // Update the case for Financials section
       case 17:
