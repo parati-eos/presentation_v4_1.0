@@ -9,7 +9,7 @@ import Footer from "../../shared/js/footer";
 
 function Home() {
   return (
-    <div style={{ backgroundColor: "transparent", overflowX: 'hidden' }}>
+    <div style={{ backgroundColor: "transparent", overflowX: 'hidden', overflowY: 'hidden' }}>
       {/* Render only the Navbar component on the Home page */}
       <Navbar />
       <Hero />
