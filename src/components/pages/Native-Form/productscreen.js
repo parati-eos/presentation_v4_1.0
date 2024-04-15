@@ -1,154 +1,134 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function to upload files to S3
 
-const MAX_IMAGES = 3; // Maximum number of images allowed to upload
-
 const ProductScreen = ({ formData, handleChange }) => {
-  const [selectedOption, setSelectedOption] = useState(formData.appType || ""); // State to store selected option
-  const [uploadedImages, setUploadedImages] = useState({
-    web: formData.webScreenshots || [],
-    mobile: formData.mobileScreenshots || [],
-  }); // State to store uploaded image URLs for web and mobile
-
-  useEffect(() => {
-    // Store selected option in form data when someone navigates back
-    handleChange({ target: { name: "appType", value: selectedOption } });
-  }, [selectedOption, handleChange]);
+  const [selectedOption, setSelectedOption] = useState(""); // State to store selected option
+  const [isMobileApp, setIsMobileApp] = useState(null);
+  const [isWebApp, setIsWebApp] = useState(null);
+  const [WebUploadedImageUrl, setWebUploadedImageUrl] = useState([]); // State to store uploaded image URLs for web
+  const [MobileUploadedImageUrl, setMobileUploadedImageUrl] = useState([]); // State to store uploaded image URLs for mobile
 
   const handleAppTypeChange = (e) => {
     const selectedValue = e.target.value;
     setSelectedOption(selectedValue); // Update selected option state
+    setIsMobileApp(selectedValue === "mobile" || selectedValue === "both");
+    setIsWebApp(selectedValue === "web" || selectedValue === "both");
+    setWebUploadedImageUrl([]); // Reset uploaded image URLs for web
+    setMobileUploadedImageUrl([]); // Reset uploaded image URLs for mobile
   };
 
-  const handleFileChange = async (e) => {
+  const handleFileChange = async (e, isWeb) => {
     const files = e.target.files;
-
-    const uploadedImagesCopy = { ...uploadedImages };
+    const uploadedImageUrls = [];
     try {
+      // Check if the total number of uploaded images exceeds 3
+      if ((isWeb && WebUploadedImageUrl.length + files.length > 3) ||
+          (!isWeb && MobileUploadedImageUrl.length + files.length > 3)) {
+        alert("Only 3 images are allowed to upload.Re-Upload the images");
+        return; // Exit the function
+      }
+  
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
         const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
-
-        if (selectedOption === "both") {
-          if (uploadedImagesCopy["mobile"].length < MAX_IMAGES) {
-            uploadedImagesCopy["mobile"].push(imageUrl);
-          }
-
-          if (uploadedImagesCopy["web"].length < MAX_IMAGES) {
-            uploadedImagesCopy["web"].push(imageUrl);
-          }
-        } else {
-          if (uploadedImagesCopy[selectedOption].length < MAX_IMAGES) {
-            uploadedImagesCopy[selectedOption].push(imageUrl);
-          }
-        }
+        uploadedImageUrls.push(imageUrl); // Push the uploaded image URL to the array
       }
-
-      // Update the uploaded image URLs in the state
-      setUploadedImages(uploadedImagesCopy);
-      handleChange({
-        target: {
-          name:
-            selectedOption === "both"
-              ? "screenshots"
-              : `${selectedOption}Screenshots`,
-          value: uploadedImagesCopy[selectedOption],
-        },
-      });
+      if (isWeb) {
+        setWebUploadedImageUrl([...WebUploadedImageUrl, ...uploadedImageUrls]);
+      } else {
+        setMobileUploadedImageUrl([...MobileUploadedImageUrl, ...uploadedImageUrls]);
+      }
     } catch (error) {
       console.error("Error uploading file:", error);
     }
   };
+  
 
-  const handleRemoveImage = (type, index) => {
-    const uploadedImagesCopy = { ...uploadedImages };
-    uploadedImagesCopy[type].splice(index, 1);
-    setUploadedImages(uploadedImagesCopy);
-    handleChange({
-      target: {
-        name:
-          selectedOption === "both"
-            ? "screenshots"
-            : `${selectedOption}Screenshots`,
-        value: uploadedImagesCopy[selectedOption],
-      },
-    });
+  const handleRemoveImage = (index, isWeb) => {
+    if (isWeb) {
+      const updatedWebImages = [...WebUploadedImageUrl];
+      updatedWebImages.splice(index, 1);
+      setWebUploadedImageUrl(updatedWebImages);
+    } else {
+      const updatedMobileImages = [...MobileUploadedImageUrl];
+      updatedMobileImages.splice(index, 1);
+      setMobileUploadedImageUrl(updatedMobileImages);
+    }
   };
 
   return (
     <>
-      <div className="textInputQuestions">
-        <label htmlFor="appType">
-          Is your product interface a mobile application or a web application?
-        </label>
-        <select
-          id="appType"
-          name="appType"
-          value={selectedOption}
-          onChange={handleAppTypeChange}
-        >
-          <option value="">None</option>
-          <option value="web">Web Application</option>
-          <option value="mobile">Mobile Application</option>
-          <option value="both">Both</option>
-        </select>
-      </div>
+      <label htmlFor="appType">
+        Is your product interface a mobile application or a web application?
+      </label>
+      <select
+        id="appType"
+        name="appType"
+        value={selectedOption} // Use selectedOption state instead of isMobileApp
+        onChange={handleAppTypeChange}
+      >
+        <option value="">None</option>
+        <option value="web">Web Application</option>
+        <option value="mobile">Mobile Application</option>
+        <option value="both">Both</option>
+      </select>
       <br />
-
-      {(selectedOption === "mobile" || selectedOption === "both") && (
-        <div className="textInputQuestions">
-          <label htmlFor="mobileScreenshots">
-            Please upload up to 3 Mobile App UI screenshots here -
-          </label>
-          <input
-            type="file"
-            id="mobileScreenshots"
-            name="mobileScreenshots"
-            multiple
-            onChange={handleFileChange}
-            accept="image/*"
-          />
+      {isMobileApp && (
+        <>
+          <div className="textInputQuestions">
+            <label htmlFor="mobileScreenshots">
+              Please upload 3 Mobile App UI screenshots here -
+            </label>
+            <input
+              type="file"
+              id="mobileScreenshots"
+              name="mobileScreenshots"
+              multiple
+              onChange={(e) => handleFileChange(e, false)}
+              accept="image/*"
+            />
+          </div>
+          <br />
           {/* Display the uploaded mobile image URLs */}
-          {uploadedImages.mobile.map((url, index) => (
+          {MobileUploadedImageUrl.map((url, index) => (
             <div className="uploadedimages" key={index}>
-              <ul>
-                <li>{url}</li>
-                <button onClick={() => handleRemoveImage("mobile", index)}>
-                  Remove
-                </button>
-              </ul>
+              <p>
+                {`${index + 1}. `}
+                {url}
+                <button onClick={() => handleRemoveImage(index, false)}>Remove</button>
+              </p>
             </div>
           ))}
           <br />
-        </div>
+        </>
       )}
-      {(selectedOption === "web" || selectedOption === "both") && (
+      {isWebApp && (
         <div className="textInputQuestions">
           <label htmlFor="webScreenshots">
-            Please upload up to 3 Web App UI screenshots here -
+            Please upload 3 Web App UI screenshots here -
           </label>
           <input
             type="file"
             id="webScreenshots"
             name="webScreenshots"
             multiple
-            onChange={handleFileChange}
+            onChange={(e) => handleFileChange(e, true)}
             accept="image/*"
           />
-          {/* Display the uploaded web image URLs */}
-          {uploadedImages.web.map((url, index) => (
-            <div className="uploadedimages" key={index}>
-              <ul>
-                <li>{url}</li>
-                <button onClick={() => handleRemoveImage("web", index)}>
-                  Remove
-                </button>
-              </ul>
-            </div>
-          ))}
-          <br />
         </div>
       )}
+      <br />
+      {/* Display the uploaded web image URLs */}
+      {WebUploadedImageUrl.map((url, index) => (
+        <div className="uploadedimages" key={index}>
+          <p>
+            {`${index + 1}. `}
+            {url}
+            <button onClick={() => handleRemoveImage(index, true)}>Remove</button>
+          </p>
+        </div>
+      ))}
+      <br />
     </>
   );
 };

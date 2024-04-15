@@ -37,7 +37,7 @@ const PresentationCheck = () => {
     const fetchDataHistory = async () => {
       try {
         const response = await fetch(
-          "https://pitchdeck-server.onrender.com/history",
+          "https://zynth.ai/api/history",
           {
             headers: {
               "x-userid": userID,
@@ -99,7 +99,7 @@ const PresentationCheck = () => {
 
   const handleShare = () => {
     const uniqueShareableUrl = `https://presentation-final-fd.vercel.app/share?submissionId=${formId}`;
-
+  
     if (navigator.share) {
       navigator
         .share({
@@ -109,10 +109,17 @@ const PresentationCheck = () => {
         })
         .then(() => console.log("Shared successfully"))
         .catch((error) => console.error("Share failed: ", error));
+    } else if (navigator.clipboard && navigator.platform.includes('Mac')) {
+      // For macOS devices where navigator.share is not available
+      navigator.clipboard.writeText(uniqueShareableUrl)
+        .then(() => alert("URL copied to clipboard"))
+        .catch((error) => console.error("Copy failed: ", error));
     } else {
+      // For other devices where neither navigator.share nor clipboard API is available
       alert("Sharing is not supported on this device/browser.");
     }
   };
+  
 
   // Company Name--------------->>
   const [PPTName, setPPTName] = useState("PPTName");
@@ -121,7 +128,7 @@ const PresentationCheck = () => {
     formId = localStorage.getItem("submissionId");
     console.log("foooooooooorm id: ", formId);
     const fetchData = async () => {
-      const apiUrl = `https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`;
+      const apiUrl = `https://zynth.ai/api/slidesURL?formId=${formId}`;
       try {
         const response = await fetch(apiUrl, {
           method: "GET",

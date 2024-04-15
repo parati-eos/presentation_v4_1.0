@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/static/css/main.2ad880b8.css",
+    "main.js": "/static/js/main.4257f398.js",
+    "static/js/845.f5169d8e.chunk.js": "/static/js/845.f5169d8e.chunk.js",
+    "static/media/Featureimg3.png": "/static/media/Featureimg3.91d75bb105be4eba5891.png",
+    "static/media/background.jpg": "/static/media/background.983ee2134b098aa89dec.jpg",
+    "static/media/Featureimg2.png": "/static/media/Featureimg2.89901678ec2e501b4b58.png",
+    "static/media/Featureimg4.png": "/static/media/Featureimg4.9184d44ac525bc72c2b9.png",
+    "static/media/parati-logo.png": "/static/media/parati-logo.b01fafea34c5ed020d29.png",
+    "static/media/Featureimg1.png": "/static/media/Featureimg1.452604d1d2845f97d9e6.png",
+    "static/media/Image3.png": "/static/media/Image3.b6ca950ef6c20ab9ae21.png",
+    "static/media/LoginImage.png": "/static/media/LoginImage.30f184a865f74cc02d8b.png",
+    "static/media/Image2.png": "/static/media/Image2.4d2b51bbc09b7b5ec208.png",
+    "static/media/Image1.png": "/static/media/Image1.8def5a041ef46c8f6c3e.png",
+    "static/media/Image4.png": "/static/media/Image4.4a44365cfb4f4afc5bc7.png",
+    "static/media/ms-login.svg": "/static/media/ms-login.e2f600a8cb97ce3efe4d3db463e6af48.svg",
+    "static/media/instagram.webp": "/static/media/instagram.64d1467feeba8ceadb78.webp",
+    "static/media/linkedin.webp": "/static/media/linkedin.40c31f98f36992e07b1d.webp",
+    "static/media/twitter.webp": "/static/media/twitter.7099c418311da73d3b5d.webp",
+    "static/media/medium.webp": "/static/media/medium.269cbd59a30f963ffb3c.webp",
+    "index.html": "/index.html",
+    "main.2ad880b8.css.map": "/static/css/main.2ad880b8.css.map",
+    "main.4257f398.js.map": "/static/js/main.4257f398.js.map",
+    "845.f5169d8e.chunk.js.map": "/static/js/845.f5169d8e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2ad880b8.css",
+    "static/js/main.4257f398.js"
+  ]
+}

@@ -25,6 +25,9 @@ import {useNavigate } from "react-router-dom";
 const Form = () => {
   const [section, setSection] = useState(1);
   const navigate = useNavigate();
+  const handleLogoClicked = () => {
+    navigate("/applicationLanding");
+  };
   const userEmail = localStorage.getItem("userEmail");
   const [generatedPresentationID, setgeneratedPresentationID] = useState(null);
   const [showHiddenButton, setShowHiddenButton] = useState(false); // State to control button visibility
@@ -77,6 +80,8 @@ const Form = () => {
   });
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploadComplete, setIsUploadComplete] = useState(false);
+
   // Remove the duplicate declaration of 'navigate'
   // const navigate = useNavigate(); // Initialize useHistory hook
   const [formId, setFormId] = useState("");
@@ -191,6 +196,10 @@ const Form = () => {
       ...prevState,
       [name]: newValue,
     }));
+     // Check if the photo upload action is complete for logo or mobileScreenshots
+  if (name === "logo" || name === "mobileScreenshots" || name === "webScreenshots") {
+    setIsUploadComplete(true);
+  }
   };
 
   const handleSubmit = async (e) => {
@@ -360,7 +369,7 @@ const Form = () => {
     if (changedData) {
       try {
         const response = await fetch(
-          "https://pitchdeck-server.onrender.com/submission",
+          "https://zynth.ai/api/submission",
           {
             method: "POST",
             headers: {
@@ -496,7 +505,7 @@ const Form = () => {
       case 14:
         return "Competitive Differentiation";
       case 15:
-        return "Team";
+        return "Team Members";
       case 16:
         return "Financial Snapshot"; // Update the case for Financials section
       case 17:
@@ -508,7 +517,7 @@ const Form = () => {
 
   return (
     <div className="native-form">
-      <Navbar />
+      <Navbar handleClick={handleLogoClicked}/>
       <div className="form-container">
         <div className="form-details">
           <div className="section-name">
@@ -617,7 +626,7 @@ const Form = () => {
                   isLoading ? "form-next-button-disabled" : ""
                 }`}
               >
-                <button type="submit" disabled={isLoading}>
+                <button type="submit" disabled={isLoading || !isUploadComplete}>
                   {section !== 17 ? "Next" : "Submit"}
                 </button>
               </div>

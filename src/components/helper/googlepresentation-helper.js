@@ -11,7 +11,7 @@ const Googleslides = () => {
 
   const fetchSlidesData = async () => {
     try {
-      const url = `https://pitchdeck-server.onrender.com/slides?userId=${userId}&formId=${formId}`;
+      const url = `https://zynth.ai/api/slides?userId=${userId}&formId=${formId}`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Failed to fetch slides data");

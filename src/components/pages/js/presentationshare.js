@@ -23,12 +23,12 @@ const PresentationCheck = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const formId = searchParams.get("submissionId");
-
+  const navigate = useNavigate();
   // Company Name--------------->>
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiUrl = `https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`;
+      const apiUrl = `https://zynth.ai/api/slidesURL?formId=${formId}`;
       try {
         const response = await fetch(apiUrl, {
           method: "GET",
@@ -46,6 +46,10 @@ const PresentationCheck = () => {
     };
   }, [formId]);
 
+  const handleLogoClicked = () => {
+    navigate("/applicationLanding");
+  };
+
   return (
     <div className="main-container">
       <div className="presentationshare-viewing-container">
@@ -56,6 +60,7 @@ const PresentationCheck = () => {
               alt="Parati Logo"
               width={150}
               className="branding-logo"
+              onClick={handleLogoClicked}
             ></img>
           </div>
         </div>

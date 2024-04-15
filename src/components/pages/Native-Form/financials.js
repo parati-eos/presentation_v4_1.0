@@ -53,14 +53,25 @@ const Financials = ({ formData }) => {
   };
 
   const addRevenueRow = () => {
+    // Check if any of the fields in the last row are empty
+    const lastRow = FinancialsData.revenueCost[FinancialsData.revenueCost.length - 1];
+    if (!lastRow.year || !lastRow.revenue || !lastRow.cost) {
+      alert("Please fill in all fields before adding a new row.");
+      return;
+    }
+  
+    // Check if the maximum number of rows has been reached
     if (FinancialsData.revenueCost.length < 11) {
       const newRevenueCost = [
         ...FinancialsData.revenueCost,
         { year: "", revenue: "", cost: "" },
       ];
       updateFinancialData({ ...FinancialsData, revenueCost: newRevenueCost });
+    } else {
+      alert("You have reached the maximum number of rows.");
     }
   };
+  
 
   const removeRevenueRow = (index) => {
     if (FinancialsData.revenueCost.length > 1) {
@@ -105,7 +116,7 @@ const Financials = ({ formData }) => {
         <label>
           Please provide revenue/revenue projections for the following years.
           Leave the fields blank for the years where you do not have the
-          required information. Please enter the numbers in million (USD).
+          required information. Please enter the numbers in millions USD.
         </label>
         <table className="table-contents">
           <thead>
@@ -126,7 +137,7 @@ const Financials = ({ formData }) => {
                     onChange={(e) =>
                       handleRevenueCostChange(index, "year", e.target.value)
                     }
-                    required
+                    
                   >
                     <option value="">Select a Year</option>
                     {years.map((year) => (
@@ -173,8 +184,8 @@ const Financials = ({ formData }) => {
       <br />
       <div className="textInputQuestions">
         <label htmlFor="plannedRaise">
-          How much money do you plan to raise? Please enter the numbers in
-          million (USD).*
+          How much money do you plan to raise? Please enter the number in
+          millions USD.*
         </label>
         <input
           type="number"

@@ -15,5 +15,6 @@
 .login-navbar-logo {
   width: 130px;
   height: auto;
+  cursor: pointer;
 }
 
