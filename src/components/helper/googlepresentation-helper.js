@@ -3,15 +3,13 @@ import "./gph.css";
 import loadingImage from "../Asset/Loading.gif";
 
 const Googleslides = () => {
-  var userId = localStorage.getItem("userEmail");
-  var formId = localStorage.getItem("submissionId");
+  const userId = localStorage.getItem("userEmail");
+  const formId = localStorage.getItem("submissionId");
   const [slidesData, setSlidesData] = useState([]);
   const [slidesId, setSlidesId] = useState("");
-  const [loading, setLoading] = useState("true");
+  const [loading, setLoading] = useState(true); // Change to boolean
 
-  console.log([userId, formId]);
   const fetchSlidesData = async () => {
-    console.log([userId, formId]);
     try {
       const url = `https://pitchdeck-server.onrender.com/slides?userId=${userId}&formId=${formId}`;
       const response = await fetch(url);
@@ -19,54 +17,36 @@ const Googleslides = () => {
         throw new Error("Failed to fetch slides data");
       }
       const data = await response.json();
-      if (data.data.length >= 2) {
-        setLoading("false");
-      }
-
-      // Only update the state if the new data is different from the old data
-      if (JSON.stringify(data.data) !== JSON.stringify(slidesData)) {
-        // Save the fetched data to localStorage
-        localStorage.setItem("slidesData", JSON.stringify(data.data));
-        localStorage.setItem("slidesId", data.id);
-        setSlidesData(data.data);
-        setSlidesId(data.id);
-      }
+      setSlidesId(data.id);
+      setSlidesData(data.data);
+      setLoading(data.data.length < 2); // Set loading based on the length of data
     } catch (error) {
       console.error("Error fetching slides data:", error.message);
     }
   };
 
-  // In your useEffect, load the data from localStorage before starting the interval
   useEffect(() => {
-    const savedSlidesData = JSON.parse(localStorage.getItem("slidesData"));
-    const savedSlidesId = localStorage.getItem("slidesId");
-    if (savedSlidesData && savedSlidesId) {
-      setSlidesData(savedSlidesData);
-      setSlidesId(savedSlidesId);
-      setLoading("false");
-    }
-
-    const intervalId = setInterval(fetchSlidesData, 1000); // Poll every 5 seconds
+    const intervalId = setInterval(fetchSlidesData, 5000);
     return () => clearInterval(intervalId);
-  }, [userId, formId]); // Removed slidesData.length from the dependency array
+  }, [userId, formId]);
 
-  if (loading == "true") {
+  if (loading) { // Use strict equality
     return (
       <div className="loadingIcon">
-        <img src={loadingImage} alt="description" />
+        <img src={loadingImage} alt="Loading..." />
       </div>
     );
   }
-
+  console.log(slidesData);
   return (
     <div className="slides"> 
-      {slidesData.slice(0, slidesData.length - 1).map((slide, index) => (
-        <div key={slide.objectId}>
+      {slidesData.map((slideId, index) => (
+        <div key={slideId}>
           <iframe
-            key={slide.objectId} // Add key prop here
+            key={index} // Use index as key
             className="slides-iframe"
             title="Google Slides Embed"
-            src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slide.objectId}`}
+            src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slideId}`}
           ></iframe>
         </div>
       ))}
