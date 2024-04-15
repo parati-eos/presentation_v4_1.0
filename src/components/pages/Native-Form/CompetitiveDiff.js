@@ -13,7 +13,6 @@ const CompetitiveDiff = ({ formData, handleChange }) => {
           name="competitiveDiff"
           value={formData.competitiveDiff}
           onChange={handleChange}
-          placeholder="Enter your response here..."
           required
         />
       </div>
