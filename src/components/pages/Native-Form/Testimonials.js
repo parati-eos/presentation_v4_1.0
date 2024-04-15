@@ -100,7 +100,7 @@ const Testimonials = ({ formData, handleChange }) => {
               onChange={(e) =>
                 handleTestimonialChange(index, "company", e.target.value)
               }
-              required={isFillingStarted} // Make it required if filling started
+              // required={isFillingStarted} // Make it required if filling started
             />
             <input
               type="text"
@@ -109,7 +109,7 @@ const Testimonials = ({ formData, handleChange }) => {
               onChange={(e) =>
                 handleTestimonialChange(index, "designation", e.target.value)
               }
-              required={isFillingStarted} // Make it required if filling started
+              // required={isFillingStarted} // Make it required if filling started
             />
             {testimonials.length > 2 && (
               <div

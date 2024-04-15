@@ -30,7 +30,7 @@ const Track = ({ formData }) => {
   formData["trackRecord"] = phaseRows;
   const generateYears = () => {
     const currentYear = new Date().getFullYear();
-    const years = ["SELECT YEAR"];
+    const years = ["Select Year"];
     for (let i = currentYear - 15; i <= currentYear; i++) {
       years.push(i);
     }
