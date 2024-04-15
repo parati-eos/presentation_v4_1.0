@@ -37,7 +37,7 @@ const PresentationCheck = () => {
     const fetchDataHistory = async () => {
       try {
         const response = await fetch(
-          "https://zynth.ai/api/history",
+          "https://pitchdeck-server.onrender.com/history",
           {
             headers: {
               "x-userid": userID,
@@ -128,7 +128,7 @@ const PresentationCheck = () => {
     formId = localStorage.getItem("submissionId");
     console.log("foooooooooorm id: ", formId);
     const fetchData = async () => {
-      const apiUrl = `https://zynth.ai/api/slidesURL?formId=${formId}`;
+      const apiUrl = `https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`;
       try {
         const response = await fetch(apiUrl, {
           method: "GET",
