@@ -82,11 +82,13 @@ const Testimonials = ({ formData, handleChange }) => {
           Do you have any testimonials or success stories from these clients?
           List at least 2 of them.{" "}
         </label>
+        <br />
         {testimonials.map((testimonial, index) => (
           <div key={index} className="testimonial-row">
+            <label>Testimonial {` ${index + 1}`}</label>
             <input
               type="text"
-              placeholder={`Name ${index + 1}`}
+              placeholder={`Name `}
               value={testimonial.name}
               onChange={(e) =>
                 handleTestimonialChange(index, "name", e.target.value)
@@ -95,7 +97,7 @@ const Testimonials = ({ formData, handleChange }) => {
             />
             <input
               type="text"
-              placeholder={`Company ${index + 1}`}
+              placeholder={`Company `}
               value={testimonial.company}
               onChange={(e) =>
                 handleTestimonialChange(index, "company", e.target.value)
@@ -104,7 +106,7 @@ const Testimonials = ({ formData, handleChange }) => {
             />
             <input
               type="text"
-              placeholder={`Designation ${index + 1}`}
+              placeholder={`Designation `}
               value={testimonial.designation}
               onChange={(e) =>
                 handleTestimonialChange(index, "designation", e.target.value)
@@ -121,7 +123,7 @@ const Testimonials = ({ formData, handleChange }) => {
               </div>
             )}
             <textarea
-              placeholder={`Testimonial ${index + 1}`}
+              placeholder={`Testimonial `}
               value={testimonial.testimonial}
               onChange={(e) =>
                 handleTestimonialChange(index, "testimonial", e.target.value)
@@ -132,13 +134,16 @@ const Testimonials = ({ formData, handleChange }) => {
           </div>
         ))}
         {testimonials.length < 4 && (
-          <button
-            className="add-row-button"
-            type="button"
-            onClick={addTestimonialRow}
-          >
-            Add Testimonial
-          </button>
+          <>
+            <br />
+            <button
+              className="add-row-button"
+              type="button"
+              onClick={addTestimonialRow}
+            >
+              Add Testimonial
+            </button>
+          </>
         )}
       </div>
     </>
