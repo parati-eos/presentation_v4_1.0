@@ -50,7 +50,9 @@
   width: 100%;
   grid-area: input;
 }
-
+.subscriber_search_box input:focus{
+    outline: none;
+}
 .subscriber_search_bar {
   width: 30vw;
   max-width: 100%;
