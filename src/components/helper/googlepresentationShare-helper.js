@@ -22,18 +22,12 @@ const GoogleslidesShare = () => {
         throw new Error("Failed to fetch slides data");
       }
       const data = await response.json();
+      setSlidesId(data.id);
+      setSlidesData(data.data);
       if (data.data.length >= 2) {
         setLoading("false");
       }
 
-      // Only update the state if the new data is different from the old data
-      if (JSON.stringify(data.data) !== JSON.stringify(slidesData)) {
-        // Save the fetched data to localStorage
-        localStorage.setItem("slidesData", JSON.stringify(data.data));
-        localStorage.setItem("slidesId", data.id);
-        setSlidesData(data.data);
-        setSlidesId(data.id);
-      }
     } catch (error) {
       console.error("Error fetching slides data:", error.message);
     }
@@ -41,14 +35,7 @@ const GoogleslidesShare = () => {
 
   // In your useEffect, load the data from localStorage before starting the interval
   useEffect(() => {
-    const savedSlidesData = JSON.parse(localStorage.getItem("slidesData"));
-    const savedSlidesId = localStorage.getItem("slidesId");
-    if (savedSlidesData && savedSlidesId) {
-      setSlidesData(savedSlidesData);
-      setSlidesId(savedSlidesId);
-      setLoading("false");
-    }
-
+    
     fetchSlidesData(); // Poll every 5 seconds
  
   }, [formId]); // Removed slidesData.length from the dependency array
@@ -63,18 +50,13 @@ const GoogleslidesShare = () => {
 
   return (
     <div className="slides"> 
-      {slidesData.slice(0, slidesData.length - 1).map((slide, index) => (
-        <div key={slide.objectId}>
+      {slidesData.map((slideId, index) => (
+        <div key={slideId}>
           <iframe
-            allowtransparency="true"
-            frameborder="0" 
-            allowfullscreen="true" 
-            mozallowfullscreen="true" 
-            webkitallowfullscreen="true"
-            key={slide.objectId} // Add key prop here
+            key={index} // Use index as key
             className="slides-iframe"
             title="Google Slides Embed"
-            src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slide.objectId}`}
+            src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slideId}`}
           ></iframe>
         </div>
       ))}
