@@ -103,3 +103,32 @@
   height: auto;
   border-radius: 20px;
 }
+@media screen and (max-width: 600px){
+  .history-navbar-container {
+    height: 50px;
+  }
+  .history-navbar-logo-container img {
+    width: 100px;
+    height: auto;
+  }
+  .history-navbar-generateppt-container button {
+    cursor: pointer;
+    width: 20vh;
+    height: fit-content;
+    border-radius: 50px;
+    font-size: 1.5vh;
+  }
+  .history-navbar-details-container button {
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    font-size: x-large;
+  }
+  .history-navbar-details-container button span {
+    display: none;
+  }
+}
