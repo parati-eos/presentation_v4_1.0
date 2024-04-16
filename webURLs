@@ -1,0 +1,24 @@
+Blank PPT Creation --> 'https://script.google.com/macros/s/AKfycbwvZWvtTkJONfeMKpTdjUj3Kp03B5bZmWdKt7IQBSYRLBkKMfj45hRMLl_1tIdJhgBu/exec';
+
+{
+user: userSchema,
+about: 'https://script.google.com/macros/s/AKfycbwnwiTMOOHvOqVfNQ4g7DElzGOJFElVu8h6kB55slAsZ3D2qTSLEpjB9qLL_3BnPr4EjA/exec',
+companyDetails: 'https://script.google.com/macros/s/AKfycbxR_eh-sm0lzSCbvv-pe2oYWMyEtk2tC9r1qSScEVDPDZNBhf68B2Pv-9DFcWIx72c/exec',
+problemDescription: 'https://script.google.com/macros/s/AKfycbyWWNXJpByHQnegt4wYfC_MxpuD1qiY5FicHuzjoV3NMxc9mSAjq3Kyu3flc7Myz_ep/exec',
+solutionDescription: 'https://script.google.com/macros/s/AKfycbwXABxcN_2e4jxsmvunOpBFnohDIxfM-5l4Ell9HCiK0LG7AyFgYJ_PpjBJowXZJUnZ/exec',
+market: 'https://script.google.com/macros/s/AKfycbyIxHDtL4VQ1JH18tygjONa7WFK787898OX43WlnewxPKikKRrZScj9l9ne5S7uXMgP/exec',
+product: 'https://script.google.com/macros/s/AKfycbwl5yLM7G_C_wbbdObxqu6OZMe-jvd7vsScbQptYbRVBU_wrgnYX3b5N8JmJNH3G66t/exec',
+productScreen: 'https://script.google.com/macros/s/AKfycbyuVuoGrJP5jpi58CgGXQZgCxCQ9fD4iPDVcG92R_0_VN88LbSYiJDIdPSC0chOrcaq4Q/exec',
+businessModel: 'https://script.google.com/macros/s/AKfycbzmBSmNSUaLDWd9bpzhz1Yt2N8a4g2r940ylxLSiWY7mUYl2HcADRXf-0Dlcg_EPgXNWw/exec',
+goToMarket: 'https://script.google.com/macros/s/AKfycbwUCH2i5jHlaeuVdQNtEdDERHk8eULv490sJW88tFDsfCW9StAlBpqeGoAtyFO5zkum/exec',
+trackRecord: 'https://script.google.com/macros/s/AKfycbyyKsSfZMbtOgHykEDvvR0To1tji1dqJjBAs4bW8DqPqq5JiiaKPqG1Rq2LOzo7q3ZQ/exec',
+caseStudies: 'https://script.google.com/macros/s/AKfycbwXpXZowdhR-I4Pm9aqBj5-g1qCowcAMXslOjkP76BQFg-jUwIbA_J6D4LU0wt9DsbS/exec',
+testimonials: 'https://script.google.com/macros/s/AKfycbwx-YKkaEQiCBkp-bCHRLVt6NWDXOEGYlqih-GnLPhg020jOaS3CtGQCiE34107IXwt/exec',
+competitors: 'https://script.google.com/macros/s/AKfycbxTpJGtIx_exkEYA2OJC4b0709Cwv0gf4IN-SFjHxpB-Z2lQNmCo2v7K_sbRbyqhlgYpQ/exec',
+competitiveDiff: 'https://script.google.com/macros/s/AKfycbxiZ9J6equHeG4AYrMO8CPlzqt6xjCjoEvEy4lOvZhLLrvANnGX8vrDNgJ2FiNlm4cMDA/exec',
+teamMembers: 'https://script.google.com/macros/s/AKfycby4nc9vzUYmfEn-2E_kmplAnMe5zyxFXjDSIbuLCYgoh7Cti_I3f8ZQ6vLJDsjQzGA7/exec',
+financialInfo: 'https://script.google.com/macros/s/AKfycbx0Hd49c41z8F3wMH_PFhtVEHgcSEk8QuLPAvgh--vOOG7RYHaAQuZrnxo7_VHz0lGqWA/exec',
+contactInfo: 'https://script.google.com/macros/s/AKfycbwuKcY4oJ_3R72OZmW2pIBq9lUhIb5UE8J4SuemFUOHaxST4odA-BVXsHg7kVdsMJiu/exec'
+}
+
+Ordering weburl --> 'https://script.google.com/macros/s/AKfycbxISKR5x6B_iXqfKqzAx-s1G0qfGzBVME8HD0wGquf4Eksl4wni_8i33lGQY4pTB-wlTA/exec'

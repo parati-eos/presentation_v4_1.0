@@ -11,7 +11,7 @@ const Market = ({ formData, handleChange }) => {
   return (
     <>
       <br />
-      <div className="selectInputQuestions">
+      <div className="textInputQuestions">
         <label htmlFor="sector">Which sector do you operate in?*</label>
         <select
           id="sector"
@@ -65,7 +65,7 @@ const Market = ({ formData, handleChange }) => {
         )}
       </div>
       <br />
-      <div className="textareaInputQuestions">
+      <div className="textInputQuestions">
         <label htmlFor="marketDescription">
           Can you provide a detailed description of the current market for your
           products or services?*

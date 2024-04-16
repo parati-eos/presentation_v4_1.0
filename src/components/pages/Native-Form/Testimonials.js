@@ -84,54 +84,54 @@ const Testimonials = ({ formData, handleChange }) => {
         </label>
         <br />
         {testimonials.map((testimonial, index) => (
-          <div key={index} className="testimonial-row">
-            <label>Testimonial {` ${index + 1}`}</label>
-            <input
-              type="text"
-              placeholder={`Name `}
-              value={testimonial.name}
-              onChange={(e) =>
-                handleTestimonialChange(index, "name", e.target.value)
-              }
-              required={isFillingStarted} // Make it required if filling started
-            />
-            <input
-              type="text"
-              placeholder={`Company `}
-              value={testimonial.company}
-              onChange={(e) =>
-                handleTestimonialChange(index, "company", e.target.value)
-              }
-              // required={isFillingStarted} // Make it required if filling started
-            />
-            <input
-              type="text"
-              placeholder={`Designation `}
-              value={testimonial.designation}
-              onChange={(e) =>
-                handleTestimonialChange(index, "designation", e.target.value)
-              }
-              // required={isFillingStarted} // Make it required if filling started
-            />
-            {testimonials.length > 2 && (
-              <div
-                className="close-button"
-                type="button"
-                onClick={() => removeTestimonialRow(index)}
-              >
-                <img src={close} alt="close" />
-              </div>
-            )}
-            <textarea
-              placeholder={`Testimonial `}
-              value={testimonial.testimonial}
-              onChange={(e) =>
-                handleTestimonialChange(index, "testimonial", e.target.value)
-              }
-              required={isFillingStarted} // Make it required if filling started
-            ></textarea>
-            <br />
-          </div>
+            <div key={index} className="testimonial-row">
+              <label>Testimonial {` ${index + 1}`}</label>
+              <input
+                type="text"
+                placeholder={`Name `}
+                value={testimonial.name}
+                onChange={(e) =>
+                  handleTestimonialChange(index, "name", e.target.value)
+                }
+                required={isFillingStarted} // Make it required if filling started
+              />
+              <input
+                type="text"
+                placeholder={`Company `}
+                value={testimonial.company}
+                onChange={(e) =>
+                  handleTestimonialChange(index, "company", e.target.value)
+                }
+                // required={isFillingStarted} // Make it required if filling started
+              />
+              <input
+                type="text"
+                placeholder={`Designation `}
+                value={testimonial.designation}
+                onChange={(e) =>
+                  handleTestimonialChange(index, "designation", e.target.value)
+                }
+                // required={isFillingStarted} // Make it required if filling started
+              />
+              {testimonials.length > 2 && (
+                <div
+                  className="close-button"
+                  type="button"
+                  onClick={() => removeTestimonialRow(index)}
+                >
+                  <img src={close} alt="close" />
+                </div>
+              )}
+              <textarea
+                placeholder={`Testimonial `}
+                value={testimonial.testimonial}
+                onChange={(e) =>
+                  handleTestimonialChange(index, "testimonial", e.target.value)
+                }
+                required={isFillingStarted} // Make it required if filling started
+              ></textarea>
+              <br />
+            </div>
         ))}
         {testimonials.length < 4 && (
           <>

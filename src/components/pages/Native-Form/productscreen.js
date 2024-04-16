@@ -185,7 +185,7 @@ const ProductScreen = ({ formData, handleChange }) => {
   };
 
   return (
-    <>
+    <div className="textInputQuestions">
       <label htmlFor="appType">
         Is your product interface a mobile application or a web application?
       </label>
@@ -263,7 +263,7 @@ const ProductScreen = ({ formData, handleChange }) => {
           </div>
         ))}
       <br />
-    </>
+    </div>
   );
 };
 

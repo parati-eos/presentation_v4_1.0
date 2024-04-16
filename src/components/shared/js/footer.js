@@ -16,7 +16,11 @@ const Footer = () => {
         </div>
         <div className="subscriber_form">
           <form action="" className="subscriber_search_box" method="get">
-            <input className="subscriber_search_bar" type="text" />
+            <input
+              className="subscriber_search_bar"
+              type="text"
+              placeholder="e.g., john@gmail.com"
+            />
             <button className="subscriber_button" type="submit">
               Subscribe
             </button>
