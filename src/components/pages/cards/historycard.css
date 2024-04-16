@@ -32,6 +32,7 @@
   width: 90%;
   border-radius: 5%;
   margin: 5%;
+  pointer-events: none;
 }
 
 .card-content {

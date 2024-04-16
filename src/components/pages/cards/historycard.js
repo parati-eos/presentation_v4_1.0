@@ -51,15 +51,11 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   return (
     <div>
       <div className="card">
-        <a
-          href={`https://presentation-final-fd.vercel.app/share?submissionId=${submissionID}`}
-        >
           <div className="card-image" onClick={handleHistoryCardClicked}>
             <iframe
               src={`https://docs.google.com/presentation/d/${link}/embed?rm=minimal&start=true&loop=true`}
             />
           </div>
-        </a>
         <div className="card-content">
           <div className="card-header">
             {isEditing ? (
