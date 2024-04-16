@@ -11,3 +11,15 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
+
+@media (max-width: 600px) {
+    .historypage{
+        width: 100vw;
+        background-color: #001B28;
+        
+    }
+    .HistoryCards{
+        grid-template-columns: 1fr;
+        gap: 5px;
+    }
+}
