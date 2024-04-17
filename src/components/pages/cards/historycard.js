@@ -12,7 +12,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
 
   const [isEditing, setIsEditing] = useState(false);
   const handleHistoryCardClicked = () => {
-    navigate(`/share?submissionId=${submissionID}`);
+    window.open(`/share?submissionId=${submissionID}`, '_blank');
   };
 
   const handleNameChange = (e) => {
@@ -73,9 +73,6 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
           </div>
           <h2>
             Date Created: <span>{Date}</span>
-          </h2>
-          <h2>
-            Form Link: <a href={link}>link</a>
           </h2>
           <div className="card-buttons">
             <ShareButton />

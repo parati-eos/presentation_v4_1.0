@@ -4,6 +4,7 @@ import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/ApplicationLandingNavbar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHistory, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import ParatiLogoMobile from "../../Asset/logo512.png";
 
 function Navbar({ historyShow, historyHide }) {
   const navigate = useNavigate();
@@ -17,7 +18,10 @@ function Navbar({ historyShow, historyHide }) {
     <nav className="appLanding-nav">
       <div className="appLanding-navbar-container">
         <div className="appLanding-navbar-logo-container">
-          <img src={ParatiLogo} width={200} alt="Parati Logo"  onClick={handleLogoClicked}/>
+          <img
+            src={ParatiLogo}
+            alt="Parati logo"
+          />
         </div>
         <div className="appLanding-navbar-details-container">
           {/* Apply hover event handlers */}
@@ -27,9 +31,13 @@ function Navbar({ historyShow, historyHide }) {
             onMouseLeave={historyHide}
             onClick={handleHistoryButtonClicked}
           >
-            <FontAwesomeIcon className="history-icon" icon={faHistory} /> <span>History</span>
+            <FontAwesomeIcon className="history-icon" icon={faHistory} />{" "}
+            <span>History</span>
           </button>
-          <img src={localStorage.getItem("userDP")} className="appLanding-user" />
+          <img
+            src={localStorage.getItem("userDP")}
+            className="appLanding-user"
+          />
         </div>
       </div>
     </nav>

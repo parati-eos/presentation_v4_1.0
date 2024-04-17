@@ -4,31 +4,32 @@ import loadingImage from "../Asset/Loading.gif";
 
 const Googleslides = () => {
   const userId = localStorage.getItem("userEmail");
-  const formId = localStorage.getItem("submissionId");
+  var formId = localStorage.getItem("submissionId");
   const [slidesData, setSlidesData] = useState([]);
   const [slidesId, setSlidesId] = useState("");
   const [loading, setLoading] = useState(true); // Change to boolean
 
-  const fetchSlidesData = async () => {
-    try {
-      const url = `https://pitchdeck-server.onrender.com/slides?userId=${userId}&formId=${formId}`;
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error("Failed to fetch slides data");
-      }
-      const data = await response.json();
-      setSlidesId(data.id);
-      setSlidesData(data.data);
-      setLoading(data.data.length < 2); // Set loading based on the length of data
-    } catch (error) {
-      console.error("Error fetching slides data:", error.message);
-    }
-  };
 
   useEffect(() => {
+    const fetchSlidesData = async () => {
+      try {
+        const url = `https://pitchdeck-server.onrender.com/slides?userId=${userId}&formId=${formId}`;
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Failed to fetch slides data");
+        }
+        const data = await response.json();
+        setSlidesId(data.id);
+        setSlidesData(data.data);
+        setLoading(data.data.length < 1); // Set loading based on the length of data
+      } catch (error) {
+        console.error("Error fetching slides data:", error.message);
+      }
+    };
     const intervalId = setInterval(fetchSlidesData, 5000);
     return () => clearInterval(intervalId);
   }, [userId, formId]);
+  
 
   if (loading) { // Use strict equality
     return (

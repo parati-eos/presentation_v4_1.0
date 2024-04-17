@@ -79,7 +79,11 @@
     height: 50px;
   }
   .appLanding-navbar-logo-container img {
+    background-image: url('../../Asset/logo512.png');
+    background-size: contain;
+    content: "";
     width: 100px;
+    display: block; 
   }
   .appLanding-navbar-details-container .history-icon {
     font-size: x-large;
