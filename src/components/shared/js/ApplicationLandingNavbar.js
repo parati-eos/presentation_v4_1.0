@@ -18,11 +18,10 @@ function Navbar({ historyShow, historyHide }) {
     <nav className="appLanding-nav">
       <div className="appLanding-navbar-container">
         <div className="appLanding-navbar-logo-container">
-          <img
-            src={ParatiLogo}
-            alt="Parati logo"
-          />
+          <img src={ParatiLogo} alt="Parati logo" className="desktop-logo" />
+          <img src={ParatiLogoMobile} alt="Mobile logo" className="mobile-logo" />
         </div>
+
         <div className="appLanding-navbar-details-container">
           {/* Apply hover event handlers */}
           <button

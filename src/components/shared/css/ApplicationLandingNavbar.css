@@ -30,7 +30,6 @@
   gap: 20px;
 }
 .appLanding-navbar-logo-container img {
-  width: 130px;
   height: auto;
   cursor: pointer;
   animation-name: loadIn1;
@@ -73,17 +72,24 @@
   background-color: rgb(255, 255, 255, 0.8);
 }
 
+.desktop-logo {
+  display: block; 
+  width: 130px;
+}
+
+.mobile-logo {
+  display: none; /* Hide the mobile logo by default */
+}
+
 @media screen and (max-width: 600px) {
   .appLanding-navbar-container {
     width: 100vw;
     height: 50px;
   }
   .appLanding-navbar-logo-container img {
-    background-image: url('../../Asset/logo512.png');
     background-size: contain;
     content: "";
-    width: 100px;
-    display: block; 
+
   }
   .appLanding-navbar-details-container .history-icon {
     font-size: x-large;
@@ -105,5 +111,12 @@
   }
   .appLanding-navbar-details-container button span {
     display: none;
+  }
+  .desktop-logo {
+    display: none;
+  }
+  .mobile-logo {
+    width: 40px;
+    display: block; 
   }
 }

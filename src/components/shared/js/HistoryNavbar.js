@@ -2,7 +2,7 @@ import React, { useState, useLocation } from "react";
 import { useNavigate } from "react-router-dom";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/HistoryNavbar.css";
-
+import ParatiLogoMobile from "../../Asset/logo512.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import magicWand from "../../Asset/magic-wand.png";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
@@ -21,12 +21,8 @@ function Navbar() {
     <nav className="history-nav">
       <div className="history-navbar-container">
         <div className="history-navbar-logo-container">
-          <img
-            src={ParatiLogo}
-            width={200}
-            alt="Parati Logo"
-            onClick={handleLogoClicked}
-          />
+        <img src={ParatiLogo} alt="Parati logo" className="desktop-logo" />
+          <img src={ParatiLogoMobile} alt="Mobile logo" className="mobile-logo" />
         </div>
         <div className="history-navbar-generateppt-container">
           <button onClick={handleBuildPresentation}>
