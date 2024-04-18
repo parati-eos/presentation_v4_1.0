@@ -38,21 +38,37 @@ const Googleslides = () => {
       </div>
     );
   }
-  console.log(slidesData);
-  return (
-    <div className="slides"> 
-      {slidesData.map((slideId, index) => (
-        <div key={slideId}>
-          <iframe
-            key={index} // Use index as key
-            className="slides-iframe"
-            title="Google Slides Embed"
-            src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slideId}`}
-          ></iframe>
-        </div>
-      ))}
-    </div>
-  );
+  console.log(slidesData.length);
+  try {
+    return (
+      <div>
+        {slidesData.length < 1 ? (
+          <div>No slides to display</div>
+        ) : (
+          slidesData.map((slideId, index) => (
+            <div key={slideId}>
+              <iframe
+                key={index} 
+                className="slides-iframe"
+                title="Google Slides Embed"
+                src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slideId}`}
+              ></iframe>
+            </div>
+          ))
+        )}
+      </div>
+    );
+  } catch (error) {
+    console.error("Error rendering slides:", error);
+    return <div className="error-txt">
+      No slides to display....
+      <p>click on generate pitch deck button</p>
+    </div>;
+  }
+  
+
+
+
 };
 
 export default Googleslides;

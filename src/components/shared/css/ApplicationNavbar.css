@@ -26,7 +26,6 @@
   align-items: center;
 }
 .app-navbar-details-container {
-  /* background-color: yellow; */
   width: 33%;
   display: flex;
   align-items: center;
@@ -37,7 +36,6 @@
 }
 
 .app-navbar-logo-container img {
-  width: 130px;
   height: auto;
   cursor: pointer;
 }
@@ -72,7 +70,6 @@
 }
 
 .app-navbar-generateppt-container button img {
-  /* position: relative; */
   width: 18px;
   height: auto;
   border: 3px solid transparent;
@@ -104,18 +101,31 @@
   height: auto;
   border-radius: 20px;
 }
+.desktop-logo {
+  display: block; 
+  width: 130px;
+}
+
+.mobile-logo {
+  display: none; /* Hide the mobile logo by default */
+}
 
 @media screen and (max-width: 600px){
   .app-navbar-container {
     height: 50px;
   }
   .app-navbar-logo-container img {
-    width: 100px;
     height: auto;
+  }
+  .app-navbar-generateppt-container{
+    width: 50%;
+  }
+  .app-button-inner{
+    font-size: 2vh;
   }
   .app-navbar-generateppt-container button {
     cursor: pointer;
-    width: 20vh;
+    width: 30vh;
     height: fit-content;
     border-radius: 50px;
     font-size: 1.5vh;
@@ -132,5 +142,12 @@
   }
   .app-navbar-details-container button span {
     display: none;
+  }
+  .desktop-logo {
+    display: none;
+  }
+  .mobile-logo {
+    width: 40px;
+    display: block; 
   }
 }

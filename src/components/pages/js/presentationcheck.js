@@ -99,7 +99,7 @@ const PresentationCheck = () => {
 
   const handleShare = () => {
     const uniqueShareableUrl = `https://presentation-final-fd.vercel.app/share?submissionId=${formId}`;
-  
+
     if (navigator.share) {
       navigator
         .share({
@@ -109,9 +109,10 @@ const PresentationCheck = () => {
         })
         .then(() => console.log("Shared successfully"))
         .catch((error) => console.error("Share failed: ", error));
-    } else if (navigator.clipboard && navigator.platform.includes('Mac')) {
+    } else if (navigator.clipboard && navigator.platform.includes("Mac")) {
       // For macOS devices where navigator.share is not available
-      navigator.clipboard.writeText(uniqueShareableUrl)
+      navigator.clipboard
+        .writeText(uniqueShareableUrl)
         .then(() => alert("URL copied to clipboard"))
         .catch((error) => console.error("Copy failed: ", error));
     } else {
@@ -119,7 +120,6 @@ const PresentationCheck = () => {
       alert("Sharing is not supported on this device/browser.");
     }
   };
-  
 
   // Company Name--------------->>
   const [PPTName, setPPTName] = useState("PPTName");
@@ -140,7 +140,7 @@ const PresentationCheck = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log("===============================",data[3])
+        console.log("===============================", data[3]);
         setPPTName(data[3]);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -162,20 +162,17 @@ const PresentationCheck = () => {
     const requestBody = {
       userID: localStorage.getItem("userEmail"),
       formID: localStorage.getItem("submissionId"),
-      newColumnValue: PPTName
+      newColumnValue: PPTName,
     };
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/updateRow",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
+      const response = await fetch("http://localhost:5000/updateRow", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
 
       if (response.ok) {
         console.log("Row updated successfully");
@@ -186,6 +183,11 @@ const PresentationCheck = () => {
     } catch (error) {
       console.error("Error:", error);
     }
+  };
+  const [error, setError] = useState(false);
+  const handleError = (error) => {
+    console.error("Error occurred:", error);
+    setError(true);
   };
   // <<---------------Company Name
 
@@ -218,9 +220,8 @@ const PresentationCheck = () => {
       {/******************************************/}
       <div className="presentation-viewing-container">
         <div className="presentation-viewing-side">
-        
           <div className="share-export">
-          {isEditing ? (
+            {isEditing ? (
               <input
                 type="text"
                 value={PPTName}
@@ -233,12 +234,12 @@ const PresentationCheck = () => {
               </h2>
             )}
             <div className="share-export-combine">
-            <ShareButton onClick={handleShare} />
-            <ExportButton onClick={handleDownload} />
+              <ShareButton onClick={handleShare}/>
+              <ExportButton onClick={handleDownload}/>
             </div>
           </div>
         </div>
-        
+
         <div className="presentation-viewing-center">
           <div className="presentation-view-slides">
             <GooglePresentation key={currentSlideKey} />

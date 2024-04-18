@@ -30,7 +30,13 @@
     }
 
   }
-  
+  .error-txt{
+    color: aliceblue;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    justify-self: center;
+  }
   
   
   

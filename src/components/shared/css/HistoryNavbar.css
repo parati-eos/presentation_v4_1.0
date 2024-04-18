@@ -38,7 +38,6 @@
 }
 
 .history-navbar-logo-container img {
-  width: 130px;
   height: auto;
   cursor: pointer;
 }
@@ -103,17 +102,31 @@
   height: auto;
   border-radius: 20px;
 }
+
+.desktop-logo {
+  display: block; 
+  width: 130px;
+}
+
+.mobile-logo {
+  display: none; /* Hide the mobile logo by default */
+}
 @media screen and (max-width: 600px){
   .history-navbar-container {
     height: 50px;
   }
   .history-navbar-logo-container img {
-    width: 100px;
     height: auto;
+  }
+  .history-navbar-generateppt-container{
+    width: 50%;
+  }
+  .history-button-inner{
+    font-size: 2vh;
   }
   .history-navbar-generateppt-container button {
     cursor: pointer;
-    width: 20vh;
+    width: 30vh;
     height: fit-content;
     border-radius: 50px;
     font-size: 1.5vh;
@@ -130,5 +143,12 @@
   }
   .history-navbar-details-container button span {
     display: none;
+  }
+  .desktop-logo {
+    display: none;
+  }
+  .mobile-logo {
+    width: 40px;
+    display: block; 
   }
 }
