@@ -1,8 +1,8 @@
 .div {
   background-color: #001b28;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 .body {
   background-color: #001b28;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
