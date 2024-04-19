@@ -3,6 +3,7 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
 import { cn } from "../../Utils/cn.ts";
 import AnimatedButon from "../Buttons/button.tsx";
+import { useNavigate } from "react-router-dom";
 
 export const StickyScroll = ({
   content,
@@ -48,6 +49,10 @@ export const StickyScroll = ({
     "linear-gradient(to bottom right, var(--pink-500), var(--indigo-500))",
     "linear-gradient(to bottom right, var(--orange-500), var(--yellow-500))",
   ];
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/auth/login");
+  };
   return (
     <div
       className="h-[30rem] overflow-y-auto flex gap-5 justify-center relative space-x-10 rounded-md no-scrollbar"
@@ -83,7 +88,7 @@ export const StickyScroll = ({
             </div>
           ))}
           <div className="div sticky top-0 right-0 flex-col gap-10 max-w-10xl w-[100%]">
-            <AnimatedButon name={"Get Started"} />
+            <AnimatedButon onclicked={handleClick} name={"Get Started"} />
           </div>
           <div className="h-40" />
         </div>
