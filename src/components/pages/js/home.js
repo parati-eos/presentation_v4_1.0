@@ -8,6 +8,7 @@ import TopFeature from "../home/TopFeature";
 import "../css/home.css";
 import Footer from "../../shared/js/footer";
 import { StickyScrollRevealDemo } from "../home/stickyScrollReveal.tsx";
+import Stats from "../home/stats.tsx";
 
 function Home() {
   return (
@@ -17,6 +18,8 @@ function Home() {
       {/* <Hero /> */}
       <HeroParallaxDemo /> 
       <StickyScrollRevealDemo/>
+      <Stats/>
+      <Footer/>
     </div>
   );
 }

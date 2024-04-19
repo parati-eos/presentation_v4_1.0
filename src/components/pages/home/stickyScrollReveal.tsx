@@ -5,51 +5,50 @@ import { StickyScroll } from "../home/sticky-scroll-reveal.tsx";
 
 const content = [
   {
-    title: "Collaborative Editing",
+    title: "Fill up a questionnaire around your business",
     description:
-      "Work together in real time with your team, clients, and stakeholders. Collaborate on documents, share ideas, and make decisions quickly. With our platform, you can streamline your workflow and increase productivity.",
+      "Provide detailed information around different aspects of your business to get the best possible version of your pitch deck.",
     content: (
-      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
-        Collaborative Editing
-      </div>
-    ),
-  },
-  {
-    title: "Real time changes",
-    description:
-      "See changes as they happen. With our platform, you can track every modification in real time. No more confusion about the latest version of your project. Say goodbye to the chaos of version control and embrace the simplicity of real-time updates.",
-    content: (
-      <div className="h-full w-full  flex items-center justify-center text-white">
+      <div className="w-full  flex items-center justify-center ">
         <img
-          src="/linear.webp"
-          width={300}
-          height={300}
-          className="h-full w-full object-cover"
-          alt="linear board demo"
+        className="object-fill"
+          src="https://github.com/Adarshaparati/Eos-suit/blob/main/Zynth%20Native%20%20Form%20(V.02).gif?raw=true"
+          alt="Cred About 5"
+          style={{ width: "100%", height: "100%" }}
         />
       </div>
     ),
   },
   {
-    title: "Version control",
+    title: "Let AI do its magic to craft a custom, branded pitch deck for you",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+      "Built on proven frameworks, with AI-generated content and design, while staying completely on-brand.",
     content: (
-      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] flex items-center justify-center text-white">
-        Version control
+      <div className="w-full  flex items-center justify-center ">
+        <img
+        className="object-fill"
+          src="https://github.com/Adarshaparati/Eos-suit/blob/main/Zynth%20Native%20%20Form%20(V.02).gif?raw=true"
+          alt="Cred About 5"
+          style={{ width: "100%", height: "100%" }}
+        />
       </div>
     ),
   },
   {
-    title: "Running out of content",
+    title: "Share your presentation as a webpage with investors",
     description:
-      "Experience real-time updates and never stress about version control again. Our platform ensures that you're always working on the most recent version of your project, eliminating the need for constant manual updates. Stay in the loop, keep your team aligned, and maintain the flow of your work without any interruptions.",
+      "Pitch decks generated on shareable web links which can be directly opened browser and exported to make edits offline.",
     content: (
-      <div className="h-full w-full bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] flex items-center justify-center text-white">
-        Running out of content
+      <div className="w-full  flex items-center justify-center ">
+        <img
+        className="object-fill"
+          src="https://github.com/Adarshaparati/Eos-suit/blob/main/Zynth%20Native%20%20Form%20(V.02).gif?raw=true"
+          alt="Cred About 5"
+          style={{ width: "100%", height: "100%" }}
+        />
       </div>
     ),
-  },
+  }
 ];
 export function StickyScrollRevealDemo() {
   return (

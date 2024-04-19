@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { motion } from "framer-motion";
 import { cn } from "../../Utils/cn.ts";
+import AnimatedButon from "../Buttons/button.tsx";
 
 export const StickyScroll = ({
   content,
@@ -38,7 +39,7 @@ export const StickyScroll = ({
   });
 
   const backgroundColors = [
-    "var(--slate-900)",
+    "var(--white-900)",
     "var(--black)",
     "var(--neutral-900)",
   ];
@@ -49,14 +50,14 @@ export const StickyScroll = ({
   ];
   return (
     <div
-      className="h-[25rem] overflow-y-auto flex justify-center relative space-x-10 rounded-md p-10"
-      style={{ maxHeight: "25rem" }}
+      className="h-[30rem] overflow-y-auto flex gap-5 justify-center relative space-x-10 rounded-md no-scrollbar"
+      style={{ maxHeight: "30rem" }}
       ref={ref}
     >
-      <div className="div relative flex items-start px-4">
-        <div className="max-w-2xl">
+      <div className="div relative flex-col items-start px-4 w-[100%]">
+        <div className="max-w-10xl w-[100%] relative">
           {content.map((item, index) => (
-            <div key={item.title + index} className="my-20">
+            <div key={item.title + index} className="py-10 relative">
               <motion.h2
                 initial={{
                   opacity: 0,
@@ -81,20 +82,31 @@ export const StickyScroll = ({
               </motion.p>
             </div>
           ))}
+          <div className="div sticky top-0 right-0 flex-col gap-10 max-w-10xl w-[100%]">
+            <AnimatedButon name={"Get Started"} />
+          </div>
           <div className="h-40" />
         </div>
       </div>
-      <motion.div
-        animate={{
-          background: linearGradients[activeCard % linearGradients.length],
-        }}
-        className={cn(
-          "hidden lg:block h-60 w-80 rounded-md bg-white sticky top-10 overflow-hidden",
-          contentClassName
-        )}
-      >
-        {content[activeCard].content ?? null}
-      </motion.div>
+      <div className="div sticky top-0 right-0 flex-col gap-10 max-w-10xl w-[100%]">
+        <h3 className="text-2xl md:text-3xl font-bold text-white dark:text-white opacity-100 pb-10">
+          Leverage the Power of AI to
+          <br /> Instantly Generate
+          <span style={{ color: "#e6a500" }}> Structured</span> <br />
+          <span style={{ color: "#e6a500" }}> & Branded Pitch Decks</span>
+        </h3>
+        <motion.div
+          animate={{
+            background: linearGradients[activeCard % linearGradients.length],
+          }}
+          className={cn(
+            "hidden lg:block h-[100%] w-[90%] rounded-md bg-white sticky top-5 overflow-hidden ",
+            contentClassName
+          )}
+        >
+          {content[activeCard].content ?? null}
+        </motion.div>
+      </div>
     </div>
   );
 };
