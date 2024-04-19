@@ -7,6 +7,7 @@ import Feature from "../home/Feature";
 import TopFeature from "../home/TopFeature";
 import "../css/home.css";
 import Footer from "../../shared/js/footer";
+import { StickyScrollRevealDemo } from "../home/stickyScrollReveal.tsx";
 
 function Home() {
   return (
@@ -14,10 +15,8 @@ function Home() {
       {/* Render only the Navbar component on the Home page */}
       <Navbar />
       {/* <Hero /> */}
-      <HeroParallaxDemo /> {/* Render the HeroParallaxDemo component instead of Hero */}
-      {/* <TopFeature />
-      <Feature />
-      <Footer /> */}
+      <HeroParallaxDemo /> 
+      <StickyScrollRevealDemo/>
     </div>
   );
 }
