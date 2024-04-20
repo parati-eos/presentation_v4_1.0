@@ -22,15 +22,22 @@ function Navbar() {
             ></img>
           </Link>
         </div>
+        <div class="home-navbar-buttons">
+  <div class="dropdown-mobile">
+    <button class="home-navbar-section-button dropdown-btn">Menu</button>
+    <div class="dropdown-content">
+      <Link to="/auth/login" class="dropdown-link">Features</Link>
+      <Link to="/auth/login" class="dropdown-link">Samples</Link>
+      <Link to="/auth/login" class="dropdown-link">Blogs</Link>
+    </div>
+  </div>
+  <Link to="/auth/login" class="home-navbar-section-button">Features</Link>
+  <Link to="/auth/login" class="home-navbar-section-button">Samples</Link>
+  <Link to="/auth/login" class="home-navbar-section-button">Blogs</Link>
+  <Link to="/auth/login" class="home-navbar-button1">Log In</Link>
+  <Link to="/auth/login" class="home-navbar-button2">Get Started</Link>
+</div>
 
-        <div className="home-navbar-buttons">
-          <Link to="/auth/login" className="home-navbar-button1">
-            Login
-          </Link>
-          <Link to="/auth/login" className="home-navbar-button2">
-            Sign Up
-          </Link>
-        </div>
       </div>
     </nav>
   );
