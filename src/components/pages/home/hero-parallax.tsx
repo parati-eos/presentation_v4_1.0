@@ -10,6 +10,7 @@ import {
 import AnimatedButon from "../Buttons/button.tsx";
 import { useNavigate } from "react-router-dom";
 
+
 export const HeroParallax = ({
   products,
 }: {
@@ -93,9 +94,12 @@ export const HeroParallax = ({
 
 export const Header = () => {
   const navigate = useNavigate();
-const handleClick = () => {
-  navigate("/auth/login");
-};
+
+  function handleClick() {
+    // Navigate to the auth/login page
+    navigate("/auth/login");
+  }
+  
   return (
     <div className="max-w-7xl relative mx-auto  px-4 w-full left-0 top-0">
   <h1 className="text-2xl md:text-7xl font-bold text-white opacity-100">
@@ -107,8 +111,9 @@ const handleClick = () => {
   Create your investor presentations in a few minutes using our AI powered
   pitch deck builder!
 </p>
-<div className="pt-10 pointer-events-none">
-<div className="h-full z-1"><AnimatedButon onclicked={handleClick} name={"Sign In for Free"}/></div>
+<div className="pt-10">
+<div className="h-full z-1">
+  <AnimatedButon onclicked={handleClick} name={"Sign In for Free"}/></div>
 </div>
   <br/>
   <br/>
