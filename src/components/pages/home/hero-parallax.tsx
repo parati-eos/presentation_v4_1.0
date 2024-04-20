@@ -10,6 +10,7 @@ import {
 import AnimatedButon from "../Buttons/button.tsx";
 import { useNavigate } from "react-router-dom";
 
+
 export const HeroParallax = ({
   products,
 }: {
