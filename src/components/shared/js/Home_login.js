@@ -1,17 +1,9 @@
-// Navbar.js
 import React from "react";
 import { Link, animateScroll as scroll } from "react-scroll";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/home_login.css";
 
 function Navbar() {
-  // const scrollToFeatures = () => {
-  //   scroll.scrollTo("features-section", {
-  //     smooth: true,
-  //     offset: -70, // Adjust this value according to your layout
-  //   });
-  // };
-
   return (
     <nav className="home-nav">
       <div className="home-navbar-container">
@@ -66,8 +58,8 @@ function Navbar() {
           >
             Blogs
           </Link>
-          <Link to="/auth/login" className="home-navbar-button1">Log In</Link>
-          <Link to="/auth/login" className="home-navbar-button2">Get Started</Link>
+          <a href="/auth/login" className="home-navbar-button1">Log In</a>
+          <a href="/auth/login" className="home-navbar-button2">Get Started</a>
         </div>
       </div>
     </nav>
