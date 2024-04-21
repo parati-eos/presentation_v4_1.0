@@ -20,7 +20,7 @@ function Login() {
     console.log(decoded.picture);
     console.log(decoded);
 
-    fetch(`https://pitchdeck-server.onrender.com/store-user`, {
+    fetch(`https://zynth.ai/api/store-user`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
