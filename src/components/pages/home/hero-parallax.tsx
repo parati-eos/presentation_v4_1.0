@@ -59,9 +59,9 @@ export const HeroParallax = ({
   return (
     <div
       ref={ref}
-      className="h-max pt-20 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-max pt-20 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
-      <Header />
+      <Header/>
       <motion.div
         style={{
           rotateX,
@@ -100,7 +100,7 @@ export const Header = () => {
     navigate("/auth/login");
   };
   return (
-    <div className="max-w-7xl relative mx-auto  px-4 w-full left-0 top-0">
+    <div className=" max-w-7xl relative mx-auto  px-4 w-full left-0 top-0">
       <div className= "flex flex-col h-[80vh]">
         <div className="h-[100%]">
         <h1 className="text-2xl md:text-7xl font-bold text-white opacity-100">
@@ -116,7 +116,7 @@ export const Header = () => {
         </p>
         </div>
         <div className="h-[100%]">
-          <div className="absolute w-max h-max">
+          <div className="z-10 absolute w-max h-max">
             <AnimatedButon onclicked={handleClick} name={"Sign In for Free"} />
           </div>
         </div>
