@@ -10,7 +10,7 @@ import Stats from "../home/stats.tsx";
 
 function Home() {
   return (
-    <div style={{ backgroundColor: "transparent", overflowX: 'hidden', overflowY: 'hidden' }}>
+    <div style={{ backgroundColor: "transparent", overflowX: 'hidden', overflowY: 'hidden',display:'flex',flexDirection:'column'}}>
       <Navbar />
       <div id="samples-section">
         <HeroParallaxDemo />
