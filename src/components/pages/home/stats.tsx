@@ -51,7 +51,7 @@ export default function () {
   }, []);
 
   return (
-    <section className="relative py-20 md:py-32 overflow-hidden ">
+    <section className="relative py-5 md:py-5 overflow-hidden ">
       <img
         className="absolute top-0 right-0 md:mt-10 -mr-20 md:-mr-0"
         src="saturn-assets/images/stats/star-dark.svg"
@@ -59,14 +59,14 @@ export default function () {
       />
       <div className="relative container px-4 mx-auto">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-2xl mt-20  md:text-4xl font-bold text-white opacity-100">
+          <h1 className="text-2xl mt-20 text-center md:text-4xl font-bold text-white opacity-100">
             Extensive Experience with
             <br />
             <span style={{ color: "#e6a500" }}>
               Investor Relations and Pitch Decks
             </span>
           </h1>
-          <p className="max-w-2xl text-base md:text-xl mt-8 text-neutral-200 opacity-70">
+          <p className="text-center mb-10 text-base md:text-xl mt-8 text-neutral-200 opacity-70">
             Zynth is the culmination of years of experience in building pitch
             decks for early and growth-stage startups, conducting market
             research, developing business plans, and financial modelling.
