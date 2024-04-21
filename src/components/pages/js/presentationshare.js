@@ -28,7 +28,7 @@ const PresentationCheck = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const apiUrl = `https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`;
+      const apiUrl = `https://zynth.ai/api/slidesURL?formId=${formId}`;
       try {
         const response = await fetch(apiUrl, {
           method: "GET",

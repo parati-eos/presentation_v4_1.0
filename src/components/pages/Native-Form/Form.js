@@ -371,7 +371,7 @@ const Form = () => {
     if (changedData) {
       try {
         const response = await fetch(
-          "https://pitchdeck-server.onrender.com/submission",
+          "https://zynth.ai/api/submission",
           {
             method: "POST",
             headers: {
