@@ -13,6 +13,7 @@ import { TrackProvider } from './components/pages/Native-Form/Track'; // Import 
 import { CompetitionProvider } from './components/pages/Native-Form/Competition';
 import { TeamProvider } from './components/pages/Native-Form/Team'; // Import the TrackProvider
 import { FinancialDataProvider } from './components/pages/Native-Form/financials'; 
+import Blog from '../src/components/pages/home/blog.tsx'
 function App() {
   return (
     <Router>
@@ -30,6 +31,8 @@ function App() {
         <Route path="/Pages/ReviewResponses" element={<ReviewResponses />} />
         <Route path="/pages/presentationhistory" element={<History />} />
         <Route path="/pages/Nativeform" element={<Native_Form />} />
+        {/* <Route path="/Blog" element={<Blog/>} /> */}
+
       </Routes>
       </FinancialDataProvider>
       </TeamProvider>

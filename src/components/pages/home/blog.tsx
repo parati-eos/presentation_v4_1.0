@@ -3,7 +3,7 @@ import React from 'react';
 export default function Blog() {
   return (
     <div>
-      <section className="pt-24 pb-36 bg-cyan-950 overflow-hidden">
+      <section className="pt-24 pb-36 overflow-hidden">
         <div className="container px-4 mx-auto">
           <h2 className="text-2xl mt-20 md:text-4xl pt-35 mb-6 text-6xl xl:text-10xl text-white font-bold font-heading tracking-px-n leading-none transform transition duration-500 hover:scale-110 hover:rotate-12 hover:text-yellow-400">
             Reading Material for Winning Pitch Decks
