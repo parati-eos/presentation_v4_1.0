@@ -1,14 +1,11 @@
 import React, { useState, useContext } from "react";
 
-// Create context for financial data
 const FinancialDataContext = React.createContext();
 
-// Custom hook to use financial data context
 const useFinancialData = () => {
   return useContext(FinancialDataContext);
 };
 
-// Provider component for financial data
 const FinancialDataProvider = ({ children }) => {
   const [FinancialsData, setFinancialsData] = useState({
     financialSnapshot: "",
@@ -38,29 +35,30 @@ const Financials = ({ formData }) => {
   formData["plannedRaise"] = FinancialsData["plannedRaise"];
   formData["revenueCost"] = FinancialsData["revenueCost"];
   formData["useOfFunds"] = FinancialsData["useOfFunds"];
-  console.log(FinancialsData["financialSnapshot"]);
+
   const handleRevenueCostChange = (index, field, value) => {
     const updatedRevenueCost = [...FinancialsData.revenueCost];
     updatedRevenueCost[index][field] = value;
+
+    // Check if the "Revenue Projections" field is filled
+    const revenueFilled = updatedRevenueCost[index].revenue !== "";
+
+    // If "Revenue Projections" is filled, "Cost Projections" becomes optional
+    if (field === "revenue" && !revenueFilled) {
+      // If "Revenue Projections" is empty, reset "Cost Projections" as well
+      updatedRevenueCost[index].cost = "";
+    }
+
     updateFinancialData({ ...FinancialsData, revenueCost: updatedRevenueCost });
   };
 
   const handleUseOfFundsChange = (index, field, value) => {
     const updatedUseOfFunds = [...FinancialsData.useOfFunds];
     updatedUseOfFunds[index][field] = value;
-
     updateFinancialData({ ...FinancialsData, useOfFunds: updatedUseOfFunds });
   };
 
   const addRevenueRow = () => {
-    // Check if any of the fields in the last row are empty
-    const lastRow = FinancialsData.revenueCost[FinancialsData.revenueCost.length - 1];
-    if (!lastRow.year || !lastRow.revenue || !lastRow.cost) {
-      alert("Please fill in all fields before adding a new row.");
-      return;
-    }
-  
-    // Check if the maximum number of rows has been reached
     if (FinancialsData.revenueCost.length < 11) {
       const newRevenueCost = [
         ...FinancialsData.revenueCost,
@@ -71,7 +69,6 @@ const Financials = ({ formData }) => {
       alert("You have reached the maximum number of rows.");
     }
   };
-  
 
   const removeRevenueRow = (index) => {
     if (FinancialsData.revenueCost.length > 1) {
@@ -137,7 +134,6 @@ const Financials = ({ formData }) => {
                     onChange={(e) =>
                       handleRevenueCostChange(index, "year", e.target.value)
                     }
-                    
                   >
                     <option value="">Select a Year</option>
                     {years.map((year) => (
@@ -155,6 +151,7 @@ const Financials = ({ formData }) => {
                     onChange={(e) =>
                       handleRevenueCostChange(index, "revenue", e.target.value)
                     }
+                    required // Now this field is mandatory
                   />
                 </td>
                 <td>
@@ -165,6 +162,7 @@ const Financials = ({ formData }) => {
                     onChange={(e) =>
                       handleRevenueCostChange(index, "cost", e.target.value)
                     }
+                    disabled={!row.revenue} // Disable if Revenue is empty
                   />
                 </td>
                 <td>

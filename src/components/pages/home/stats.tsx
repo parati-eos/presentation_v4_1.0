@@ -1,57 +1,71 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function () {
   const [productsCount, setProductsCount] = useState(0);
   const [webTemplatesCount, setWebTemplatesCount] = useState(0);
   const [mobileTemplatesCount, setMobileTemplatesCount] = useState(0);
+  const sectionRef = useRef(null); // Ref for the section element
 
   useEffect(() => {
-    const productInterval = setInterval(() => {
-      // Define the rate at which the product count increases
-      const productIncrement = 1;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          // Start counters when section is in view
+          startCounters();
+        }
+      },
+      { threshold: 0.5 } // Trigger when half of the section is in view
+    );
 
-      // Increment product count
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  const startCounters = () => {
+    const productInterval = setInterval(() => {
+      const productIncrement = 1;
       setProductsCount((prevCount) =>
         prevCount < 6 ? prevCount + productIncrement : 6
       );
-    }, 600); // Adjust the interval for product count animation
+    }, 600);
 
-    // Clear product interval on component unmount
-    return () => clearInterval(productInterval);
-  }, []);
-
-  useEffect(() => {
     const webTemplateInterval = setInterval(() => {
-      // Define the rate at which the web template count increases
       const webTemplateIncrement = 1;
-
-      // Increment web template count
       setWebTemplatesCount((prevCount) =>
         prevCount < 100 ? prevCount + webTemplateIncrement : 100
       );
-    }, 60); // Interval for web template count
+    }, 60);
 
-    // Clear web template interval on component unmount
-    return () => clearInterval(webTemplateInterval);
-  }, []);
-
-  useEffect(() => {
     const mobileTemplateInterval = setInterval(() => {
-      // Define the rate at which the mobile template count increases
       const mobileTemplateIncrement = 1;
-
-      // Increment mobile template count
       setMobileTemplatesCount((prevCount) =>
         prevCount < 500 ? prevCount + mobileTemplateIncrement : 500
       );
-    }, 10); // Interval for mobile template count
+    }, 10);
 
-    // Clear mobile template interval on component unmount
-    return () => clearInterval(mobileTemplateInterval);
-  }, []);
+    return () => {
+      clearInterval(productInterval);
+      clearInterval(webTemplateInterval);
+      clearInterval(mobileTemplateInterval);
+    };
+  };
+
+  const formatCount = (count) => {
+    return count >= 6 ? `${count}+` : count;
+  };
 
   return (
-    <section className="relative py-5 md:py-5 overflow-hidden ">
+    <section
+      ref={sectionRef} // Set the ref to the section element
+      className="relative py-5 md:py-5 overflow-hidden "
+    >
       <img
         className="absolute top-0 right-0 md:mt-10 -mr-20 md:-mr-0"
         src="saturn-assets/images/stats/star-dark.svg"
@@ -77,7 +91,7 @@ export default function () {
               <div className="md:hidden absolute bottom-0 left-1/2 h-px w-40 bg-gray-200 transform -translate-x-1/2"></div>
               <div className="text-center">
                 <span className="block text-5xl lg:text-7xl font-bold text-gray-50 mb-5">
-                  {productsCount}
+                  {formatCount(productsCount)}
                 </span>
                 <span className="text-xl text-gray-200">Years</span>
               </div>
@@ -87,7 +101,7 @@ export default function () {
               <div className="md:hidden absolute bottom-0 left-1/2 h-px w-40 bg-gray-200 transform -translate-x-1/2"></div>
               <div className="text-center">
                 <span className="block text-5xl lg:text-7xl font-bold text-gray-50 mb-5">
-                  {webTemplatesCount}
+                  {formatCount(webTemplatesCount)}
                 </span>
                 <span className="text-xl text-gray-200">Partners</span>
               </div>
@@ -95,7 +109,7 @@ export default function () {
             <div className="w-full md:w-1/3 px-4">
               <div className="text-center">
                 <span className="block text-5xl lg:text-7xl font-bold text-gray-50 mb-5">
-                  {mobileTemplatesCount}
+                  {formatCount(mobileTemplatesCount)}
                 </span>
                 <span className="text-xl text-gray-200">Pitch Decks</span>
               </div>

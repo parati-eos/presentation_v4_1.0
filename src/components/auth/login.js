@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import LoginImage from "../Asset/LoginImage.png";
+import LoginImage from "../Asset/Landing Page Poster.png";
 import LoginNavbar from "../shared/js/LoginNavbar.js";
 import MicrosoftLogin from "react-microsoft-login";
 import "./Login.css";
