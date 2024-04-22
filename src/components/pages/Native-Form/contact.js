@@ -46,7 +46,7 @@ const Contact = ({ formData, handleChange }) => {
       <div className="textInputQuestions">
         <label>Please provide the contact phone number.</label>
         {/* Replace the input field with the PhoneInput component */}
-        <PhoneInput
+        <PhoneInput  // Set the width of the component
           country={"eg"} // Initial country code (you can change it as needed)
           enableSearch={true} // Enable country search
           value={formData.contactPhone} // Set the value

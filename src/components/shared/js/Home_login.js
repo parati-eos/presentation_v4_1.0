@@ -42,23 +42,23 @@ function Navbar() {
               </Link>
             </div>
           </div>
-          <Link
+          {/* <Link
             to="samples-section"
             className="home-navbar-section-button"
             smooth={true}
             duration={500}
           >
             Features
-          </Link>
-          <Link
+          </Link> */}
+          {/* <Link
             to="blogs"
             className="home-navbar-section-button"
             smooth={true}
             duration={500}
           >
             Blogs
-          </Link>
-          <a href="/auth/login" className="home-navbar-button1">Log In</a>
+          </Link> */}
+          {/* <a href="/auth/login" className="home-navbar-button1">Log In</a> */}
           <a href="/auth/login" className="home-navbar-button2">Get Started</a>
         </div>
       </div>
