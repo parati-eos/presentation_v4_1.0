@@ -98,7 +98,7 @@ const PresentationCheck = () => {
   };
 
   const handleShare = () => {
-    const uniqueShareableUrl = `https://presentation-final-fd.vercel.app/share?submissionId=${formId}`;
+    const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
 
     if (navigator.share) {
       navigator
