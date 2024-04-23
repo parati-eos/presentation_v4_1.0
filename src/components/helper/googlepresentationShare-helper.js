@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "./gph.css";
 import loadingImage from "../Asset/Loading.gif";
+import { Grid } from "react-loader-spinner";
 
 const GoogleslidesShare = () => {
   const location = useLocation();
@@ -39,7 +40,17 @@ const GoogleslidesShare = () => {
   if (loading == "true") {
     return (
       <div className="loadingIcon">
-        <img src={loadingImage} alt="description" />
+        <Grid
+            visible={true}
+            height="80"
+            width="80"
+            color="#E6A500"
+            ariaLabel="grid-loading"
+            radius="12.5"
+            wrapperStyle={{}}
+            wrapperClass="grid-wrapper"
+            
+        />
       </div>
     );
   }

@@ -67,13 +67,35 @@
   overflow-x: hidden;
   padding: 0px 5px 0px 5px;
 }
+
+/* Define the scrollbar color */
+.form-area::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+.form-area::-webkit-scrollbar-track {
+  background: #001723; /* Change this to your desired color */
+}
+
+/* Handle */
+.form-area::-webkit-scrollbar-thumb {
+  background: #e6a500; /* Change this to your desired color */
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+.form-area::-webkit-scrollbar-thumb:hover {
+  background: #001723; /* Change this to your desired color */
+}
+
 .form-area label {
   width: 100% !important;
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
   text-align: left;
-  color: #cececd;
+  color: #cecdcd;
 }
 .table-contents {
   color: whitesmoke;
@@ -106,7 +128,9 @@
 .table-contents-useoffunds td input {
   width: 180px !important;
 }
-
+.text-input-logo-remove{
+  color: #f4f4f4;
+}
 .form-area input {
   width: 97% !important;
   background-color: #001b28;
@@ -114,7 +138,7 @@
   border-radius: 12px;
   font-size: 16px;
   font-weight: 400;
-  height: 24px !important;
+  height: 30px !important;
   text-align: left;
   color: #bfbfbf;
   padding: 5px 0px 3px 10px;
@@ -301,7 +325,7 @@
   cursor: pointer;
 }
 .uploadedimages {
-  color: #bfbfbf;
+  color: #ede90c;
 }
 .add-row-button {
   background-color: #787777;
