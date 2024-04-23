@@ -166,7 +166,7 @@ const PresentationCheck = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/updateRow", {
+      const response = await fetch("https://zynth.ai/api/updateRow", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
