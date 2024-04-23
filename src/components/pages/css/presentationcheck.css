@@ -47,9 +47,8 @@
 }
 
 .presentation-viewing-container {
-  height: fit-content;
-  /* height: 100vh; */
   width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,7 +109,6 @@
   justify-self: center;
   width: 80%;
   height: 80vh;
-  border-radius: 2cqb;
   background: transparent;
   overflow-y: auto;
   overflow-x: hidden;
