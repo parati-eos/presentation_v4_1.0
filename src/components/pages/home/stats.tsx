@@ -41,7 +41,7 @@ export default function () {
       setWebTemplatesCount((prevCount) =>
         prevCount < 100 ? prevCount + webTemplateIncrement : 100
       );
-    }, 60);
+    }, 40);
 
     const mobileTemplateInterval = setInterval(() => {
       const mobileTemplateIncrement = 1;

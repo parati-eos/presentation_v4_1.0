@@ -151,7 +151,6 @@ const Financials = ({ formData }) => {
                     onChange={(e) =>
                       handleRevenueCostChange(index, "revenue", e.target.value)
                     }
-                    required // Now this field is mandatory
                   />
                 </td>
                 <td>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./gph.css";
-import loadingImage from "../Asset/Loading.gif";
+import loadingImage from "../helper/loading";
+import { Grid } from "react-loader-spinner";
+
 
 const Googleslides = () => {
   const userId = localStorage.getItem("userEmail");
@@ -34,8 +36,21 @@ const Googleslides = () => {
   if (loading) { // Use strict equality
     return (
       <div className="loadingIcon">
-        <img src={loadingImage} alt="Loading..." />
+        {/* <loadingImage /> */}
+        {/* <img src={loadingImage} alt="Loading..." /> */}
+        <Grid
+            visible={true}
+            height="80"
+            width="80"
+            color="#E6A500"
+            ariaLabel="grid-loading"
+            radius="12.5"
+            wrapperStyle={{}}
+            wrapperClass="grid-wrapper"
+            
+        />
       </div>
+      
     );
   }
   console.log(slidesData.length);

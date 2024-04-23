@@ -98,7 +98,7 @@ const PresentationCheck = () => {
   };
 
   const handleShare = () => {
-    const uniqueShareableUrl = `https://presentation-final-fd.vercel.app/share?submissionId=${formId}`;
+    const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
 
     if (navigator.share) {
       navigator
@@ -166,7 +166,7 @@ const PresentationCheck = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/updateRow", {
+      const response = await fetch("https://zynth.ai/api/updateRow", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
