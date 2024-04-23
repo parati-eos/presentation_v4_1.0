@@ -65,10 +65,6 @@ const Googleslides = () => {
       <p>click on generate pitch deck button</p>
     </div>;
   }
-  
-
-
-
 };
 
 export default Googleslides;

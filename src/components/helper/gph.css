@@ -13,6 +13,14 @@
     width: 99%;
     background-color: black;
     border: 2px solid #1f516b;
+    pointer-events: none;
+  }
+  .slides-share-iframe{
+    height: 76vh;
+    width: 99%;
+    background-color: black;
+    border: 2px solid #1f516b;
+    pointer-events: none;
   }
   .loadingIcon {
     position: relative;
