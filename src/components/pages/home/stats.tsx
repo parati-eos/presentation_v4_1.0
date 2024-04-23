@@ -80,7 +80,7 @@ export default function () {
               Investor Relations and Pitch Decks
             </span>
           </h1>
-          <p className="text-center mb-10 text-base md:text-xl mt-8 text-neutral-200 opacity-70">
+          <p className="text-center mb-10 text-base md:text-xl mt-8 text-neutral-200 opacity-70 text-[18px]">
             Zynth is the culmination of years of experience in building pitch
             decks for early and growth-stage startups, conducting market
             research, developing business plans, and financial modelling.

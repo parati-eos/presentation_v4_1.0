@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, animateScroll as scroll } from "react-scroll";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/home_login.css";
 
 function Navbar() {
+  const [isSticky, setIsSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      if (offset > 100) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="home-nav">
+    <nav className={`home-nav ${isSticky ? 'fixed top-0 w-full z-10 bg-white shadow-lg' : ''}`}>
       <div className="home-navbar-container">
         <div className="home-icon">
           <Link to="/" className="home-icon-img">
@@ -42,24 +61,7 @@ function Navbar() {
               </Link>
             </div>
           </div>
-          {/* <Link
-            to="samples-section"
-            className="home-navbar-section-button"
-            smooth={true}
-            duration={500}
-          >
-            Features
-          </Link> */}
-          {/* <Link
-            to="blogs"
-            className="home-navbar-section-button"
-            smooth={true}
-            duration={500}
-          >
-            Blogs
-          </Link> */}
-          {/* <a href="/auth/login" className="home-navbar-button1">Log In</a> */}
-          <a href="/auth/login" className="home-navbar-button2">Get Started</a>
+          <a href="/auth/login" className="home-navbar-button2">Sign In</a>
         </div>
       </div>
     </nav>
