@@ -25,19 +25,35 @@ export const StickyScroll = ({
   const cardLength = content.length;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const cardLength = content.length;
     const cardsBreakpoints = content.map((_, index) => index / cardLength);
-    const closestBreakpointIndex = cardsBreakpoints.reduce(
-      (acc, breakpoint, index) => {
-        const distance = Math.abs(latest - breakpoint);
-        if (distance < Math.abs(latest - cardsBreakpoints[acc])) {
-          return index;
-        }
-        return acc;
-      },
-      0
-    );
-    setActiveCard(closestBreakpointIndex);
+    const lastCardIndex = cardLength - 1;
+    const containerHeight = ref.current.offsetHeight;
+    const contentHeight = ref.current.scrollHeight;
+  
+    // Calculate the bottom of the container
+    const containerBottom = contentHeight - containerHeight;
+    
+    if (containerBottom <= 0 || latest === 1) {
+      // If the bottom of the container is within view or scroll position is at the bottom, highlight the last content item
+      setActiveCard(lastCardIndex);
+    } else {
+      const closestBreakpointIndex = cardsBreakpoints.reduce(
+        (acc, breakpoint, index) => {
+          const distance = Math.abs(latest - breakpoint);
+          if (distance < Math.abs(latest - cardsBreakpoints[acc])) {
+            return index;
+          }
+          return acc;
+        },
+        0
+      );
+      setActiveCard(closestBreakpointIndex);
+    }
   });
+  
+  
+  
 
   const backgroundColors = [
     "var(--white-900)",
@@ -55,12 +71,13 @@ export const StickyScroll = ({
   };
   return (
     <div
-      className="h-[30rem] overflow-y-auto flex gap-5 justify-center relative space-x-10 rounded-md no-scrollbar"
-      style={{ maxHeight: "30rem" }}
-      ref={ref}
-    >
+    className="h-[30rem] overflow-y-auto flex gap-5 justify-center relative space-x-10 rounded-md no-scrollbar"
+    style={{ maxHeight: "100%" }} // Adjusted to fill the available space
+    ref={ref}
+  >
+  
       <div className="div relative flex-col items-start px-4 w-[100%]">
-        <div className="max-w-10xl h-max w-[100%] relative">
+        <div className="max-w-10xl w-[100%] relative h-[50vh]">
           {content.map((item, index) => (
             <div key={item.title + index} className="py-[10vh] relative">
               <motion.h2
@@ -70,7 +87,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-2xl font-bold text-slate-100 whitespace-pre-line"
+                className="text-[24px] font-bold text-slate-100"
               >
                 {item.title}
               </motion.h2>
@@ -81,7 +98,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-kg text-slate-300 max-w-sm mt-10"
+                className="text-[18px] text-slate-300 max-w-sm mt-10"
               >
                 {item.description}
               </motion.p>
