@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, animateScroll as scroll } from "react-scroll";
 import ParatiLogo from "../../Asset/parati-logo.png";
 import "../css/home_login.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 function Navbar() {
   const [isSticky, setIsSticky] = useState(false);
@@ -37,8 +39,18 @@ function Navbar() {
         </div>
         <div className="home-navbar-buttons">
           <div className="dropdown-mobile">
-            <button className="home-navbar-section-button dropdown-btn">Menu</button>
+            <button className="home-navbar-section-button dropdown-btn"><FontAwesomeIcon className="hamburger-icon" icon={faBars} /></button>
             <div className="dropdown-content">
+            <Link
+                to="#"
+                className="dropdown-link"
+                onClick={() => scroll.scrollTo("samples-section", {
+                  smooth: true,
+                  offset: -70, // Adjust this value according to your layout
+                })}
+              >
+                Features
+              </Link>
               <Link
                 to="#"
                 className="dropdown-link"
@@ -59,6 +71,7 @@ function Navbar() {
               >
                 Blogs
               </Link>
+              <a href="/auth/login" className="home-navbar-button-mobile">Sign In</a>
             </div>
           </div>
           <a href="/auth/login" className="home-navbar-button2">Sign In</a>

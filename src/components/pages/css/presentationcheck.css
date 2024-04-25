@@ -108,7 +108,7 @@
   display: flex;
   justify-self: center;
   width: 80%;
-  height: 80vh;
+  height: max-content;
   background: transparent;
   overflow-y: auto;
   overflow-x: hidden;

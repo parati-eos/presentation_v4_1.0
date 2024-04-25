@@ -5,7 +5,7 @@ export default function Blog() {
     <div>
       <section className="pt-24 pb-5 overflow-hidden">
         <div className="container px-4 mx-auto">
-            <h2 className="text-2xl mt-20 md:text-4xl pt-35 mb-6 text-6xl xl:text-10xl text-white font-bold font-heading tracking-px-n leading-none transform transition duration-500" style={{textAlign: 'center'}}>
+            <h2 className="text-[24px] mt-20 md:text-4xl pt-35 mb-6 text-6xl xl:text-10xl text-white font-bold font-heading tracking-px-n leading-none transform transition duration-500" style={{textAlign: 'center'}}>
           Reading Material for a <span className="text-yellow-500">Winning Pitch Deck</span>
         </h2>
 
