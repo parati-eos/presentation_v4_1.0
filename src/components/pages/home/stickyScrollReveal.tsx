@@ -5,7 +5,7 @@ import { StickyScroll } from "../home/sticky-scroll-reveal.tsx";
 
 const content = [
   {
-    title: "Fill up a questionnaire around your business",
+    title: "Fill up a questionnaire \n around your business",
     description:
       "Provide detailed information around different aspects of your business to get the best possible version of your pitch deck.",
     content: (
