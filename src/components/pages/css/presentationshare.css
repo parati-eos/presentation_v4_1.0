@@ -46,7 +46,7 @@
   
   .presentationshare-viewing-container {
     height: 88.5vh;
-    width: 94vw;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,7 +61,6 @@
     align-items: center;
     gap: 0.5vw;
     flex-basis: 50%;
-    /* background-color: #fff; */
    
   }
   .presentationshare-viewing-center {
@@ -77,13 +76,11 @@
     transform: translateY(6vh);
     display: flex;
     justify-self: center;
-    width: 90%;
+    width:90% ;
     height: 90vh;
-    border-radius: 2cqb;
     background: transparent;
     overflow-y: auto;
     overflow-x: hidden;
-    /* border: 3px solid white; */
   }
   .presentationshareContainer{
     background-color: black;

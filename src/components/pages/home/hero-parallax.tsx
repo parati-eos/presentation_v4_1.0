@@ -101,9 +101,9 @@ export const Header = () => {
   };
   return (
     <div className=" max-w-7xl relative mx-auto  px-4 w-full left-0 top-0">
-      <div className= "flex flex-col h-[80vh]">
+      <div className= "flex flex-col md:h-[80vh] h-[70vh]">
         <div className="h-[100%]">
-        <h1 className="text-2xl md:text-7xl font-bold text-white opacity-100">
+        <h1 className="text-5xl md:text-7xl font-bold text-white opacity-100">
           Investor Pitch Decks for
           <br />
           <span style={{ color: "#e6a500" }}>Startups and Entrepreneurs</span>

@@ -36,14 +36,11 @@ const PresentationCheck = () => {
   useEffect(() => {
     const fetchDataHistory = async () => {
       try {
-        const response = await fetch(
-          "https://zynth.ai/api/history",
-          {
-            headers: {
-              "x-userid": userID,
-            },
-          }
-        );
+        const response = await fetch("https://zynth.ai/api/history", {
+          headers: {
+            "x-userid": userID,
+          },
+        });
         console.log(response);
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -234,13 +231,14 @@ const PresentationCheck = () => {
               </h2>
             )}
             <div className="share-export-combine">
-              <ShareButton onClick={handleShare}/>
-              <ExportButton onClick={handleDownload}/>
+              <ShareButton onClick={handleShare} />
+              <ExportButton onClick={handleDownload} />
             </div>
           </div>
         </div>
 
         <div className="presentation-viewing-center">
+          
           <div className="presentation-view-slides">
             <GooglePresentation key={currentSlideKey} />
           </div>

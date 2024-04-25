@@ -71,15 +71,15 @@ export const StickyScroll = ({
   };
   return (
     <div
-    className="h-[30rem] overflow-y-auto flex gap-5 justify-center relative space-x-10 rounded-md no-scrollbar"
+    className="h-[20rem] md:h-[30rem] overflow-y-auto flex md:gap-5 justify-center relative space-x-10 rounded-md no-scrollbar"
     style={{ maxHeight: "100%" }} // Adjusted to fill the available space
     ref={ref}
   >
   
-      <div className="div relative flex-col items-start px-4 w-[100%]">
+      <div className="div relative flex-col items-start md:px-4 w-[100%]">
         <div className="max-w-10xl w-[100%] relative h-[50vh]">
           {content.map((item, index) => (
-            <div key={item.title + index} className="py-[10vh] relative">
+            <div key={item.title + index} className="py-[1vh] md:py-[10vh] relative">
               <motion.h2
                 initial={{
                   opacity: 0,
@@ -87,7 +87,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-[24px] font-bold text-slate-100"
+                className="text-[18px] md:text-[24px] font-bold text-slate-100"
               >
                 {item.title}
               </motion.h2>
@@ -98,20 +98,20 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-[18px] text-slate-300 max-w-sm mt-10"
+                className="text-[14px] md:text-[18px] text-slate-300 max-w-sm mt-10"
               >
                 {item.description}
               </motion.p>
             </div>
           ))}
-          <div className="div sticky top-0 right-0 flex-col gap-10 max-w-10xl w-[100%]">
+          <div className="sticky top-0 right-0 flex-col md:gap-10 max-w-10xl w-[100%]">
             <AnimatedButon onclicked={handleClick} name={"Get Started"} />
           </div>
           <div className="h-40" />
         </div>
       </div>
-      <div className="div sticky top-0 right-0 flex-col gap-10 max-w-10xl w-[100%]">
-        <h3 className="text-2xl md:text-3xl font-bold text-white dark:text-white opacity-100 pb-10">
+      <div className="div sticky top-0 right-0 flex-col md:gap-10 max-w-10xl w-[100%]">
+        <h3 className="text-1xl md:text-3xl font-bold text-white dark:text-white opacity-100 pb-10">
           Leverage the Power of AI to
           <br /> Instantly Generate
           <span style={{ color: "#e6a500" }}> Structured</span> <br />
@@ -122,7 +122,7 @@ export const StickyScroll = ({
             background: linearGradients[activeCard % linearGradients.length],
           }}
           className={cn(
-            "hidden lg:block h-[100%] w-[90%] rounded-md bg-white sticky top-5 overflow-hidden ",
+            "h-[100%] w-[90%] rounded-md bg-white sticky top-5 overflow-hidden ",
             contentClassName
           )}
         >
