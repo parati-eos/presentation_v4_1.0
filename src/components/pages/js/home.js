@@ -1,7 +1,7 @@
 // Home.js
 import React from "react";
 import Navbar from "..//../shared/js/Home_login";
-import Footer from "../../shared/js/footer";
+import {Footer} from "../../shared/js/footer";
 import { HeroParallaxDemo } from "../home/hero.tsx";
 import { BackgroundBoxesDemo } from "../home/pitch.tsx";
 import Blog from "../home/blog.tsx";

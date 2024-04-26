@@ -20,6 +20,8 @@
   height: fit-content;
   padding: 30px 0px 30px 0px;
   border-top: 1px solid #004264;
+  /* margin-top: 30%;
+  margin-left: 40%; */
 }
 .free_daily_updates {
   display: flex;
@@ -44,6 +46,8 @@
   align-items: center;
   justify-content: flex-start;
   width: 60%;
+padding-right: 50%;
+
 }
 .subscriber_search_box {
   margin: auto;
@@ -123,7 +127,9 @@
 .first_para_logo img {
   width: 130px;
   height: auto;
+  margin-bottom: 40%;
 }
+
 .first_para_details {
   display: flex;
   flex-direction: column;
