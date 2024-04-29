@@ -18,6 +18,11 @@
   align-items: flex-start;
   justify-content: flex-end;
   cursor: pointer;
+ background-color: #eab308;
+ color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 1vw;
 }
 
 .text-input-logo-filename {

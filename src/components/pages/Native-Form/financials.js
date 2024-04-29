@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-
+import "./Financials.css";
 const FinancialDataContext = React.createContext();
 
 const useFinancialData = () => {
@@ -168,7 +168,7 @@ const Financials = ({ formData }) => {
                   {index === FinancialsData.revenueCost.length - 1 ? (
                     <button onClick={addRevenueRow}>Add Row</button>
                   ) : (
-                    <button onClick={() => removeRevenueRow(index)}>
+                    <button onClick={() => removeRevenueRow(index)} className="yellow-bg-button">
                       Remove
                     </button>
                   )}

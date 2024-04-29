@@ -10,42 +10,43 @@ import MSLogin from "../Asset/ms-login.svg";
 
 function Login() {
   const navigate = useNavigate();
+
   const handleLogoClicked = () => {
     navigate("/");
   };
+
   const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
     localStorage.setItem("userEmail", decoded.email);
     localStorage.setItem("userDP", decoded.picture);
-    console.log(decoded.picture);
-    console.log(decoded);
+    
+    const userData = {
+      name: decoded.name, // Assuming 'name' is present in the decoded JWT
+      email: decoded.email
+    };
 
-    fetch(`https://zynth.ai/api/store-user`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ user: decoded }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("User data stored:", data);
-      })
-      .catch((error) => {
-        console.error("Error storing user data:", error);
-      });
+    // Send user data to MongoDB via API
+    saveUserData(userData);
 
     // Redirect to success.js upon successful login
     navigate("/applicationLanding", { state: { user: decoded } });
   };
 
   const handleMicrosoftSuccess = (data) => {
-    console.log("Microsoft Authentication Response:", data); // Log the authentication response
+    console.log("Microsoft Authentication Response:", data);
     try {
       if (data && data.authResponse && data.authResponse.access_token) {
         const decoded = jwtDecode(data.authResponse.access_token);
         localStorage.setItem("userEmail", decoded.email);
-        console.log("Microsoft Login Success:", decoded);
+        
+        const userData = {
+          name: decoded.name,
+          email: decoded.email
+        };
+
+        // Send user data to MongoDB via API
+        saveUserData(userData);
+
         // Redirect to success.js upon successful login
         navigate("/applicationLanding");
       } else {
@@ -60,6 +61,23 @@ function Login() {
 
   const handleLoginFailure = (provider, error) => {
     console.error(`${provider} Login Failed:`, error);
+  };
+
+  const saveUserData = (userData) => {
+    fetch("https://pitchdeck-server.onrender.com/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ user: userData }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("User data stored:", data);
+      })
+      .catch((error) => {
+        console.error("Error storing user data:", error);
+      });
   };
 
   return (

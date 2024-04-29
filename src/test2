@@ -14,7 +14,7 @@ const sectionToUrlMap = {
   productScreen:
     "https://script.google.com/macros/s/AKfycbzKxtGrRydvXwGZNcwUtFGRr7VnFSxo3Dy3Ws8Z4hqbbLt-WRZcEEfzMlWUuKnOs2g_Cg/exec",
   businessModel:
-    "https://script.google.com/macros/s/AKfycbzm0E0eqZaBfmo4V1DlFfjs0xZu7P_E4AIhJ3YwuBY0C-eFak01-EZT3La4ooVoZmKfJw/exec",
+    "https://script.google.com/macros/s/AKfycbx_l0YJN2pzkJQQayTs70S3P9Laehcl0BvDVaeyWSjNUw-lzSk9ouB_rvDyRJYhHRS93w/exec",
   goToMarket:
     "https://script.google.com/macros/s/AKfycbxN2Q9eC1bxvHk-Q5uWz39gVQqNrGtTT9geb4rtVVIs_Uz8HolIWnF4-3pufMzIAvRK/exec",
   trackRecord:
