@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import close from '../../Asset/close.png'
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function for uploading files to S3
-
+import "./Team.css";
 // Create context for team data
 const TeamDataContext = React.createContext();
 
@@ -129,6 +129,7 @@ const Team = ({ formData }) => {
                 onChange={(e) =>
                   handleTeamMemberChange(index, "photo", e.target.files[0])
                 }
+                className="file-inp"
               />
               {member.photoUrl && (
                 <img

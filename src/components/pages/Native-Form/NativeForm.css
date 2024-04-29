@@ -172,17 +172,40 @@
   padding: 5px 0px 3px 0px;
 }
 .form-area textarea {
-  width: 94% !important;
+  width: 94%;
   background-color: #001b28;
   border: 1px solid #004264;
   border-radius: 12px;
   font-size: 16px;
   font-weight: 400;
-  line-height: 24px !important;
+  line-height: 24px;
   text-align: left;
   color: #bfbfbf;
   padding: 5px 15px 3px 10px;
+  overflow-y: auto; /* Make the textarea scrollable */
 }
+
+/* Custom scrollbar */
+.form-area textarea::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+.form-area textarea::-webkit-scrollbar-track {
+  background: #001b28;
+}
+
+/* Handle */
+.form-area textarea::-webkit-scrollbar-thumb {
+  background: #eab308;
+  border-radius: 12px;
+}
+
+/* Handle on hover */
+.form-area textarea::-webkit-scrollbar-thumb:hover {
+  background: #eab308; /* Change color on hover if needed */
+}
+
 .color-picker {
   border: none;
 }
@@ -369,13 +392,14 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
-  width: 19%;
-  height: 55%;
+  width: 29%;
+  height: 57%;
 }
 .file-close-container input {
   width: 90% !important;
   height: 30px;
   background-color: transparent;
+  border: 1px solid #004264;
   border: none;
 }
 .form-next-button-disabled {
@@ -403,4 +427,7 @@
   height: fit-content;
   gap: 3px;
   padding-top: 10px;
+}
+.yellow-button {
+  background-color: yellow;
 }
