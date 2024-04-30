@@ -1,4 +1,8 @@
-.yellow-bg-button {
-    background-color: yellow;
-  }
-  
+.yellow-bg-button, .add-bg-button {
+  background-color: #eab308;
+  /*border-radius: 12px; /* Adjust the value as needed for the desired roundness */
+  padding: 2px 2px; /* Adjust padding as needed */
+  border: none; /* Remove border if necessary */
+  color: #fff; /* Text color */
+  cursor: pointer; /* Show pointer cursor on hover */
+}

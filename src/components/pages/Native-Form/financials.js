@@ -166,7 +166,7 @@ const Financials = ({ formData }) => {
                 </td>
                 <td>
                   {index === FinancialsData.revenueCost.length - 1 ? (
-                    <button onClick={addRevenueRow}>Add Row</button>
+                    <button onClick={addRevenueRow} className="add-bg-button">Add Row</button>
                   ) : (
                     <button onClick={() => removeRevenueRow(index)} className="yellow-bg-button">
                       Remove
