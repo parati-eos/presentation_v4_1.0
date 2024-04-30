@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./historycard.css";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShareAlt, faDownload } from "@fortawesome/free-solid-svg-icons";
 import ShareButton from "../js/Share.js";
 import ExportButton from "../js/export.js";
 
@@ -18,6 +16,30 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
   const handleNameChange = (e) => {
     setEditableName(e.target.value);
   };
+  const handleShare = () => {
+    const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${submissionID}`;
+
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Share Presentation",
+          text: "Check out this presentation",
+          url: uniqueShareableUrl,
+        })
+        .then(() => console.log("Shared successfully"))
+        .catch((error) => console.error("Share failed: ", error));
+    } else if (navigator.clipboard && navigator.platform.includes("Mac")) {
+      // For macOS devices where navigator.share is not available
+      navigator.clipboard
+        .writeText(uniqueShareableUrl)
+        .then(() => alert("URL copied to clipboard"))
+        .catch((error) => console.error("Copy failed: ", error));
+    } else {
+      // For other devices where neither navigator.share nor clipboard API is available
+      alert("Sharing is not supported on this device/browser.");
+    }
+  };
+
 
   const handleSave = async () => {
     setIsEditing(false);
@@ -75,7 +97,7 @@ const HistoryCard = ({ userID, submissionID, PPTName, Date, link }) => {
             Date Created: <span>{Date}</span>
           </h2>
           <div className="card-buttons">
-            <ShareButton />
+            <ShareButton onClick={handleShare}/>
             <ExportButton />
           </div>
         </div>
