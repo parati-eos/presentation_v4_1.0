@@ -62,27 +62,30 @@ const Googleslides = () => {
           <div>No slides to display</div>
         ) : (
           <>
-          <div className="progress-bar" style={{padding:"5px"}}>
-            <div
-              style={{
-                position:"sticky",
-                height: "10px",
-                width: "98%",
-                backgroundColor: "#004264",
-                borderRadius: "50px",
-              }}
-            >
-              <div
-                style={{
-                  height: "100%",
-                  width: `${progress}%`,
-                  backgroundColor: "#e6a500",
-                  borderRadius: "inherit",
-                  transition: "width .2s ease-in",
-                }}
-              />
-            </div>
-          </div>
+          <div className="progress-bar" style={{ padding: "5px", position: "relative" }}>
+  <div
+    style={{
+      position: "fixed",
+      top: "0",
+      left: "0",
+      height: "10px",
+      width: "98%",
+      backgroundColor: "#004264",
+      borderRadius: "50px",
+    }}
+  >
+    <div
+      style={{
+        height: "100%",
+        width: `${progress}%`,
+        backgroundColor: "#e6a500",
+        borderRadius: "inherit",
+        transition: "width .2s ease-in",
+      }}
+    />
+  </div>
+</div>
+
           {slidesData.map((slideId, index) => (
             <div key={slideId}>
               <iframe
