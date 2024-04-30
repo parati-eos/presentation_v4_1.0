@@ -36,6 +36,11 @@
       background-color: black;
       border: none;
     }
+    .slides-share-iframe{
+      height: 20vh;
+      width: 100%;
+    }
+    
 
   }
   .progress-bar-outer{
@@ -48,11 +53,7 @@
     font-weight: bold;
     justify-self: center;
   }
-  .slides-share-iframe{
-    height: 20vh;
-    width: 100%;
-  }
-  
+
   
   
   
