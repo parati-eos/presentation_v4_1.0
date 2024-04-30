@@ -36,7 +36,15 @@
       background-color: black;
       border: none;
     }
+    .slides-share-iframe{
+      height: 20vh;
+      width: 100%;
+    }
+    
 
+  }
+  .progress-bar-outer{
+  width: "330px",
   }
   .error-txt{
     color: aliceblue;
@@ -45,7 +53,7 @@
     font-weight: bold;
     justify-self: center;
   }
-  
+
   
   
   

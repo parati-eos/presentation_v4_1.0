@@ -57,7 +57,7 @@ const Googleslides = () => {
   console.log(slidesData.length);
   try {
     return (
-      <div>
+      <div style={{position:"relative"}}>
         {slidesData.length < 1 ? (
           <div>No slides to display</div>
         ) : (
