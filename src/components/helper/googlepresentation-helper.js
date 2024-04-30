@@ -57,19 +57,21 @@ const Googleslides = () => {
   console.log(slidesData.length);
   try {
     return (
-      <div>
+      <div style={{position:"relative"}}>
         {slidesData.length < 1 ? (
           <div>No slides to display</div>
         ) : (
           <>
-          <div className="progress-bar" style={{padding:"5px"}}>
+          <div className="progress-bar" style={{padding:"5px", position:"sticky",zIndex:2}}>
             <div
+              className="progress-bar-outer"
               style={{
-                position:"sticky",
-                height: "10px",
-                width: "98%",
+                height: "20px",
+                width: "97%",
                 backgroundColor: "#004264",
                 borderRadius: "50px",
+                margin:"5px",
+                transform: "translateY(40px)"
               }}
             >
               <div
