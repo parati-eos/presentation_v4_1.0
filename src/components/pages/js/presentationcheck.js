@@ -86,14 +86,6 @@ const PresentationCheck = () => {
     navigate("/form");
   };
 
-  const handleDownload = () => {
-    setIsPaymentModalOpen(true);
-  };
-
-  const handlePaymentSuccess = () => {
-    setIsPaymentModalOpen(false);
-  };
-
   const handleShare = () => {
     const uniqueShareableUrl = `https://zynth.ai/share?submissionId=${formId}`;
 
@@ -187,7 +179,46 @@ const PresentationCheck = () => {
     setError(true);
   };
   // <<---------------Company Name
-
+  const handleDownload = async () => {
+    try {
+      const formId = localStorage.getItem("submissionId");
+      if (!formId) {
+        throw new Error("Form ID not found in localStorage");
+      }
+  
+      const response = await fetch(`https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      console.log("Result:", result);
+  
+      // Ensure the response is an array and contains at least 3 elements
+      if (!Array.isArray(result) || result.length < 3) {
+        throw new Error("Invalid response format");
+      }
+  
+      // Extract the URL from the result
+      const url = result[2];
+      console.log("URL:", url);
+  
+      // Check if the URL is valid
+      if (!url || typeof url !== "string") {
+        throw new Error("Invalid URL in response");
+      }
+  
+      // Open the URL in a new tab
+      window.open(url, "_blank");
+    } catch (error) {
+      console.error("Error exporting presentation:", error);
+      // Show a message or popup to inform the user
+      alert("Oops! It seems like the pitch deck presentation is missing. Click 'Generate Presentation' to begin your journey to success!");
+    }
+  };
+  
+  
+  
   return (
     <div className="main-container">
       <ApplicationNavbar

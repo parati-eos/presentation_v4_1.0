@@ -129,7 +129,18 @@
   width: 180px !important;
 }
 .text-input-logo-remove{
-  color: #f4f4f4;
+  display: flex;
+  flex-direction: row;
+  width: 15%;
+  height: 20px;
+  align-items: flex-start;
+  justify-content: flex-end;
+  cursor: pointer;
+ background-color: #eab308;
+ color: black;
+  border: 1px solid black;
+  border-radius: 9px;
+  font-size: 1vw;
 }
 .form-area input {
   width: 97% !important;
@@ -429,5 +440,5 @@
   padding-top: 10px;
 }
 .yellow-button {
-  background-color: yellow;
+  background-color: #eab308;
 }
