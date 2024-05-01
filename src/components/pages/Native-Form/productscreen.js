@@ -90,12 +90,19 @@ const ProductScreen = ({ formData, handleChange }) => {
     const files = e.target.files;
     const uploadedMobileImageUrls = [];
     const uploadedWebImageUrls = [];
+    
+    // Check if more than 3 files are selected
+    if (files.length > 3) {
+      alert("Maximum 3 files allowed.");
+      return; // Exit early if more than 3 files are selected
+    }
+  
     try {
       for (let i = 0; i < files.length; i++) {
         if (selectedOption === "web") {
           const file = files[i];
-          const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
-          uploadedWebImageUrls.push(imageUrl); // Push the uploaded image URL to the array
+          const imageUrl = await uploadFileToS3(file);
+          uploadedWebImageUrls.push(imageUrl);
           handleChange({
             target: {
               name: "webScreenshots",
@@ -105,8 +112,8 @@ const ProductScreen = ({ formData, handleChange }) => {
           setWebUploadedImageUrl(uploadedWebImageUrls);
         } else if (selectedOption === "mobile") {
           const file = files[i];
-          const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
-          uploadedMobileImageUrls.push(imageUrl); // Push the uploaded image URL to the array
+          const imageUrl = await uploadFileToS3(file);
+          uploadedMobileImageUrls.push(imageUrl);
           handleChange({
             target: {
               name: "mobileScreenshots",
@@ -116,7 +123,6 @@ const ProductScreen = ({ formData, handleChange }) => {
           setMobileUploadedImageUrl(uploadedMobileImageUrls);
         }
       }
-      // Check if the onUpload function is provided as a prop and call it
       if (typeof handleChange === "function") {
         handleChange(uploadedMobileImageUrls);
         handleChange(uploadedWebImageUrls);
@@ -127,15 +133,22 @@ const ProductScreen = ({ formData, handleChange }) => {
       console.error("Error uploading file:", error);
     }
   };
-
+  
   const handleBothFileChangeMobile = async (e) => {
     const files = e.target.files;
     const uploadedMobileImageUrls = [];
+    
+    // Check if more than 3 files are selected
+    if (files.length > 3) {
+      alert("Maximum 3 files allowed.");
+      return; // Exit early if more than 3 files are selected
+    }
+  
     try {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
-        uploadedMobileImageUrls.push(imageUrl); // Push the uploaded image URL to the array
+        const imageUrl = await uploadFileToS3(file);
+        uploadedMobileImageUrls.push(imageUrl);
         handleChange({
           target: {
             name: "mobileScreenshots",
@@ -144,8 +157,6 @@ const ProductScreen = ({ formData, handleChange }) => {
         });
         setMobileUploadedImageUrl(uploadedMobileImageUrls);
       }
-
-      // Check if the onUpload function is provided as a prop and call it
       if (typeof handleChange === "function") {
         handleChange(uploadedMobileImageUrls);
       } else {
@@ -155,15 +166,22 @@ const ProductScreen = ({ formData, handleChange }) => {
       console.error("Error uploading file:", error);
     }
   };
-
+  
   const handleBothFileChangeWeb = async (e) => {
     const files = e.target.files;
     const uploadedWebImageUrls = [];
+    
+    // Check if more than 3 files are selected
+    if (files.length > 3) {
+      alert("Maximum 3 files allowed.");
+      return; // Exit early if more than 3 files are selected
+    }
+  
     try {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        const imageUrl = await uploadFileToS3(file); // Upload the file to S3 and get the URL
-        uploadedWebImageUrls.push(imageUrl); // Push the uploaded image URL to the array
+        const imageUrl = await uploadFileToS3(file);
+        uploadedWebImageUrls.push(imageUrl);
         handleChange({
           target: {
             name: "webScreenshots",
@@ -172,8 +190,6 @@ const ProductScreen = ({ formData, handleChange }) => {
         });
         setWebUploadedImageUrl(uploadedWebImageUrls);
       }
-
-      // Check if the onUpload function is provided as a prop and call it
       if (typeof handleChange === "function") {
         handleChange(uploadedWebImageUrls);
       } else {
@@ -183,7 +199,7 @@ const ProductScreen = ({ formData, handleChange }) => {
       console.error("Error uploading file:", error);
     }
   };
-
+  
   return (
     <div className="textInputQuestions">
       <label htmlFor="appType">

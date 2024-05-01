@@ -81,30 +81,31 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
       </div>
       <br />
       <div className="textInputQuestions">
-        <label htmlFor="logo">
-          Please upload your logo (PDF, JPG, JPEG, PNG, WEBP)*
-        </label>
-        {logoUrl ? (
-          <div className="text-input-logo">
-            <div className="text-input-logo-filename">
-              <div>{logoUrl.split("/").pop()}</div>
-            </div>
-            <div className="text-input-logo-remove">
-              <button onClick={handleRemoveLogo}>Remove</button>
-            </div>
-          </div>
-        ) : (
-          <input
-            key={fileInputKey}
-            type="file"
-            id="logo"
-            name="logo"
-            accept=".pdf,.jpg,.jpeg,.png,.webp"
-            onChange={handleLogoChange}
-            required
-          />
-        )}
+  <label htmlFor="logo">
+  Please upload logo with a transparent background (JPG, JPEG, PNG)*
+  </label>
+  {logoUrl ? (
+    <div className="text-input-logo">
+      <div className="text-input-logo-filename">
+        <div>{logoUrl.split("/").pop()}</div>
       </div>
+      <div className="text-input-logo-remove">
+        <button onClick={handleRemoveLogo}>Remove</button>
+      </div>
+    </div>
+  ) : (
+    <input
+      key={fileInputKey}
+      type="file"
+      id="logo"
+      name="logo"
+      accept=".jpg,.jpeg,.png"
+      onChange={handleLogoChange}
+      required
+    />
+  )}
+</div>
+
       <br />
       <div className="color-picker">
         <div className="primary-color">
