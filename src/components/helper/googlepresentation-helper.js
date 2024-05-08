@@ -23,7 +23,7 @@ const Googleslides = () => {
     const fetchSlidesData = async () => {
       try {
         await updateProgress();
-        const url = `http://localhost:5000/slides?userId=${userId}&formId=${formId}`;
+        const url = `https://zynth.ai/api/slides?userId=${userId}&formId=${formId}`;
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Failed to fetch slides data");
