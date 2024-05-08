@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./gph.css";
-import loadingImage from "../helper/loading";
-import { Grid } from "react-loader-spinner";
+import loadingImage from "../Asset/Loading.gif";
 
 const Googleslides = () => {
   const userId = localStorage.getItem("userEmail");
@@ -9,20 +8,11 @@ const Googleslides = () => {
   const [slidesData, setSlidesData] = useState([]);
   const [slidesId, setSlidesId] = useState("");
   const [loading, setLoading] = useState(true); // Change to boolean
-  const [progress, setProgress] = useState(0);
 
-  const updateProgress = () => {
-    const isContactSlide = slidesData.some(slide => slide[1] === "Contact");
-    if (isContactSlide) {
-      setProgress(100);
-      console.log("set ho gya progress")
-    }
-  };
 
   useEffect(() => {
     const fetchSlidesData = async () => {
       try {
-        await updateProgress();
         const url = `https://zynth.ai/api/slides?userId=${userId}&formId=${formId}`;
         const response = await fetch(url);
         if (!response.ok) {
@@ -31,11 +21,7 @@ const Googleslides = () => {
         const data = await response.json();
         setSlidesId(data.id);
         setSlidesData(data.data);
-        setLoading(data.data.length < 1);
-        if(progress==100){setProgress(100)}
-        else{
-          setProgress(data.data.length * 4.5)
-        };
+        setLoading(data.data.length < 1); // Set loading based on the length of data
       } catch (error) {
         console.error("Error fetching slides data:", error.message);
       }
@@ -43,85 +29,46 @@ const Googleslides = () => {
     const intervalId = setInterval(fetchSlidesData, 5000);
     return () => clearInterval(intervalId);
   }, [userId, formId]);
+  
 
-  if (loading) {
-    // Use strict equality
+  if (loading) { // Use strict equality
     return (
       <div className="loadingIcon">
-        {/* <loadingImage /> */}
-        {/* <img src={loadingImage} alt="Loading..." /> */}
-        <Grid
-          visible={true}
-          height="80"
-          width="80"
-          color="#E6A500"
-          ariaLabel="grid-loading"
-          radius="12.5"
-          wrapperStyle={{}}
-          wrapperClass="grid-wrapper"
-        />
+        <img src={loadingImage} alt="Loading..." />
       </div>
     );
   }
   console.log(slidesData.length);
   try {
     return (
-      <div style={{ position: "relative" }}>
+      <div>
         {slidesData.length < 1 ? (
           <div>No slides to display</div>
         ) : (
-          <>
-            <div
-              className="progress-bar"
-              style={{ padding: "5px", position: "relative" }}
-            >
-              <div
-                className="progress-bar-outer"
-                style={{
-                  position: "fixed",
-                  top: "11vh",
-                  left: "10",
-                  height: "10px",
-                  width: "53vw",
-                  backgroundColor: "#004264",
-                  borderRadius: "50px",
-                }}
-              >
-                <div
-                  style={{
-                    height: "100%",
-                    width: `${progress}%`,
-                    backgroundColor: "#e6a500",
-                    borderRadius: "inherit",
-                    transition: "width .2s ease-in",
-                  }}
-                />
-              </div>
+          slidesData.map((slideId, index) => (
+            <div key={slideId}>
+              <iframe
+                key={index} 
+                className="slides-iframe"
+                title="Google Slides Embed"
+                src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slideId}`}
+              ></iframe>
             </div>
-
-            {slidesData.map((slideId, index) => (
-              <div key={slideId}>
-                <iframe
-                  key={index}
-                  className="slides-iframe"
-                  title="Google Slides Embed"
-                  src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slideId[0]}`}
-                ></iframe>
-              </div>
-            ))}
-          </>
+          ))
         )}
       </div>
     );
   } catch (error) {
     console.error("Error rendering slides:", error);
-    return (
-      <div className="error-txt">
-        No slides to display....
-        <p>click on generate pitch deck button</p>
-      </div>
-    );
+    return <div className="error-txt">
+      No slides to display....
+      <p>click on generate pitch deck button</p>
+    </div>;
   }
+  
+
+
+
 };
 
 export default Googleslides;
