@@ -64,7 +64,7 @@ function Login() {
   };
 
   const saveUserData = (userData) => {
-    fetch("https://pitchdeck-server.onrender.com/user", {
+    fetch("https://zynth.ai/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

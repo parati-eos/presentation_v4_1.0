@@ -11,31 +11,31 @@ const Googleslides = () => {
   const [loading, setLoading] = useState(true); // Change to boolean
   const [progress, setProgress] = useState(0);
 
-  const updateProgress = () => {
-    const isContactSlide = slidesData.some(slide => slide[1] === "Contact");
-    if (isContactSlide) {
-      setProgress(100);
-      console.log("set ho gya progress")
-    }
-  };
+
 
   useEffect(() => {
     const fetchSlidesData = async () => {
       try {
-        await updateProgress();
         const url = `https://zynth.ai/api/slides?userId=${userId}&formId=${formId}`;
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Failed to fetch slides data");
         }
         const data = await response.json();
+
         setSlidesId(data.id);
         setSlidesData(data.data);
         setLoading(data.data.length < 1);
-        if(progress==100){setProgress(100)}
-        else{
+
+    let isContactSlide = slidesData.some(slide => slide[1] === "Contact");
+      console.log(progress)
+      if (isContactSlide) {
+      setProgress(100);
+      console.log("progress set to 100")
+    }
+    if (progress!==100){
           setProgress(data.data.length * 4.5)
-        };
+    };
       } catch (error) {
         console.error("Error fetching slides data:", error.message);
       }
