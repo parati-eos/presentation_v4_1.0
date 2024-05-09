@@ -68,7 +68,7 @@ const GoogleslidesShare = () => {
                 key={index} 
                 className="slides-share-iframe"
                 title="Google Slides Embed"
-                src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slideId}`}
+                src={`https://docs.google.com/presentation/d/${slidesId}/embed?rm=minimal&start=false&loop=false&slide=id.${slideId[0]}`}
               ></iframe>
             </div>
           ))

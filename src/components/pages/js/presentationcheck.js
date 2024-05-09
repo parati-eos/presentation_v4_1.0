@@ -186,7 +186,7 @@ const PresentationCheck = () => {
         throw new Error("Form ID not found in localStorage");
       }
   
-      const response = await fetch(`https://pitchdeck-server.onrender.com/slidesURL?formId=${formId}`);
+      const response = await fetch(`https://zynth.ai/api/slidesURL?formId=${formId}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
