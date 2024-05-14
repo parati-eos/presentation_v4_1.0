@@ -1,20 +1,19 @@
 import React, { useState, useEffect, useRef } from "react";
 
-export default function () {
+export default function CounterSection() {
   const [productsCount, setProductsCount] = useState(0);
   const [webTemplatesCount, setWebTemplatesCount] = useState(0);
   const [mobileTemplatesCount, setMobileTemplatesCount] = useState(0);
-  const sectionRef = useRef(null); // Ref for the section element
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          // Start counters when section is in view
           startCounters();
         }
       },
-      { threshold: 0.5 } // Trigger when half of the section is in view
+      { threshold: 0.5 }
     );
 
     if (sectionRef.current) {
@@ -30,24 +29,36 @@ export default function () {
 
   const startCounters = () => {
     const productInterval = setInterval(() => {
-      const productIncrement = 1;
-      setProductsCount((prevCount) =>
-        prevCount < 6 ? prevCount + productIncrement : 6
-      );
+      setProductsCount((prevCount) => {
+        if (prevCount < 6) {
+          return prevCount + 1;
+        } else {
+          clearInterval(productInterval);
+          return prevCount;
+        }
+      });
     }, 600);
 
     const webTemplateInterval = setInterval(() => {
-      const webTemplateIncrement = 1;
-      setWebTemplatesCount((prevCount) =>
-        prevCount < 100 ? prevCount + webTemplateIncrement : 100
-      );
+      setWebTemplatesCount((prevCount) => {
+        if (prevCount < 100) {
+          return prevCount + 1;
+        } else {
+          clearInterval(webTemplateInterval);
+          return prevCount;
+        }
+      });
     }, 40);
 
     const mobileTemplateInterval = setInterval(() => {
-      const mobileTemplateIncrement = 1;
-      setMobileTemplatesCount((prevCount) =>
-        prevCount < 500 ? prevCount + mobileTemplateIncrement : 500
-      );
+      setMobileTemplatesCount((prevCount) => {
+        if (prevCount < 500) {
+          return prevCount + 1;
+        } else {
+          clearInterval(mobileTemplateInterval);
+          return prevCount;
+        }
+      });
     }, 10);
 
     return () => {
@@ -57,13 +68,13 @@ export default function () {
     };
   };
 
-  const formatCount = (count) => {
-    return count >= 6 ? `${count}+` : count;
+  const formatCount = (count, max) => {
+    return count >= max ? `${count}+` : count;
   };
 
   return (
     <section
-      ref={sectionRef} // Set the ref to the section element
+      ref={sectionRef}
       className="relative py-5 md:py-5 overflow-hidden "
     >
       <img
@@ -91,7 +102,7 @@ export default function () {
               <div className="md:hidden absolute bottom-0 left-1/2 h-px w-40 bg-gray-200 transform -translate-x-1/2"></div>
               <div className="text-center">
                 <span className="block text-5xl lg:text-7xl font-bold text-gray-50 mb-5">
-                  {formatCount(productsCount)}
+                  {formatCount(productsCount, 6)}
                 </span>
                 <span className="text-xl text-gray-200">Years</span>
               </div>
@@ -101,7 +112,7 @@ export default function () {
               <div className="md:hidden absolute bottom-0 left-1/2 h-px w-40 bg-gray-200 transform -translate-x-1/2"></div>
               <div className="text-center">
                 <span className="block text-5xl lg:text-7xl font-bold text-gray-50 mb-5">
-                  {formatCount(webTemplatesCount)}
+                  {formatCount(webTemplatesCount, 100)}
                 </span>
                 <span className="text-xl text-gray-200">Partners</span>
               </div>
@@ -109,7 +120,7 @@ export default function () {
             <div className="w-full md:w-1/3 px-4">
               <div className="text-center">
                 <span className="block text-5xl lg:text-7xl font-bold text-gray-50 mb-5">
-                  {formatCount(mobileTemplatesCount)}
+                  {formatCount(mobileTemplatesCount, 500)}
                 </span>
                 <span className="text-xl text-gray-200">Pitch Decks</span>
               </div>

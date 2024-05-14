@@ -10,12 +10,12 @@ const content = [
       "Provide detailed information around different aspects of your business to get the best possible version of your pitch deck.",
     content: (
       <div className="w-full  flex items-center justify-center ">
-        <img
-        className="object-fill"
-          src="https://github.com/Adarshaparati/Eos-suit/blob/main/Zynth%20Native%20%20Form%20(V.02).gif?raw=true"
-          alt="Cred About 5"
-          style={{ width: "100%", height: "100%" }}
-        />
+      <img
+  className="object-contain w-full h-full"
+  src="https://github.com/Adarshaparati/Eos-suit/blob/main/Zynth%20Native%20%20Form%20(V.02).gif?raw=true"
+  alt="Cred About 5"
+/>
+
       </div>
     ),
   },
@@ -25,12 +25,12 @@ const content = [
       "Built on proven frameworks, with AI-generated content and design, while staying completely on-brand.",
     content: (
       <div className="w-full  flex items-center justify-center ">
-        <img
-        className="object-fill"
-          src="https://github.com/Adarshaparati/Eos-suit/blob/main/Zynth%20Native%20%20Form%20(V.02).gif?raw=true"
-          alt="Cred About 5"
-          style={{ width: "100%", height: "100%" }}
-        />
+       <img
+  className="object-contain w-full h-full"
+  src="https://github.com/Adarshaparati/Eos-suit/blob/main/Zynth%20Native%20%20Form%20(V.02).gif?raw=true"
+  alt="Cred About 5"
+/>
+
       </div>
     ),
   },
@@ -40,12 +40,12 @@ const content = [
       "Pitch decks generated on shareable web links which can be directly opened browser and exported to make edits offline.",
     content: (
       <div className="w-full  flex items-center justify-center ">
-        <img
-        className="object-fill"
-          src="https://github.com/Adarshaparati/Eos-suit/blob/main/Zynth%20Native%20%20Form%20(V.02).gif?raw=true"
-          alt="Cred About 5"
-          style={{ width: "100%", height: "100%" }}
-        />
+      <img
+  className="object-contain w-full h-full"
+  src="https://github.com/Adarshaparati/Eos-suit/blob/main/Zynth%20Native%20%20Form%20(V.02).gif?raw=true"
+  alt="Cred About 5"
+/>
+
       </div>
     ),
   }
