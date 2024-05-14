@@ -7,6 +7,7 @@ import { BackgroundBoxesDemo } from "../home/pitch.tsx";
 import Blog from "../home/blog.tsx";
 import { StickyScrollRevealDemo } from "../home/stickyScrollReveal.tsx";
 import Stats from "../home/stats.tsx";
+import { isIphone } from "../../../utils/deviceUtils.js";
 
 function Home() {
   return (
@@ -23,7 +24,7 @@ function Home() {
       <div id="blogs"> {/* Ensure this div is still wrapping your Blog component */}
         <Blog />
       </div>
-      <BackgroundBoxesDemo />
+      {!isIphone() && <BackgroundBoxesDemo />} {/* Conditionally render based on device */}
       <Footer />
     </div>
   );

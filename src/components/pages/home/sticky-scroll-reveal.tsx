@@ -61,9 +61,9 @@ export const StickyScroll = ({
     "var(--neutral-900)",
   ];
   const linearGradients = [
-    "linear-gradient(to bottom right, var(--cyan-500), var(--emerald-500))",
-    "linear-gradient(to bottom right, var(--pink-500), var(--indigo-500))",
-    "linear-gradient(to bottom right, var(--orange-500), var(--yellow-500))",
+    // "linear-gradient(to bottom right, var(--cyan-500), var(--emerald-500))",
+    // "linear-gradient(to bottom right, var(--pink-500), var(--indigo-500))",
+   "linear-gradient(to bottom right, transparent, transparent)",
   ];
   const navigate = useNavigate();
   const handleClick = () => {
@@ -71,12 +71,18 @@ export const StickyScroll = ({
   };
   return (
     <div
-    className="h-[20rem] md:h-[30rem] overflow-y-auto flex md:gap-5 justify-center relative space-x-10 rounded-md no-scrollbar"
+    className="h-[20rem] md:h-[35.5rem] overflow-y-auto flex md:gap-5 justify-center relative space-x-10 rounded-md no-scrollbar"
     style={{ maxHeight: "100%" }} // Adjusted to fill the available space
     ref={ref}
   >
   
       <div className="div relative flex-col items-start md:px-4 w-[100%]">
+      <h3 className="text-1xl md:text-3xl font-bold text-white dark:text-white opacity-100 pb-10">
+          Leverage the Power of AI to
+          <br /> Instantly Generate
+          <span style={{ color: "#e6a500" }}> Structured</span> <br />
+          <span style={{ color: "#e6a500" }}> & Branded Pitch Decks</span>
+        </h3>
         <div className="max-w-10xl w-[100%] relative h-[50vh]">
           {content.map((item, index) => (
             <div key={item.title + index} className="py-[1vh] md:py-[10vh] relative">
@@ -111,12 +117,7 @@ export const StickyScroll = ({
         </div>
       </div>
       <div className="div sticky top-0 right-0 flex-col md:gap-10 max-w-10xl w-[100%]">
-        <h3 className="text-1xl md:text-3xl font-bold text-white dark:text-white opacity-100 pb-10">
-          Leverage the Power of AI to
-          <br /> Instantly Generate
-          <span style={{ color: "#e6a500" }}> Structured</span> <br />
-          <span style={{ color: "#e6a500" }}> & Branded Pitch Decks</span>
-        </h3>
+       
         <motion.div
           animate={{
             background: linearGradients[activeCard % linearGradients.length],
