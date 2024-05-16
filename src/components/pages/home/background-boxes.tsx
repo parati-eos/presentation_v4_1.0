@@ -2,6 +2,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "../../Utils/cn.ts";
+import * as Tone from "tone";
+
+const sargamNotes = ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5"];
 
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
   const rows = new Array(150).fill(1);
@@ -19,6 +22,11 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
   ];
   const getRandomColor = () => {
     return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+  const playSound = (index: number) => {
+    const synth = new Tone.Synth().toDestination();
+    synth.triggerAttackRelease(sargamNotes[index % sargamNotes.length], "8n");
   };
 
   return (
@@ -48,6 +56,7 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
               }}
               key={`col` + j}
               className="w-16 h-8  border-r border-t border-slate-700 relative"
+              onClick={() => playSound(j % sargamNotes.length)}
             >
               {j % 2 === 0 && i % 2 === 0 ? (
                 <svg

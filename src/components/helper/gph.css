@@ -17,7 +17,7 @@
     pointer-events: none;
   }
   .slides-share-iframe{
-    height: 76vh;
+    height: 80vh;
     width: 99%;
     background-color: black;
     border: 2px solid #1f516b;
@@ -37,7 +37,7 @@
       border: none;
     }
     .slides-share-iframe{
-      height: 20vh;
+      height: 30vh;
       width: 100%;
     }
     
