@@ -1,37 +1,17 @@
-const sectionToUrlMap = {
-  about:
-    "https://script.google.com/macros/s/AKfycbygm9yrPT5ol-XGXheILlxewAF3aBCTmBtOhZ94csPODh4wD4HIyseKsBBAz-tKLV8p2g/exec",
-  companyDetails:
-    "https://script.google.com/macros/s/AKfycbzI9r0GQKxKjFpZlIgz5MV0wxNMH5VtA9EcqCy6aMYnGbeRlnyUpO5Zy9dHbOchsD04Ng/exec",
-  problemDescription:
-    "https://script.google.com/macros/s/AKfycbz9g3mwjYAAfXIhKtf4VKcmJkGhHjOZHMGDqe1IWlBbbuzvB8SrrHxbEZ7ymy_tUhtO/exec",
-  solutionDescription:
-    "https://script.google.com/macros/s/AKfycbyY0plwQ5QOLv9ucFpGpjrWAUnW3a00Qkl85BJGrtsVEI85KTkIr9tIxhbCHi0siGfM/exec",
-  market:
-    "https://script.google.com/macros/s/AKfycbzvZOawhvGTm5DYFw1CcGSLF1bn2HgiKipyYmQNmjCl2DGj7qDQkqADoSDPsTBG1sEV/exec",
-  product:
-    "https://script.google.com/macros/s/AKfycbylOHCrgj26fzkjvvPzCKHVk3UiLFXusJdmmpJhXuxt-hefKpwo7gx5GZVCBTfqbZwu/exec",
-  productScreen:
-    "https://script.google.com/macros/s/AKfycbzKxtGrRydvXwGZNcwUtFGRr7VnFSxo3Dy3Ws8Z4hqbbLt-WRZcEEfzMlWUuKnOs2g_Cg/exec",
-  businessModel:
-    "https://script.google.com/macros/s/AKfycbx_l0YJN2pzkJQQayTs70S3P9Laehcl0BvDVaeyWSjNUw-lzSk9ouB_rvDyRJYhHRS93w/exec",
-  goToMarket:
-    "https://script.google.com/macros/s/AKfycbxN2Q9eC1bxvHk-Q5uWz39gVQqNrGtTT9geb4rtVVIs_Uz8HolIWnF4-3pufMzIAvRK/exec",
-  trackRecord:
-    "https://script.google.com/macros/s/AKfycbw4IaogUtJoa0bfB_501tKdh69HPbBuSKPV94ZYE7SPsRX7yrQqUTp7td9rYalgMQfi/exec",
-  caseStudies:
-    "https://script.google.com/macros/s/AKfycbynD8SULsBAw1rXrDIIteKeOcdqarLIX0nyiUf66JYiu5FPpDWopasSBuYjc7d3DXzd/exec",
-  testimonials:
-    "https://script.google.com/macros/s/AKfycbzA3vmsdAu1Lo5SzwMQ9v76RB59GE0ATXTWHvKboIgoTKN3oGe3ULjFOXJHQXQrmTeDLg/exec",
-  competitors:
-    "https://script.google.com/macros/s/AKfycbwSiVkzmrFqIPOvm0ZBlc4PCezZQAdD_pp25W6_thEikeh-xpMKddGntuGGEp2qw492TQ/exec",
-  competitiveDiff:
-    "https://script.google.com/macros/s/AKfycbx6S1n2AAiZvxZ_XVono752kQKWgF7RE0NNGdJ5Z72rVuthmeYNJooFp3Br3o5DA4-osg/exec",
-  teamMembers:
-    "https://script.google.com/macros/s/AKfycbyqKFbEJ7IPfnf73Fr7oc03QSSR5x_X8IjpyueBWdnIzEElEgDpYb0oyD8yuVeAIcxU/exec",
-  financialInfo:
-    "https://script.google.com/macros/s/AKfycbzWNm_wxCnNKOKqQDbNrQIIyz9RHDZAfH7W75dqBUCXwtWH8cYeGctddF3X1MQvdXE1-w/exec",
-  contactInfo:
-    "https://script.google.com/macros/s/AKfycbymc_Xy7oSF0pOHtNxp6Bj0DcGGSXCxRNS2CAmwfuPCVJkJvXt-VZ8uEt-q3chd4vyh/exec",
+module.exports = {
+  apps: [
+    {
+      name: 'ai_be',
+      script: 'gunicorn',
+      args: 'main:app --bind 0.0.0.0:5000 --timeout 120 --workers 3 --worker-class gevent',
+      interpreter: 'python3',
+      interpreter_args: '-m venv myenv',
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
+      env: {
+        'FLASK_ENV': 'production',
+      }
+    }
+  ]
 };
-module.exports = sectionToUrlMap;

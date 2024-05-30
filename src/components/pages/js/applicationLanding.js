@@ -30,6 +30,12 @@ function ApplicationLanding() {
     navigate("/Pages/Nativeform", { state: { user } });
   };
 
+  const handleGeneratePPTWithZynth = () => {
+    console.log("Generate PPT with Zynth");
+    // Implement logic for generating PPT with Zynth
+    navigate("/pages/shortform", { state: { user } });
+  };
+
   const handleLogout = () => {
     // Clear the user's session and redirect to the login page
     // You can implement your logout logic here
@@ -37,7 +43,7 @@ function ApplicationLanding() {
     navigate("/auth/login");
   };
 
-  //History-Preview Code
+  // History-Preview Code
   const [userID, setUserID] = useState(localStorage.getItem("userEmail"));
 
   useEffect(() => {
@@ -64,6 +70,7 @@ function ApplicationLanding() {
 
     fetchDataHistory();
   }, [userID]);
+
   const [historyData, setHistoryData] = useState([]);
   const handleMouseEnterHistory = () => {
     clearTimeout(historyTimeout.current); // Clear any existing timeout
@@ -86,6 +93,7 @@ function ApplicationLanding() {
     setShowHistory(false);
     console.log("Left the div");
   };
+
   const handleShowMoreHistory = () => {
     navigate("/pages/presentationhistory");
   };
@@ -123,15 +131,27 @@ function ApplicationLanding() {
             <div className="button-shade1">
               <div className="button-shade2">
                 <div className="button-shade3">
-                <button
-                  className="overlay-button"
-                  onClick={handleBuildPresentation}
-                >
-                  <div>
-                    <img src={magicWand}></img>{" "}
+                  <div className="button-container">
+                    <button
+                      className="overlay-button"
+                      onClick={handleBuildPresentation}
+                    >
+                      <div>
+                        <img src={magicWand} alt="Magic Wand" />
+                      </div>
+                      <div> generate extended deck</div>
+                    </button>
+                    <button
+                      className="overlay-button"
+                      onClick={handleGeneratePPTWithZynth}
+                      style={{ marginTop: "1rem" }} // Added margin-top to create space between buttons
+                    >
+                      <div>
+                        <img src={magicWand} alt="Magic Wand" />
+                      </div>
+                      <div>Generate concise deck</div>
+                    </button>
                   </div>
-                  <div>Generate Presentation</div>
-                </button>
                 </div>
               </div>
             </div>

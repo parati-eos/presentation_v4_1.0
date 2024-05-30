@@ -9,6 +9,7 @@ import PresentationCheck from './components/pages/js/presentationcheck'
 import ReviewResponses from './components/pages/js/ReviewResponses';
 import History from './components/pages/js/presentationhistory'
 import PresentationShare from './components/pages/js/presentationshare';
+import Shortform from './components/pages/shortform/Form';
 import Native_Form from './components/pages/Native-Form/Form';
 import { TrackProvider } from './components/pages/Native-Form/Track';
 import { CompetitionProvider } from './components/pages/Native-Form/Competition';
@@ -37,6 +38,7 @@ function App() {
         <Route path="/Pages/ReviewResponses" element={<ReviewResponses />} />
         <Route path="/pages/presentationhistory" element={<History />} />
         <Route path="/pages/Nativeform" element={<Native_Form />} />
+        <Route path="/pages/shortform" element={<Shortform />} />
         {/* <Route path="/Blog" element={<Blog/>} /> */}
       </Routes>
       </FinancialDataProvider>
