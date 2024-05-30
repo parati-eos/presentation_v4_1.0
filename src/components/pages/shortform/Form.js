@@ -464,7 +464,7 @@ const Form = () => {
 
     // Proceed to the next section or show success
     // message
-    if (section < 17) {
+    if (section < 5) {
       setSection((prevSection) => prevSection + 1);
       setIsLoading(false);
     } else {
