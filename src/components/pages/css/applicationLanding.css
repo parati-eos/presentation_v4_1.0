@@ -58,6 +58,7 @@
   width: 45%;
   height: 40%;
   /* background: red; */
+  flex-direction: column; /* Align items vertically */
 }
 .button-shade {
   display: flex;
@@ -67,7 +68,7 @@
   height: 75%;
   background-color: rgba(230, 165, 0, 0.06);
   border-radius: 12vw;
-  margin-bottom: 1rem; /* Add space between buttons for vertical layout */
+  margin-bottom: 1rem; /* Add space between buttons */
 }
 
 .button-shade1 {
@@ -117,58 +118,23 @@
   .image-stack {
     width: 100%;
     height: auto; /* Adjust height to auto for better responsiveness */
-    flex-direction: column; /* Stack buttons vertically on mobile */
   }
   .button-shade {
     border-radius: 12vh;
-    display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-  height: 75%;
-  background-color: rgba(230, 165, 0, 0.06);
-  border-radius: 12vw;
-  margin-bottom: 1rem; 
-    margin-bottom: 1rem; /* Add space between buttons for vertical layout */
+    margin-bottom: 1rem; /* Add space between buttons */
   }
   
   .button-shade1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 170%;
-    height: 70%;
-    background-color: rgba(230, 165, 0, 0.1);
-    border-radius: 12vw;
+    border-radius: 12vh;
   }
   .button-shade2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 1200%;
-    height: 70%;
-    background-color: rgba(230, 165, 0, 0.1);
-    border-radius: 8vw;
+    border-radius: 8vh;
   }
   .button-shade3 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 150%;
-    height: 190%;
-    background-color: rgba(230, 165, 0, 0.1);
-    border-radius: 8vw;
+    border-radius: 8vh;
   }
   .overlay-button img {
     height: 3vh;
     width: auto;
-  }
-}
-@media screen and (min-width: 601px) {
-  .image-stack {
-    flex-direction: row; /* Align buttons horizontally on larger screens */
-  }
-  .button-shade {
-    margin-bottom: 0; /* Remove extra space between buttons */
   }
 }
