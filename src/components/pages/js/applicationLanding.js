@@ -141,6 +141,17 @@ function ApplicationLanding() {
                       </div>
                       <div> generate extended deck</div>
                     </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+{/* 2nd */}
+          <div className="button-shade">
+            <div className="button-shade1">
+              <div className="button-shade2">
+                <div className="button-shade3">
+                  <div className="button-container">
                     <button
                       className="overlay-button"
                       onClick={handleGeneratePPTWithZynth}
