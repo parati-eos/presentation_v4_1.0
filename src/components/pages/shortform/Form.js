@@ -374,7 +374,7 @@ const Form = () => {
     );
     if (changedData) {
       try {
-        const response = await fetch("https://pitchdeck-server.onrender.com/shortFormSubmission", {
+        const response = await fetch("https://zynth.ai/api/shortFormSubmission", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
