@@ -470,7 +470,7 @@ const Form = () => {
     } else {
       navigate("/pages/presentationcheck");
     }
-    setProgress(section * 6);
+    setProgress(section * 20);
   };
 
   const handleBack = () => {
