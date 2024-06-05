@@ -134,12 +134,12 @@ function ApplicationLanding() {
                   <div className="button-container">
                     <button
                       className="overlay-button"
-                      onClick={handleBuildPresentation}
+                      onClick={handleGeneratePPTWithZynth}
                     >
                       <div>
                         <img src={magicWand} alt="Magic Wand" />
                       </div>
-                      <div> generate extended deck</div>
+                      <div>Generate Concise Deck</div>
                     </button>
                   </div>
                 </div>
@@ -151,16 +151,16 @@ function ApplicationLanding() {
             <div className="button-shade1">
               <div className="button-shade2">
                 <div className="button-shade3">
-                  <div className="button-container">
+                  <div className="button-container1">
                     <button
-                      className="overlay-button"
-                      onClick={handleGeneratePPTWithZynth}
+                      className="overlay-button1"
+                      onClick={handleBuildPresentation}
                       style={{ marginTop: "1rem" }} // Added margin-top to create space between buttons
                     >
                       <div>
                         <img src={magicWand} alt="Magic Wand" />
                       </div>
-                      <div>Generate concise deck</div>
+                      <div>Generate Extended Deck</div>
                     </button>
                   </div>
                 </div>

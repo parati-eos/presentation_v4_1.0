@@ -38,7 +38,7 @@
   cursor: pointer;
   display: flex;
   flex-direction: row;
-  height: 4.8vh;
+  height: 6.8vh;
   width: 50vh;
   background-color: rgb(230, 165, 0);
   color: white;
@@ -48,8 +48,11 @@
   font-weight: 700;
   justify-content: center;
   gap: 10px;
-  align-items: center;
-  padding-top: 30rem;
+  align-items: center; 
+}
+.button-container1{
+  display: flex;
+padding-bottom:1rem;
 }
 .image-stack {
   display: flex;
@@ -64,7 +67,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 90%;
+  width: 68%;
   height: 75%;
   background-color: rgba(230, 165, 0, 0.06);
   border-radius: 12vw;
@@ -109,10 +112,16 @@
   width: auto;
 }
 @media screen and (max-width: 600px) {
-  .overlay-button {
+  .overlay-button1{
     width: 56vw;
     border-radius: 3.25vh;
     height: auto;
+    font-size: 1.8vh;
+  }
+  .overlay-button {
+    width: 56vw;
+    border-radius: 3.25vh;
+    height: 26px;
     font-size: 1.8vh;
   }
   .image-stack {

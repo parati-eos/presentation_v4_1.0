@@ -71,7 +71,7 @@ const Googleslides = () => {
           <div>No slides to display</div>
         ) : (
           <>
-            <div
+            {/* <div
               className="progress-bar"
               style={{ padding: "5px", position: "relative" }}
             >
@@ -97,7 +97,7 @@ const Googleslides = () => {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
 
             {slidesData.map((slideId, index) => (
               <div key={slideId}>
