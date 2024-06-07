@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ColorPicker from "./ColorPicker";
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function for uploading files to S3
+import removeBackground from "./removeBackground"; // Import the background removal function
 import "./About.css";
 
 const AboutCompany = ({ formData, handleChange, handleNext }) => {
@@ -21,9 +22,18 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
   const handleLogoChange = async (e) => {
     const file = e.target.files[0];
     try {
-      const logoUrl = await uploadFileToS3(file); // Upload the logo file to S3
-      setLogoUrl(logoUrl); // Set the URL of the uploaded logo
-      handleChange({ target: { name: "logo", value: logoUrl } }); // Update form data with the logo URL
+      console.log('File selected:', file);
+
+      // Remove the background from the logo
+      const logoWithBgRemovedFile = await removeBackground(file);
+      console.log('File with background removed:', logoWithBgRemovedFile);
+
+      // Upload the processed logo to S3
+      const uploadedLogoUrl = await uploadFileToS3(logoWithBgRemovedFile);
+      console.log('Uploaded logo URL:', uploadedLogoUrl);
+
+      setLogoUrl(uploadedLogoUrl); // Set the URL of the uploaded logo
+      handleChange({ target: { name: "logo", value: uploadedLogoUrl } }); // Update form data with the logo URL
     } catch (error) {
       console.error("Error uploading logo:", error);
     }
@@ -34,6 +44,7 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
     handleChange({ target: { name: "logo", value: null } });
     setFileInputKey((prevKey) => prevKey + 1); // Reset file input
   };
+
   const handlePrimaryColorChange = (color) => {
     const newColor = color || "#000000"; // Set default color if color is not selected
     setPrimaryColor(newColor); // Update primary color state
@@ -81,31 +92,30 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
       </div>
       <br />
       <div className="textInputQuestions">
-  <label htmlFor="logo">
-  Please upload logo with a transparent background (JPG, JPEG, PNG)*
-  </label>
-  {logoUrl ? (
-    <div className="text-input-logo">
-      <div className="text-input-logo-filename">
-        <div>{logoUrl.split("/").pop()}</div>
+        <label htmlFor="logo">
+          Please upload logo with a transparent background (JPG, JPEG, PNG)*
+        </label>
+        {logoUrl ? (
+          <div className="text-input-logo">
+            <div className="text-input-logo-filename">
+              <div>{logoUrl.split("/").pop()}</div>
+            </div>
+            <div className="text-input-logo-remove">
+              <button onClick={handleRemoveLogo}>Remove</button>
+            </div>
+          </div>
+        ) : (
+          <input
+            key={fileInputKey}
+            type="file"
+            id="logo"
+            name="logo"
+            accept=".jpg,.jpeg,.png"
+            onChange={handleLogoChange}
+            required
+          />
+        )}
       </div>
-      <div className="text-input-logo-remove">
-        <button onClick={handleRemoveLogo}>Remove</button>
-      </div>
-    </div>
-  ) : (
-    <input
-      key={fileInputKey}
-      type="file"
-      id="logo"
-      name="logo"
-      accept=".jpg,.jpeg,.png"
-      onChange={handleLogoChange}
-      required
-    />
-  )}
-</div>
-
       <br />
       <div className="color-picker">
         <div className="primary-color">
