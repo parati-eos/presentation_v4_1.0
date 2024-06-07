@@ -24,12 +24,12 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
     try {
       console.log('File selected:', file);
 
-      // Remove the background from the logo
-      const logoWithBgRemovedFile = await removeBackground(file);
-      console.log('File with background removed:', logoWithBgRemovedFile);
+      // Remove the background from the logo if necessary
+      const processedFile = await removeBackground(file);
+      console.log('Processed file:', processedFile);
 
       // Upload the processed logo to S3
-      const uploadedLogoUrl = await uploadFileToS3(logoWithBgRemovedFile);
+      const uploadedLogoUrl = await uploadFileToS3(processedFile);
       console.log('Uploaded logo URL:', uploadedLogoUrl);
 
       setLogoUrl(uploadedLogoUrl); // Set the URL of the uploaded logo

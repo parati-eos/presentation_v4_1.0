@@ -1,12 +1,21 @@
-// removeBackground.js
 import axios from 'axios';
+import analyzeImageColors from './analyzeImageColors';
 
 const removeBackground = async (file) => {
-  const formData = new FormData();
-  formData.append('image_file', file);
-  formData.append('size', 'auto');
-
   try {
+    const colorCount = await analyzeImageColors(file);
+    console.log('Number of colors in the image:', colorCount);
+
+    if (colorCount <= 2) {
+      // If the image has two or fewer colors, return the original file
+      return file;
+    }
+
+    // Proceed with background removal if the image has more than two colors
+    const formData = new FormData();
+    formData.append('image_file', file);
+    formData.append('size', 'auto');
+
     const response = await axios.post('https://api.remove.bg/v1.0/removebg', formData, {
       headers: {
         'X-Api-Key': 'c9mbNMxV6TABgkSLEgkY9SHU', // replace with your actual Remove.bg API key
@@ -26,6 +35,3 @@ const removeBackground = async (file) => {
 };
 
 export default removeBackground;
-
-    
- 
