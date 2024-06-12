@@ -1,252 +1,72 @@
-<div class="div">
-  <div class="div-2">
-    <div class="div-3">
-      <div class="column">
-        <div class="div-4">
-          <div class="div-5">Key Features</div>
-          <div class="div-6">Pitch perfection in a flash</div>
-          <div class="div-7">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/388387a851edbaca7b832442a3e4a871c405c029b428d21752bae197a00435b9?apiKey=0207d5bfc5324d61add836f912ae7296&"
-              class="img"
-            />
-            <div class="div-8">
-              Guided questionnaire to cover the essentials.
-            </div>
-          </div>
-          <div class="div-9">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/ed89245f8f82e2207ec27b6fa801dd7c49ac19f81cd2087a62117e89db96d1f6?apiKey=0207d5bfc5324d61add836f912ae7296&"
-              class="img-2"
-            />
-            <div class="div-10">
-              Guided questionnaire to cover the essentials.
-            </div>
-          </div>
-          <div class="div-11">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/ae5fc5adaca6251ea16dc84d1c53950d49c23deb333296b550b86272fadbbcc7?apiKey=0207d5bfc5324d61add836f912ae7296&"
-              class="img"
-            />
-            <div class="div-12">
-              Guided questionnaire to cover the essentials.
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="column-2">
-        <img
-          loading="lazy"
-          srcset="https://cdn.builder.io/api/v1/image/assets/TEMP/d8266cb0463932d9b062c7f8d30fcb9d68183c119c2dbc3ecfb1f1ddb45f4ba4?apiKey=0207d5bfc5324d61add836f912ae7296&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/d8266cb0463932d9b062c7f8d30fcb9d68183c119c2dbc3ecfb1f1ddb45f4ba4?apiKey=0207d5bfc5324d61add836f912ae7296&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/d8266cb0463932d9b062c7f8d30fcb9d68183c119c2dbc3ecfb1f1ddb45f4ba4?apiKey=0207d5bfc5324d61add836f912ae7296&width=400 400w, https://cdn.builder.io/api/v1/image/assets/TEMP/d8266cb0463932d9b062c7f8d30fcb9d68183c119c2dbc3ecfb1f1ddb45f4ba4?apiKey=0207d5bfc5324d61add836f912ae7296&width=800 800w, https://cdn.builder.io/api/v1/image/assets/TEMP/d8266cb0463932d9b062c7f8d30fcb9d68183c119c2dbc3ecfb1f1ddb45f4ba4?apiKey=0207d5bfc5324d61add836f912ae7296&width=1200 1200w, https://cdn.builder.io/api/v1/image/assets/TEMP/d8266cb0463932d9b062c7f8d30fcb9d68183c119c2dbc3ecfb1f1ddb45f4ba4?apiKey=0207d5bfc5324d61add836f912ae7296&width=1600 1600w, https://cdn.builder.io/api/v1/image/assets/TEMP/d8266cb0463932d9b062c7f8d30fcb9d68183c119c2dbc3ecfb1f1ddb45f4ba4?apiKey=0207d5bfc5324d61add836f912ae7296&width=2000 2000w, https://cdn.builder.io/api/v1/image/assets/TEMP/d8266cb0463932d9b062c7f8d30fcb9d68183c119c2dbc3ecfb1f1ddb45f4ba4?apiKey=0207d5bfc5324d61add836f912ae7296&"
-          class="img-3"
-        />
-      </div>
-    </div>
-  </div>
-</div>
-<style>
-  .div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .div-2 {
-    background-color: rgba(0, 23, 35, 1);
-    border-color: rgba(0, 66, 100, 1);
-    border-style: solid;
-    border-width: 1px;
-    width: 100%;
-    padding: 45px 79px 80px;
-  }
-  @media (max-width: 991px) {
-    .div-2 {
-      max-width: 100%;
-      padding: 0 20px;
+import axios from 'axios';
+
+const removeBackground = async (file) => {
+  try {
+    // Create a canvas element to analyze the image
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+
+    // Load the image into the canvas
+    const image = new Image();
+    image.src = URL.createObjectURL(file);
+    await new Promise((resolve, reject) => {
+      image.onload = () => resolve();
+      image.onerror = (error) => reject(error);
+    });
+
+    // Set the canvas dimensions to match the image
+    canvas.width = image.width;
+    canvas.height = image.height;
+
+    // Draw the image onto the canvas
+    context.drawImage(image, 0, 0);
+
+    // Analyze the image pixels to check for predominant white background
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const pixels = imageData.data;
+    let whitePixelCount = 0;
+
+    for (let i = 0; i < pixels.length; i += 4) {
+      // Check if the pixel is white (assuming it's white if RGB values are close to 255)
+      if (pixels[i] > 200 && pixels[i + 1] > 200 && pixels[i + 2] > 200) {
+        whitePixelCount++;
+      }
     }
-  }
-  .div-3 {
-    gap: 20px;
-    display: flex;
-  }
-  @media (max-width: 991px) {
-    .div-3 {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0px;
+
+    // Calculate the percentage of white pixels
+    const totalPixels = imageData.width * imageData.height;
+    const whitePercentage = whitePixelCount / totalPixels;
+
+    console.log('White Pixel Count:', whitePixelCount);
+    console.log('Total Pixels:', totalPixels);
+    console.log('White Percentage:', whitePercentage);
+
+    // If more than 50% of the image is white, remove the background using remove.bg API
+    if (whitePercentage > 0.5) {
+      const formData = new FormData();
+      formData.append('image_file', file);
+      formData.append('size', 'auto');
+
+      const response = await axios.post('https://api.remove.bg/v1.0/removebg', formData, {
+        headers: {
+          'X-Api-Key': 'c9mbNMxV6TABgkSLEgkY9SHU', // replace with your actual Remove.bg API key
+        },
+        responseType: 'blob',
+      });
+
+      console.log('Background removal response:', response);
+
+      // Ensure the blob type is set to 'image/png'
+      const blob = new Blob([response.data], { type: 'image/png' });
+      return new File([blob], file.name.replace(/\.[^/.]+$/, ".png"), { type: 'image/png' }); // Ensure the filename ends with .png
     }
+
+    // If less than or equal to 50% of the image is white, return the original file
+    return file;
+  } catch (error) {
+    console.error('Error removing background:', error);
+    throw error;
   }
-  .column {
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    width: 64%;
-    margin-left: 0px;
-  }
-  @media (max-width: 991px) {
-    .column {
-      width: 100%;
-    }
-  }
-  .div-4 {
-    display: flex;
-    flex-direction: column;
-    font-size: 27px;
-    color: #fff;
-    font-weight: 500;
-    line-height: 40px;
-  }
-  @media (max-width: 991px) {
-    .div-4 {
-      max-width: 100%;
-      margin-top: 40px;
-    }
-  }
-  .div-5 {
-    color: #ffcc26;
-    align-self: end;
-    white-space: nowrap;
-    font: 700 54px Poppins, sans-serif;
-  }
-  @media (max-width: 991px) {
-    .div-5 {
-      font-size: 40px;
-      white-space: initial;
-    }
-  }
-  .div-6 {
-    color: #f3f3f3;
-    align-self: start;
-    margin: 92px 0 0 18px;
-    font: 42px Poppins, sans-serif;
-  }
-  @media (max-width: 991px) {
-    .div-6 {
-      max-width: 100%;
-      margin-top: 40px;
-    }
-  }
-  .div-7 {
-    border-radius: 205px;
-    border-color: rgba(0, 66, 100, 1);
-    border-style: solid;
-    border-width: 1px;
-    background-color: #001b28;
-    display: flex;
-    margin-top: 42px;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 39px 0 17px;
-  }
-  @media (max-width: 991px) {
-    .div-7 {
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
-  }
-  .img {
-    aspect-ratio: 1;
-    object-fit: auto;
-    object-position: center;
-    width: 94px;
-  }
-  .div-8 {
-    font-family: Poppins, sans-serif;
-    align-self: start;
-    margin-top: 15px;
-    flex-grow: 1;
-    flex-basis: auto;
-  }
-  @media (max-width: 991px) {
-    .div-8 {
-      max-width: 100%;
-    }
-  }
-  .div-9 {
-    border-radius: 205px;
-    border-color: rgba(0, 66, 100, 1);
-    border-style: solid;
-    border-width: 1px;
-    background-color: #001b28;
-    display: flex;
-    margin-top: 53px;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 17px 0 29px;
-  }
-  @media (max-width: 991px) {
-    .div-9 {
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
-  }
-  .img-2 {
-    aspect-ratio: 0.9;
-    object-fit: auto;
-    object-position: center;
-    width: 94px;
-  }
-  .div-10 {
-    font-family: Poppins, sans-serif;
-    align-self: end;
-    margin-top: 37px;
-    flex-grow: 1;
-    flex-basis: auto;
-  }
-  @media (max-width: 991px) {
-    .div-10 {
-      max-width: 100%;
-    }
-  }
-  .div-11 {
-    align-self: start;
-    display: flex;
-    margin-top: 79px;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  @media (max-width: 991px) {
-    .div-11 {
-      flex-wrap: wrap;
-      margin-top: 40px;
-    }
-  }
-  .div-12 {
-    font-family: Poppins, sans-serif;
-    flex-grow: 1;
-    flex-basis: auto;
-    margin: auto 0;
-  }
-  @media (max-width: 991px) {
-    .div-12 {
-      max-width: 100%;
-    }
-  }
-  .column-2 {
-    display: flex;
-    flex-direction: column;
-    line-height: normal;
-    width: 36%;
-    margin-left: 20px;
-  }
-  @media (max-width: 991px) {
-    .column-2 {
-      width: 100%;
-    }
-  }
-  .img-3 {
-    aspect-ratio: 0.79;
-    object-fit: auto;
-    object-position: center;
-    width: 100%;
-    margin-top: 176px;
-  }
-  @media (max-width: 991px) {
-    .img-3 {
-      max-width: 100%;
-      margin-top: 40px;
-    }
-  }
-</style>
+};
+
+export default removeBackground;

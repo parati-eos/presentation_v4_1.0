@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ColorPicker from "./ColorPicker";
+import axios from 'axios';
 import uploadFileToS3 from "./uploadFileToS3"; // Import the function for uploading files to S3
 import removeBackground from "./removeBackground"; // Import the background removal function
 import "./About.css";
@@ -7,12 +7,6 @@ import "./About.css";
 const AboutCompany = ({ formData, handleChange, handleNext }) => {
   const [logoUrl, setLogoUrl] = useState(formData.logo || null); // Initialize with formData.logo if available
   const [fileInputKey, setFileInputKey] = useState(0); // Key to reset file input
-  const [primaryColor, setPrimaryColor] = useState(
-    formData.primaryColor || "#000000"
-  ); // Default primary color
-  const [secondaryColor, setSecondaryColor] = useState(
-    formData.secondaryColor || "#000000"
-  ); // Default secondary color
 
   useEffect(() => {
     // Update logoUrl if formData.logo changes
@@ -34,8 +28,30 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
 
       setLogoUrl(uploadedLogoUrl); // Set the URL of the uploaded logo
       handleChange({ target: { name: "logo", value: uploadedLogoUrl } }); // Update form data with the logo URL
+
+      // Fetch colors from the API
+      const colors = await fetchColorsFromApi(uploadedLogoUrl);
+      if (colors) {
+        handleChange({ target: { name: "primaryColor", value: colors[0] } });
+        handleChange({ target: { name: "secondaryColor", value: colors[1] } });
+        handleChange({ target: { name: "p50s50", value: colors[2] } });
+        handleChange({ target: { name: "p75s25", value: colors[3] } });
+        handleChange({ target: { name: "p25s75", value: colors[4] } });
+      }
     } catch (error) {
       console.error("Error uploading logo:", error);
+    }
+  };
+
+  const fetchColorsFromApi = async (imageUrl) => {
+    try {
+      const response = await axios.post('https://v4-server.onrender.com/get-colors', { imageUrl });
+      const colors = response.data.map(color => color.hex); // Extract hex values from response
+      console.log('Fetched colors:', colors);
+      return colors;
+    } catch (error) {
+      console.error('Error fetching colors from API:', error);
+      return null;
     }
   };
 
@@ -43,18 +59,6 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
     setLogoUrl(null);
     handleChange({ target: { name: "logo", value: null } });
     setFileInputKey((prevKey) => prevKey + 1); // Reset file input
-  };
-
-  const handlePrimaryColorChange = (color) => {
-    const newColor = color || "#000000"; // Set default color if color is not selected
-    setPrimaryColor(newColor); // Update primary color state
-    handleChange({ target: { name: "primaryColor", value: newColor } }); // Update form data with the primary color
-  };
-
-  const handleSecondaryColorChange = (color) => {
-    const newColor = color || "#000000"; // Set default color if color is not selected
-    setSecondaryColor(newColor); // Update secondary color state
-    handleChange({ target: { name: "secondaryColor", value: newColor } }); // Update form data with the secondary color
   };
 
   const handleContinue = () => {
@@ -117,33 +121,18 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
         )}
       </div>
       <br />
-      <div className="color-picker">
-        <div className="primary-color">
-          <label htmlFor="primaryColor">Select primary branding color*</label>
-          <ColorPicker
-            id="primaryColor"
-            name="primaryColor"
-            color={primaryColor}
-            handleChange={handlePrimaryColorChange}
-            required
-            value={formData.primaryColor}
-          />
-        </div>
-        <div className="secondary-color">
-          <label htmlFor="secondaryColor">
-            Select secondary branding color*
-          </label>
-          <ColorPicker
-            id="secondaryColor"
-            name="secondaryColor"
-            color={secondaryColor}
-            handleChange={handleSecondaryColorChange}
-            required
-            value={formData.secondaryColor}
-          />
+      <div className="textInputQuestions">
+        <label htmlFor="colors">Fetched Colors:</label>
+        <div className="color-display">
+          <div style={{ backgroundColor: formData.primaryColor }} className="color-box">Primary Color</div>
+          <div style={{ backgroundColor: formData.secondaryColor }} className="color-box">Secondary Color</div>
+          <div style={{ backgroundColor: formData.p50s50 }} className="color-box">50% Primary / 50% Secondary</div>
+          <div style={{ backgroundColor: formData.p75s25 }} className="color-box">75% Primary / 25% Secondary</div>
+          <div style={{ backgroundColor: formData.p25s75 }} className="color-box">25% Primary / 75% Secondary</div>
         </div>
       </div>
       <br />
+      <button onClick={handleContinue}>Continue</button>
     </>
   );
 };

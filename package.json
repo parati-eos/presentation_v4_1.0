@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/preset-env": "^7.24.7",
     "@fortawesome/free-brands-svg-icons": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
@@ -19,8 +20,10 @@
     "crypto-browserify": "^3.12.0",
     "d3-dsv": "^3.0.1",
     "framer-motion": "^11.1.9",
+    "get-pixels": "^3.3.3",
     "google-spreadsheet": "^4.1.1",
     "googleapis": "^134.0.0",
+    "image-palette-core": "^0.2.2",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
@@ -41,11 +44,13 @@
     "react-spring": "^9.7.3",
     "redux": "^5.0.1",
     "redux-logger": "^3.0.6",
+    "rgbaster": "^2.1.1",
     "stream-browserify": "^3.0.0",
     "tailwind-merge": "^2.2.2",
     "tone": "^15.0.4",
     "util": "^0.12.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.91.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -73,8 +78,8 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0",
-    "@babel/preset-react": "^7.23.3",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-react": "^7.24.7",
     "autoprefixer": "^10.4.19",
     "babel-loader": "^9.1.3",
     "postcss": "^8.4.38",

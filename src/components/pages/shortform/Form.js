@@ -374,7 +374,7 @@ const Form = () => {
     );
     if (changedData) {
       try {
-        const response = await fetch("https://zynth.ai/api/shortFormSubmission", {
+        const response = await fetch("https://v4-server.onrender.com/shortFormSubmission", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
