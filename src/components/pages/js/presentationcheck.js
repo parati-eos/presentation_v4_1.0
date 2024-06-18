@@ -36,7 +36,7 @@ const PresentationCheck = () => {
   useEffect(() => {
     const fetchDataHistory = async () => {
       try {
-        const response = await fetch("https://zynth.ai/api/history", {
+        const response = await fetch("https://v4-server.onrender.com/history", {
           headers: {
             "x-userid": userID,
           },
@@ -117,7 +117,7 @@ const PresentationCheck = () => {
     formId = localStorage.getItem("submissionId");
     console.log("foooooooooorm id: ", formId);
     const fetchData = async () => {
-      const apiUrl = `https://zynth.ai/api/slidesURL?formId=${formId}`;
+      const apiUrl = `https://v4-server.onrender.com/slides/url?formId=${formId}`;
       try {
         const response = await fetch(apiUrl, {
           method: "GET",
@@ -155,7 +155,7 @@ const PresentationCheck = () => {
     };
 
     try {
-      const response = await fetch("https://zynth.ai/api/updateRow", {
+      const response = await fetch("https://v4-server.onrender.com/submission/update-row", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -186,7 +186,7 @@ const PresentationCheck = () => {
         throw new Error("Form ID not found in localStorage");
       }
   
-      const response = await fetch(`https://zynth.ai/api/slidesURL?formId=${formId}`);
+      const response = await fetch(`https://v4-server.onrender.com/slides/url?formId=${formId}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

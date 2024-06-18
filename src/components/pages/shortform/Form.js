@@ -374,7 +374,7 @@ const Form = () => {
     );
     if (changedData) {
       try {
-        const response = await fetch("https://v4-server.onrender.com/shortFormSubmission", {
+        const response = await fetch("https://v4-server.onrender.com/submission/short-form", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

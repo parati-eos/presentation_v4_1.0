@@ -370,7 +370,7 @@ const Form = () => {
     );
     if (changedData) {
       try {
-        const response = await fetch("https://zynth.ai/api/submission", {
+        const response = await fetch("https://v4-server.onrender.com/submission", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

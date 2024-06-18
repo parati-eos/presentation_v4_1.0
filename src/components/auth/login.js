@@ -64,7 +64,7 @@ function Login() {
   };
 
   const saveUserData = (userData) => {
-    fetch("https://zynth.ai/api/user", {
+    fetch("https://v4-server.onrender.com/users/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
