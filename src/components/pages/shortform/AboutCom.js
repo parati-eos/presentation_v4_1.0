@@ -45,7 +45,7 @@ const AboutCompany = ({ formData, handleChange, handleNext }) => {
 
   const fetchColorsFromApi = async (imageUrl) => {
     try {
-      const response = await axios.post('https://v4-server.onrender.com/get-colors/', { imageUrl });
+      const response = await axios.post('https://zynth.ai/api/get-colors/', { imageUrl });
       const colors = response.data.map(color => color.hex); // Extract hex values from response
       console.log('Fetched colors:', colors);
       return colors;

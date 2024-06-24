@@ -7,15 +7,13 @@ import ExportButton from "./export.js";
 import Googleslides from "../../helper/googlepresentation-helper.js";
 import ApplicationNavbar from "../../shared/js/ApplicationNavbar.js";
 
-// import Footer from "../../shared/js/footer.js";
-
 import HistoryCardPreview from "../cards/historycardpreview.js";
+
 const GooglePresentation = ({ url }) => {
   return (
     <div className="PresentationContainer">
       <div>
         <Googleslides />
-        {/* <Footer /> */}
       </div>
     </div>
   );
@@ -24,29 +22,43 @@ const GooglePresentation = ({ url }) => {
 const PresentationCheck = () => {
   const navigate = useNavigate();
   const [showHistory, setShowHistory] = useState(false);
-  const [showCopyMessage, setShowCopyMessage] = useState(false); // State for showing copy message
   const historyTimeout = useRef(null);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [currentSlideKey, setCurrentSlideKey] = useState(0);
-  var formId = localStorage.getItem("submissionId");
-
-  //History-Preview Code
   const [userID, setUserID] = useState(localStorage.getItem("userEmail"));
+  const [historyData, setHistoryData] = useState([]);
+  const [PPTName, setPPTName] = useState("PPTName");
+  const [isEditing, setIsEditing] = useState(false);
+  const [error, setError] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  const [showCopyMessage, setShowCopyMessage] = useState(false);
+  const formId = localStorage.getItem("submissionId");
+
+  // Set up an interval to refresh the GooglePresentation component every 10 seconds for 60 seconds
+  useEffect(() => {
+    let refreshCount = 0;
+    const interval = setInterval(() => {
+      setCurrentSlideKey((prevKey) => prevKey + 1);
+      refreshCount += 1;
+      if (refreshCount === 6) {
+        clearInterval(interval);
+      }
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const fetchDataHistory = async () => {
       try {
-        const response = await fetch("https://v4-server.onrender.com/history", {
+        const response = await fetch("https://zynth.ai/api/history", {
           headers: {
             "x-userid": userID,
           },
         });
-        console.log(response);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log();
         setHistoryData(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -55,28 +67,26 @@ const PresentationCheck = () => {
 
     fetchDataHistory();
   }, [userID]);
-  const [historyData, setHistoryData] = useState([]);
+
   const handleMouseEnterHistory = () => {
-    clearTimeout(historyTimeout.current); // Clear any existing timeout
+    clearTimeout(historyTimeout.current);
     setShowHistory(true);
   };
 
   const handleMouseLeaveHistory = () => {
-    // Set a timeout to hide the history div after a delay
     historyTimeout.current = setTimeout(() => {
       setShowHistory(false);
-    }, 200); // Adjust the delay as needed
+    }, 200);
   };
 
   const handleMouseEnterDiv = () => {
-    clearTimeout(historyTimeout.current); // Clear any existing timeout
-    console.log("Enter the div");
+    clearTimeout(historyTimeout.current);
   };
 
   const handleMouseLeaveDiv = () => {
     setShowHistory(false);
-    console.log("Left the div");
   };
+
   const handleShowMoreHistory = () => {
     navigate("/pages/presentationhistory");
   };
@@ -99,25 +109,18 @@ const PresentationCheck = () => {
         .then(() => console.log("Shared successfully"))
         .catch((error) => console.error("Share failed: ", error));
     } else if (navigator.clipboard && navigator.platform.includes("Mac")) {
-      // For macOS devices where navigator.share is not available
       navigator.clipboard
         .writeText(uniqueShareableUrl)
         .then(() => alert("URL copied to clipboard"))
         .catch((error) => console.error("Copy failed: ", error));
     } else {
-      // For other devices where neither navigator.share nor clipboard API is available
       alert("Sharing is not supported on this device/browser.");
     }
   };
 
-  // Company Name--------------->>
-  const [PPTName, setPPTName] = useState("PPTName");
-
   useEffect(() => {
-    formId = localStorage.getItem("submissionId");
-    console.log("foooooooooorm id: ", formId);
     const fetchData = async () => {
-      const apiUrl = `https://v4-server.onrender.com/slides/url?formId=${formId}`;
+      const apiUrl = `https://zynth.ai/api/slides/url?formId=${formId}`;
       try {
         const response = await fetch(apiUrl, {
           method: "GET",
@@ -129,7 +132,6 @@ const PresentationCheck = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log("===============================", data[3]);
         setPPTName(data[3]);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -139,7 +141,6 @@ const PresentationCheck = () => {
       fetchData();
     }
   }, [formId]);
-  const [isEditing, setIsEditing] = useState(false);
 
   const handleNameChange = (e) => {
     setPPTName(e.target.value);
@@ -155,7 +156,7 @@ const PresentationCheck = () => {
     };
 
     try {
-      const response = await fetch("https://v4-server.onrender.com/submission/update-row", {
+      const response = await fetch("https://zynth.ai/api/submission/update-row", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -164,7 +165,6 @@ const PresentationCheck = () => {
       });
 
       if (response.ok) {
-        console.log("Row updated successfully");
         alert("Row updated successfully");
       } else {
         console.error("Failed to update row");
@@ -173,12 +173,7 @@ const PresentationCheck = () => {
       console.error("Error:", error);
     }
   };
-  const [error, setError] = useState(false);
-  const handleError = (error) => {
-    console.error("Error occurred:", error);
-    setError(true);
-  };
-  // <<---------------Company Name
+
   const handleDownload = async () => {
     try {
       const formId = localStorage.getItem("submissionId");
@@ -186,39 +181,30 @@ const PresentationCheck = () => {
         throw new Error("Form ID not found in localStorage");
       }
   
-      const response = await fetch(`https://v4-server.onrender.com/slides/url?formId=${formId}`);
+      const response = await fetch(`https://zynth.ai/api/slides/url?formId=${formId}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
   
       const result = await response.json();
-      console.log("Result:", result);
   
-      // Ensure the response is an array and contains at least 3 elements
       if (!Array.isArray(result) || result.length < 3) {
         throw new Error("Invalid response format");
       }
   
-      // Extract the URL from the result
       const url = result[2];
-      console.log("URL:", url);
   
-      // Check if the URL is valid
       if (!url || typeof url !== "string") {
         throw new Error("Invalid URL in response");
       }
   
-      // Open the URL in a new tab
       window.open(url, "_blank");
     } catch (error) {
       console.error("Error exporting presentation:", error);
-      // Show a message or popup to inform the user
       alert("Oops! It seems like the pitch deck presentation is missing. Click 'Generate Presentation' to begin your journey to success!");
     }
   };
-  
-  
-  
+
   return (
     <div className="main-container">
       <ApplicationNavbar
@@ -231,7 +217,7 @@ const PresentationCheck = () => {
           <div
             className="history-preview-bar"
             onMouseEnter={handleMouseEnterDiv}
-            onMouseLeave={handleMouseLeaveDiv} // Close history on mouse leave
+            onMouseLeave={handleMouseLeaveDiv}
           >
             <div className="history-preview-cards-row">
               {historyData.slice(0, 5).map((card, index) => (
@@ -245,7 +231,6 @@ const PresentationCheck = () => {
         </div>
       )}
 
-      {/******************************************/}
       <div className="presentation-viewing-container">
         <div className="presentation-viewing-side">
           <div className="share-export">
@@ -269,7 +254,6 @@ const PresentationCheck = () => {
         </div>
 
         <div className="presentation-viewing-center">
-          
           <div className="presentation-view-slides">
             <GooglePresentation key={currentSlideKey} />
           </div>
