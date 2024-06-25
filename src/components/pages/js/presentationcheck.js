@@ -34,14 +34,21 @@ const PresentationCheck = () => {
   const [userID, setUserID] = useState(localStorage.getItem("userEmail"));
 
   const [rerender, setRerender] = useState(false);
+ // Set up timeouts to refresh the GooglePresentation component after 1 minute and 2 minutes
+ useEffect(() => {
+  const firstTimeout = setTimeout(() => {
+    setCurrentSlideKey((prevKey) => prevKey + 1);
+  }, 60000);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setRerender(prev => !prev);
-    }, 10000);
+  const secondTimeout = setTimeout(() => {
+    setCurrentSlideKey((prevKey) => prevKey + 1);
+  }, 120000);
 
-    return () => clearTimeout(timer); // Cleanup timer on unmount
-  }, []);
+  return () => {
+    clearTimeout(firstTimeout);
+    clearTimeout(secondTimeout);
+  };
+}, []);
 
 
 
